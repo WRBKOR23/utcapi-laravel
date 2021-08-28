@@ -13,10 +13,7 @@ export async function fetchData (url)
     let responseJson
     if (response.status === 200)
     {
-        if (response.headers.get('Authorization') !== null)
-        {
-            localStorage.setItem('a_t', response.headers.get('Authorization'))
-        }
+        refreshToken(response)
         responseJson = await response.json()
     }
     else
@@ -41,11 +38,16 @@ export async function postData (url, data)
     let response = await fetch(url, init)
     if (response.status === 200)
     {
-        if (response.headers.get('Authorization') !== null)
-        {
-            localStorage.setItem('a_t', response.headers.get('Authorization'))
-        }
+        refreshToken(response)
     }
 
     return response
+}
+
+function refreshToken(response)
+{
+    if (response.headers.get('Authorization') !== null)
+    {
+        localStorage.setItem('a_t', response.headers.get('Authorization'))
+    }
 }

@@ -2,23 +2,20 @@
 
 namespace App\Http\Controllers\WebController;
 
-use App\BusinessClass\FileUploadHandle;
 use App\Http\Controllers\Controller;
-use App\Services\Contracts\AccountServiceContract;
-use App\Services\Contracts\dataServiceContract;
-use App\Services\dataService;
+use App\Services\Contracts\DataServiceContract;
 use Exception;
 use Illuminate\Http\Request;
 
 class DataController extends Controller
 {
-    private dataServiceContract $dataService;
+    private DataServiceContract $dataService;
 
     /**
-     * ImportDataController constructor.
-     * @param dataServiceContract $dataService
+     * DataController constructor.
+     * @param DataServiceContract $dataService
      */
-    public function __construct (dataServiceContract $dataService)
+    public function __construct (DataServiceContract $dataService)
     {
         $this->dataService = $dataService;
     }

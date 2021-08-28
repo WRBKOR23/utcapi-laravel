@@ -52,6 +52,7 @@ use App\Services\NotificationService;
 use App\Services\NotifyService;
 use App\Services\RegisterService;
 use App\Services\ScheduleService;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

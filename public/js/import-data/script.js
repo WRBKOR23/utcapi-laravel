@@ -1,4 +1,4 @@
-import {postData} from '../shared_functions.js'
+import {postData, fetchData} from '../shared_functions.js'
 import {raiseBackEndError, raiseEmptyFieldError, raiseSuccess} from '../alerts.js'
 let fileNameError = []
 let group = [];
@@ -43,30 +43,31 @@ async function uploadFile ()
             raiseBackEndError(true, 3)
             return
         }
-        let response = await responseAsJson1.json()
+        let response1 = await responseAsJson1.json()
 
         if (status1 === 201)
         {
-            group = response[0]
-            fileNameError = fileNameError.concat(response[1])
+            group = response1[0]
+            fileNameError = fileNameError.concat(response1[1])
         }
 
         if (status1 === 200)
         {
-            group = response[0]
+            group = response1[0]
         }
 
         for (const arr of group)
         {
-            let responseAsJson = await fetch('web/import-data/process-2', {
+            let response = await fetch('web/import-data/process-2', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('a_t')
                 },
                 body: JSON.stringify(arr)
             });
 
-            if (responseAsJson.status !== 200)
+            if (response.status !== 200)
             {
                 flag = false
                 break;

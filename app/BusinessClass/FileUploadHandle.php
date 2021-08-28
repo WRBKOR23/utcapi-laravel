@@ -7,17 +7,10 @@ use Exception;
 
 class FileUploadHandle
 {
-    private $new_file_name;
-    private $old_file_name;
-    private $json;
+    private string $new_file_name;
+    private string $old_file_name;
+    private array $json;
 
-    /**
-     * @return mixed
-     */
-    public function getNewFileName ()
-    {
-        return $this->new_file_name;
-    }
 
     /**
      * @return mixed
@@ -47,11 +40,11 @@ class FileUploadHandle
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         $timeSplit = explode('.', microtime(true));
 
-        $file_name = substr($original_file_name, 0, strripos($original_file_name, '.'));
-        $expand    = substr($original_file_name, strripos($original_file_name, '.'));;
+        $this->old_file_name = $file_name = substr($original_file_name, 0, strripos($original_file_name, '.'));
+        $expand              = substr($original_file_name, strripos($original_file_name, '.'));;
 
-        $this->old_file_name = $new_file_name = preg_replace('/\s+/', '', $file_name);
-        $new_file_name       = $new_file_name . '_' . $timeSplit[0] . $timeSplit[1] . $expand;
+        $new_file_name = preg_replace('/\s+/', '', $file_name);
+        $new_file_name = $new_file_name . '_' . $timeSplit[0] . $timeSplit[1] . $expand;
 
         $location = storage_path('app/public/excel/' . $new_file_name);
 
