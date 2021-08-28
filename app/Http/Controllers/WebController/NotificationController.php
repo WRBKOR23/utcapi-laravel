@@ -1,0 +1,70 @@
+<?php
+
+
+namespace App\Http\Controllers\WebController;
+
+
+use App\Exceptions\InvalidFormRequestException;
+use App\Http\Controllers\Controller;
+use App\Http\RequestForm\PushNotificationForm;
+use App\Services\Contracts\NotificationServiceContract;
+use App\Services\Contracts\NotifyServiceContract;
+use Illuminate\Http\Request;
+
+class NotificationController extends Controller
+{
+    private PushNotificationForm $form;
+    private NotificationServiceContract $notificationService;
+    private NotifyServiceContract $notifyService;
+
+    /**
+     * PushNotificationBMCController constructor.
+     * @param PushNotificationForm $pushNotificationForm
+     * @param NotificationServiceContract $notificationService
+     * @param NotifyServiceContract $notifyService
+     */
+    public function __construct (PushNotificationForm $pushNotificationForm,
+                                 NotificationServiceContract $notificationService,
+                                 NotifyServiceContract $notifyService)
+    {
+        $this->form                = $pushNotificationForm;
+        $this->notificationService = $notificationService;
+        $this->notifyService        = $notifyService;
+    }
+
+    public function getNotifications ($id_sender, $num)
+    {
+        return $this->notificationService->getNotificationsWeb($id_sender, $num);
+    }
+
+    /**
+     * @throws InvalidFormRequestException
+     */
+    public function pushNotificationBFC (Request $request)
+    {
+        $this->form->validate($request);
+
+        $data = $this->notificationService->pushNotificationBFC($request->info, $request->class_list);
+        $this->notifyService->sendNotification($request->info, $data[1]);
+
+        return response(json_encode($data[0]));
+    }
+
+    /**
+     * @throws InvalidFormRequestException
+     */
+    public function pushNotificationBMC (Request $request)
+    {
+        $this->form->validate($request);
+
+        $data = $this->notificationService->pushNotificationBMC($request->info, $request->class_list);
+        $this->notifyService->sendNotification($request->info, $data[1]);
+
+        return response(json_encode($data[0]));
+    }
+
+    public function deleteNotifications (Request $request)
+    {
+        $this->notificationService->setDelete($request->all());
+    }
+}
