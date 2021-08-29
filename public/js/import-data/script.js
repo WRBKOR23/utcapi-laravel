@@ -120,7 +120,7 @@ function displayFileException ()
         {
             let aTag = document.createElement('a')
             aTag.innerHTML = fileName
-            aTag.href = '../storage/app/public/excel/errors/' + fileName;
+            aTag.href = '../storage/app/public/excels/errors/' + fileName;
             aTag.setAttribute('download', '');
 
             let brTag = document.createElement('br')

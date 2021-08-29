@@ -14,10 +14,10 @@
     <!-- AlertifyJS Theme -->
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.rtl.min.css"/>
 
-    <link rel="stylesheet" href="{{url('css/delete-notification/style.css')}}">
-    <link rel="stylesheet" href="{{url('css/delete-notification/custom_confirm.css')}}">
-    <link rel="stylesheet" href="{{url('css/style.css')}}">
-    <link rel="stylesheet" href="{{url('css/alert.css')}}">
+    <link rel="stylesheet" href="{{asset('css/delete-notification/style.css')}}">
+    <link rel="stylesheet" href="{{asset('css/delete-notification/custom_confirm.css')}}">
+    <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('css/alert.css')}}">
   </x-slot>
 </x-header>
 
@@ -53,8 +53,8 @@
     </div>
   </main>
 </div>
-<script src="{{ url('js/delete-notification/script.js') }}" type="module"></script>
-<script src="{{ url('js/delete-notification/custom-confirm.js') }}"></script>
+<script src="{{ asset('js/delete-notification/script.js') }}" type="module"></script>
+<script src="{{ asset('js/delete-notification/custom-confirm.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
         crossorigin="anonymous"></script>

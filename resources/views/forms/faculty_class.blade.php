@@ -17,10 +17,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
 
-    <link rel="stylesheet" href="{{url('css/forms/style.css')}}">
-    <link rel="stylesheet" href="{{url('css/forms/faculty-class/style.css')}}">
-    <link rel="stylesheet" href="{{url('css/style.css')}}">
-    <link rel="stylesheet" href="{{url('css/alert.css')}}">
+    <link rel="stylesheet" href="{{asset('css/forms/style.css')}}">
+    <link rel="stylesheet" href="{{asset('css/forms/faculty-class/style.css')}}">
+    <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('css/alert.css')}}">
   </x-slot>
 </x-header>
 
@@ -109,8 +109,8 @@
   </main>
 
 </div>
-<script src="{{ url('js/forms/faculty-class/script.js') }}" type="module"></script>
-<script src="{{ url('js/forms/shared.js') }}"></script>
+<script src="{{ asset('js/forms/faculty-class/script.js') }}" type="module"></script>
+<script src="{{ asset('js/forms/shared.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
         crossorigin="anonymous"></script>

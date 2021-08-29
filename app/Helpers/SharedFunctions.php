@@ -25,7 +25,7 @@ class SharedFunctions
             $message .= $module_class . PHP_EOL;
         }
 
-        file_put_contents(storage_path('app/public/excel/errors/') . $file_name, $message);
+        file_put_contents(storage_path('app/public/excels/errors/') . $file_name, $message);
     }
 
     public static function getDateTimeNow (): string

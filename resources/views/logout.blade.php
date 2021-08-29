@@ -5,6 +5,6 @@
 </head>
 <body>
 
-<script src="{{ url('js/logout/script.js') }}" type="module"></script>
+<script src="{{ asset('js/logout/script.js') }}" type="module"></script>
 </body>
 </html>

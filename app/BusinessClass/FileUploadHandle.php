@@ -46,7 +46,7 @@ class FileUploadHandle
         $new_file_name = preg_replace('/\s+/', '', $file_name);
         $new_file_name = $new_file_name . '_' . $timeSplit[0] . $timeSplit[1] . $expand;
 
-        $location = storage_path('app/public/excel/' . $new_file_name);
+        $location = storage_path('app/public/excels/' . $new_file_name);
 
         if (move_uploaded_file($file->getRealPath(), $location))
         {

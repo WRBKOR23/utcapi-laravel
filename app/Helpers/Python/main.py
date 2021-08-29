@@ -70,7 +70,7 @@ def addStudentsToParticipateSet(_list: list) -> None:
 
 ###################################################################################################
 
-file = r"../../../storage/app/public/excel/" + new_file_name
+file = r"../../../storage/app/public/excels/" + new_file_name
 workbook = xlrd.open_workbook(file)
 
 got_module_class_id = False

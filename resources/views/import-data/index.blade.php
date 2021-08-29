@@ -14,9 +14,9 @@
     <!-- AlertifyJS Theme -->
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.rtl.min.css"/>
 
-    <link rel="stylesheet" href="{{url('css/import-data/style.css')}}">
-    <link rel="stylesheet" href="{{url('css/style.css')}}">
-    <link rel="stylesheet" href="{{url('css/alert.css')}}">
+    <link rel="stylesheet" href="{{asset('css/import-data/style.css')}}">
+    <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('css/alert.css')}}">
   </x-slot>
 </x-header>
 
@@ -34,7 +34,7 @@
 
       <div class=" mt-4">
         <span>Tải lên file điểm danh để phục vụ công việc nhập dữ liệu bảng lớp học, sinh viên và bảng tham gia vào cơ sở dữ liệu</span><br>
-        <a href="{{ storage_path('app/public/excel/data.xls') }}">Tải file mẫu tại đây</a><br>
+        <a href="{{ storage_path('app/public/excels/data.xls') }}">Tải file mẫu tại đây</a><br>
         <span
             id="notice">*Lưu ý: Tính năng này được khuyến khích chỉ nên tải 1 đến 2 file một lần mỗi 1 tiếng</span><br><br>
         <legend>Tải lên tệp dữ liệu ở đây:</legend>
@@ -59,7 +59,7 @@
     </form>
   </main>
 </div>
-<script src="{{ url('js/import-data/script.js') }}" type="module"></script>
+<script src="{{ asset('js/import-data/script.js') }}" type="module"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
         crossorigin="anonymous"></script>

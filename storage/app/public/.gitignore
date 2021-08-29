@@ -1,4 +1,5 @@
 *
-!cron-job/
-!excel/
+!cron-jobs/
+!excels/
+!images/
 !.gitignore

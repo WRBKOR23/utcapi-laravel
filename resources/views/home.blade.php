@@ -5,7 +5,7 @@
     Trang chủ
   </x-slot>
   <x-slot name="lib">
-    <link rel="stylesheet" href="{{url('css/home/style.css')}}">
+    <link rel="stylesheet" href="{{asset('css/home/style.css')}}">
   </x-slot>
 </x-header>
 
