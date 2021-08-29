@@ -93,27 +93,24 @@ class DataService implements DataServiceContract
 
     private function _checkException ($fk_exception, $exception): array
     {
-        $arr  = [];
+        $arr = [];
         if (!empty($exception))
         {
             $file_name = '1-' . $this->fileUploadHandle->getOldFileName() . '.txt';
             $title     = 'File excel cùng tên hiện tại có chứa lớp học ko có mã lớp học phần đi kèm:';
             SharedFunctions::printFileImportException($file_name, $exception, $title);
-
-            $arr[]        = $file_name;
+            $arr[] = $file_name;
         }
         if (!$fk_exception)
         {
             $file_name = '2-' . $this->fileUploadHandle->getOldFileName() . '.txt';
             $title     = 'Cơ sở dữ liệu hiện tại không có một vài mã lớp học phần trong file excel cùng tên này';
             SharedFunctions::printFileImportException($file_name, [], $title);
-
-            $arr[]        = $file_name;
+            $arr[] = $file_name;
         }
 
         return $arr;
     }
-
 
 
     public function process2 ($data)
@@ -151,7 +148,7 @@ class DataService implements DataServiceContract
 
         return [
             'create' => [$student_list, $part_of_sql_1],
-            'bind' => [$id_student_list, $part_of_sql_2]
+            'bind'   => [$id_student_list, $part_of_sql_2]
         ];
     }
 }

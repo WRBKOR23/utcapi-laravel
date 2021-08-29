@@ -67,20 +67,20 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(DataVersionStudentServiceContract::class, DataVersionStudentService::class);
         $this->app->bind(CrawlExamScheduleServiceContract::class, CrawlExamScheduleService::class);
         $this->app->bind(CrawlModuleScoreServiceContract::class, CrawlModuleScoreService::class);
+        $this->app->bind(FacultyClassServiceContract::class, FacultyClassService::class);
         $this->app->bind(NotificationServiceContract::class, NotificationService::class);
         $this->app->bind(ExamScheduleServiceContract::class, ExamScheduleService::class);
         $this->app->bind(ModuleScoreServiceContract::class, ModuleScoreService::class);
-        $this->app->bind(FacultyClassServiceContract::class, FacultyClassService::class);
         $this->app->bind(ModuleClassServiceContract::class, ModuleClassService::class);
-        $this->app->bind(DataServiceContract::class, DataService::class);
+        $this->app->bind(FixScheduleServiceContract::class, FixScheduleService::class);
+        $this->app->bind(RegisterServiceContract::class, RegisterService::class);
         $this->app->bind(LoginWebServiceContract::class, LoginWebService::class);
         $this->app->bind(LoginAppServiceContract::class, LoginAppService::class);
-        $this->app->bind(AccountServiceContract::class, AccountService::class);
-        $this->app->bind(NotifyServiceContract::class, NotifyService::class);
-        $this->app->bind(DeviceServiceContract::class, DeviceService::class);
-        $this->app->bind(RegisterServiceContract::class, RegisterService::class);
         $this->app->bind(ScheduleServiceContract::class, ScheduleService::class);
-        $this->app->bind(FixScheduleServiceContract::class, FixScheduleService::class);
+        $this->app->bind(AccountServiceContract::class, AccountService::class);
+        $this->app->bind(DeviceServiceContract::class, DeviceService::class);
+        $this->app->bind(NotifyServiceContract::class, NotifyService::class);
+        $this->app->bind(DataServiceContract::class, DataService::class);
 
         $this->app->bind(CrawlExamScheduleGuestServiceContract::class, CrawlExamScheduleGuestService::class);
         $this->app->bind(CrawlModuleScoreGuestServiceContract::class, CrawlModuleScoreGuestService::class);
