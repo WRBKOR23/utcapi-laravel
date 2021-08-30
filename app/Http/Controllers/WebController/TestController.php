@@ -26,10 +26,10 @@
     {
         public function test ()
         {
-            $a = new DataVersionStudent();
-            Cache::put('a', $a->get('191201402'), 5);
-//            var_dump(Cache::get('a'));
-
-            return Cache::get('a');
+//            $a = new DataVersionStudent();
+//            Cache::put('a', $a->get('191201402'), 5);
+////            var_dump(Cache::get('a'));
+//
+//            return Cache::get('a');
         }
     }
