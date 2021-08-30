@@ -26,10 +26,13 @@
     {
         public function test ()
         {
-            $a = new DataVersionStudent();
-            Cache::put('a', $a->get('191201402'), 5);
-//            var_dump(Cache::get('a'));
-
-            return Cache::get('a');
+//            $a = new DataVersionStudent();
+//            Cache::put('a', $a->get('191201402'), 5);
+////            var_dump(Cache::get('a'));
+//
+//            return Cache::get('a');
+            var_dump(storage_path('app/public/excels/errors/'));
+            var_dump(config('filesystems.disks.errors.file_path'));
+            return ;
         }
     }
