@@ -58,7 +58,6 @@
             "@php artisan key:generate --ansi"
         ],
         "warmup": [
-            "php artisan optimize",
             "php artisan config:cache",
             "php artisan route:cache"
         ]
