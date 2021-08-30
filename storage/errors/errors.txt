@@ -1,5 +1,0 @@
-29/08/2021 11:27:14
-Code: 0
-Argument 1 passed to Symfony\Component\HttpFoundation\Response::setContent() must be of the type string or null, object given, called in C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Http\Response.php on line 72
-C:\xampp\htdocs\laravel-begin\vendor\symfony\http-foundation\Response.php  412
-=========================================================================================

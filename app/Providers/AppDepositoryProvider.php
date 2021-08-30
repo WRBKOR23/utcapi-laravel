@@ -7,6 +7,7 @@ use App\Depositories\ClassDepository;
 use App\Depositories\Contracts\AccountDepositoryContract;
 use App\Depositories\Contracts\ClassDepositoryContract;
 use App\Depositories\Contracts\DataVersionStudentDepositoryContract;
+use App\Depositories\Contracts\DataVersionTeacherDepositoryContract;
 use App\Depositories\Contracts\DepartmentDepositoryContract;
 use App\Depositories\Contracts\DeviceDepositoryContract;
 use App\Depositories\Contracts\ExamScheduleDepositoryContract;
@@ -26,6 +27,7 @@ use App\Depositories\Contracts\ScheduleDepositoryContract;
 use App\Depositories\Contracts\StudentDepositoryContract;
 use App\Depositories\Contracts\TeacherDepositoryContract;
 use App\Depositories\DataVersionStudentDepository;
+use App\Depositories\DataVersionTeacherDepository;
 use App\Depositories\DepartmentDepository;
 use App\Depositories\DeviceDepository;
 use App\Depositories\ExamScheduleDepository;
@@ -57,6 +59,7 @@ class AppDepositoryProvider extends ServiceProvider
     {
         $this->app->bind(NotificationAccountDepositoryContract::class, NotificationAccountDepository::class);
         $this->app->bind(DataVersionStudentDepositoryContract::class, DataVersionStudentDepository::class);
+        $this->app->bind(DataVersionTeacherDepositoryContract::class, DataVersionTeacherDepository::class);
         $this->app->bind(OtherDepartmentDepositoryContract::class, OtherDepartmentDepository::class);
         $this->app->bind(NotificationDepositoryContract::class, NotificationDepository::class);
         $this->app->bind(ExamScheduleDepositoryContract::class, ExamScheduleDepository::class);

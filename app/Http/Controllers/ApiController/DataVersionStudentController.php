@@ -15,8 +15,8 @@
             $this->dataVersionStudentService = $dataVersionStudentService;
         }
 
-        public function get ($id_student)
+        public function getDataVersion ($id_student)
         {
-            return $this->dataVersionStudentService->get($id_student);
+            return $this->dataVersionStudentService->getDataVersion($id_student);
         }
     }

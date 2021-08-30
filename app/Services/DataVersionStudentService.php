@@ -19,7 +19,7 @@ class DataVersionStudentService implements DataVersionStudentServiceContract
         $this->dataVersionStudentDepository = $dataVersionStudentDepository;
     }
 
-    public function get ($id_student)
+    public function getDataVersion ($id_student)
     {
         return $this->dataVersionStudentDepository->get($id_student);
     }

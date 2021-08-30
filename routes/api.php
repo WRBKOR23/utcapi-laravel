@@ -7,6 +7,7 @@ use App\Http\Controllers\ApiController\CrawlExamScheduleController;
 use App\Http\Controllers\ApiController\CrawlModuleScoreController;
 use App\Http\Controllers\ApiController\CronJob\FixScheduleController;
 use App\Http\Controllers\ApiController\DataVersionStudentController;
+use App\Http\Controllers\ApiController\DataVersionTeacherController;
 use App\Http\Controllers\ApiController\DeviceController;
 use App\Http\Controllers\ApiController\ExamScheduleController;
 use App\Http\Controllers\ApiController\Guest\AccountGuestController;
@@ -69,7 +70,7 @@ Route::middleware('cus.auth')->group(function ()
     {
         Route::get('schedule/{id_student}', [ScheduleController::class, 'getStudentSchedules']);
 
-        Route::get('data-version/{id_student}', [DataVersionStudentController::class, 'get']);
+        Route::get('data-version/{id_student}', [DataVersionStudentController::class, 'getDataVersion']);
 
         Route::post('device/upsert', [DeviceController::class, 'updateDeviceToken']);
 
@@ -98,6 +99,9 @@ Route::middleware('cus.auth')->group(function ()
     Route::group(['prefix' => 'teacher'], function ()
     {
         Route::get('schedule/{id_teacher}', [ScheduleController::class, 'getTeacherSchedules']);
+
+        Route::get('data-version/{id_teacher}', [DataVersionTeacherController::class, 'getDataVersion']);
+
     });
 
     /**

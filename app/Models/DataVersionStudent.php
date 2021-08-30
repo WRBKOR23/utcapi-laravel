@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\DB;
 class DataVersionStudent extends Model
 {
     use HasFactory;
-
     public const table = 'data_version_student';
     public const table_as = 'data_version_student as dvs';
 

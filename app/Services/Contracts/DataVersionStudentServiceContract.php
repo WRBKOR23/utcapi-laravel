@@ -4,6 +4,6 @@
 
     interface DataVersionStudentServiceContract
     {
-        public function get ($id_student);
+        public function getDataVersion ($id_student);
 
     }

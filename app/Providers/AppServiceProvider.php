@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Services\AccountService;
+use App\Services\Contracts\DataVersionTeacherServiceContract;
 use App\Services\Contracts\FixScheduleServiceContract;
 use App\Services\Contracts\Guest\AccountGuestServiceContract;
 use App\Services\Contracts\Guest\CrawlExamScheduleGuestServiceContract;
@@ -17,6 +18,7 @@ use App\Services\Contracts\ScheduleServiceContract;
 use App\Services\CrawlExamScheduleService;
 use App\Services\CrawlModuleScoreService;
 use App\Services\DataVersionStudentService;
+use App\Services\DataVersionTeacherService;
 use App\Services\DeviceService;
 use App\Services\ExamScheduleService;
 use App\Services\FacultyClassService;
@@ -65,6 +67,7 @@ class AppServiceProvider extends ServiceProvider
     public function register ()
     {
         $this->app->bind(DataVersionStudentServiceContract::class, DataVersionStudentService::class);
+        $this->app->bind(DataVersionTeacherServiceContract::class, DataVersionTeacherService::class);
         $this->app->bind(CrawlExamScheduleServiceContract::class, CrawlExamScheduleService::class);
         $this->app->bind(CrawlModuleScoreServiceContract::class, CrawlModuleScoreService::class);
         $this->app->bind(FacultyClassServiceContract::class, FacultyClassService::class);

@@ -6,5 +6,6 @@
 
     interface DataVersionTeacherDepositoryContract
     {
+        public function get ($id_teacher);
 
     }
