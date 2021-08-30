@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\CmdController;
 use App\Http\Controllers\WebController\AccountController;
 use App\Http\Controllers\WebController\Auth\LoginWebController;
 use App\Http\Controllers\WebController\Auth\LogoutController;
@@ -97,5 +98,7 @@ Route::middleware('cus.auth')->group(function ()
 
     });
 });
+
+Route::get('cache-config', [CmdController::class, 'runScript']);
 
 Route::get('test', [\App\Http\Controllers\WebController\TestController::class, 'test'])->name('a');

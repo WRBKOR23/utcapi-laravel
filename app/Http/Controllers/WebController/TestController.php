@@ -31,7 +31,7 @@
 ////            var_dump(Cache::get('a'));
 //
 //            return Cache::get('a');
-            var_dump(storage_path('app/public/excels/errors/'));
+            var_dump(dirname(storage_path()));
             var_dump(config('filesystems.disks.errors.file_path'));
             return ;
         }
