@@ -9,6 +9,7 @@ use App\Http\Controllers\WebController\DataController;
 use App\Http\Controllers\WebController\ModuleClassController;
 use App\Http\Controllers\WebController\NotificationController;
 use App\Http\Controllers\WebController\HomeController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -99,6 +100,8 @@ Route::middleware('cus.auth')->group(function ()
     });
 });
 
-Route::get('cache-config', [CmdController::class, 'runScript']);
+Route::get('/optimize', function () {
+    Artisan::call('optimize');
+});
 
 Route::get('test', [\App\Http\Controllers\WebController\TestController::class, 'test'])->name('a');
