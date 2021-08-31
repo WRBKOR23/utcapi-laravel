@@ -78,3 +78,8 @@ Code: 0
 No application encryption key has been specified.
 C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Encryption\EncryptionServiceProvider.php  79
 =========================================================================================
+31/08/2021 16:22:23
+Code: 0
+File does not exist at path C:\xampp\htdocs\laravel-begin\storage/bootstrap/cache.
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Filesystem\Filesystem.php  57
+=========================================================================================
