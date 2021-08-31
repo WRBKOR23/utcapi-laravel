@@ -1,0 +1,70 @@
+30/08/2021 23:53:11
+Code: 0
+
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Routing\AbstractRouteCollection.php  43
+=========================================================================================
+30/08/2021 23:53:15
+Code: 0
+
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Routing\AbstractRouteCollection.php  43
+=========================================================================================
+30/08/2021 23:53:22
+Code: 0
+
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Routing\AbstractRouteCollection.php  43
+=========================================================================================
+30/08/2021 23:53:23
+Code: 0
+
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Routing\AbstractRouteCollection.php  43
+=========================================================================================
+30/08/2021 23:53:24
+Code: 0
+
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Routing\AbstractRouteCollection.php  43
+=========================================================================================
+30/08/2021 23:53:24
+Code: 0
+
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Routing\AbstractRouteCollection.php  43
+=========================================================================================
+30/08/2021 23:53:25
+Code: 0
+
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Routing\AbstractRouteCollection.php  43
+=========================================================================================
+30/08/2021 23:53:25
+Code: 0
+
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Routing\AbstractRouteCollection.php  43
+=========================================================================================
+30/08/2021 23:53:26
+Code: 0
+
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Routing\AbstractRouteCollection.php  43
+=========================================================================================
+30/08/2021 23:53:26
+Code: 0
+
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Routing\AbstractRouteCollection.php  43
+=========================================================================================
+30/08/2021 23:53:27
+Code: 0
+
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Routing\AbstractRouteCollection.php  43
+=========================================================================================
+30/08/2021 23:53:27
+Code: 0
+
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Routing\AbstractRouteCollection.php  43
+=========================================================================================
+30/08/2021 23:53:27
+Code: 0
+
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Routing\AbstractRouteCollection.php  43
+=========================================================================================
+30/08/2021 23:53:54
+Code: 0
+
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Routing\AbstractRouteCollection.php  43
+=========================================================================================
