@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Storage;
 
 class TestController extends Controller
 {
-    public function test ()
+    public function test ($file)
     {
 //            $a = new DataVersionStudent();
 //            Cache::put('a', $a->get('191201402'), 5);
@@ -34,6 +34,6 @@ class TestController extends Controller
 //            return Cache::get('a');
 //            var_dump(dirname(storage_path()));
 //            var_dump(config('filesystems.disks.errors.file_path'));
-        return nl2br(File::get(dirname(storage_path()) . '/bootstrap/cache/config.php'));
+        return nl2br(File::get(dirname(storage_path()) . '/bootstrap/cache/' . $file . '.php'));
     }
 }

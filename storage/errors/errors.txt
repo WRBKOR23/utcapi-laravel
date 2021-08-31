@@ -83,3 +83,8 @@ Code: 0
 File does not exist at path C:\xampp\htdocs\laravel-begin\storage/bootstrap/cache.
 C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Filesystem\Filesystem.php  57
 =========================================================================================
+31/08/2021 16:32:38
+Code: 0
+
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Routing\AbstractRouteCollection.php  43
+=========================================================================================
