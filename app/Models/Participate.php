@@ -15,8 +15,8 @@
             $this->_createTemporaryTable($class_list);
 
             return DB::table(self::table_as)
-                ->join('temp', 'par.ID_Module_Class', '=', 'temp.ID_Module_Class')
-                ->pluck('ID_Student')
+                ->join('temp', 'par.id_module_class', '=', 'temp.id_module_class')
+                ->pluck('id_student')
                 ->toArray();
         }
 
@@ -24,7 +24,7 @@
         {
             $sql_query_1 =
                 'CREATE TEMPORARY TABLE temp (
-                  ID_Module_Class varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+                  id_module_class varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci';
 
             $sql_of_list =
@@ -32,7 +32,7 @@
 
             $sql_query_2 =
                 'INSERT INTO temp
-                    (ID_Module_Class)
+                    (id_module_class)
                 VALUES
                     ' . $sql_of_list;
 
@@ -44,15 +44,14 @@
         public function insertMultiple ($part_of_sql, $data)
         {
             $sql_query =
-                'INSERT INTO
+            'INSERT INTO
                 ' . self::table . '
             (
-                ID_Module_Class, ID_Student, Process_Score, Test_Score,
-                Theoretical_Score, Status_Studying
+                id_module_class, id_student
             )
             VALUES
                 ' . $part_of_sql . '
-            ON DUPLICATE KEY UPDATE ID_Student = ID_Student';
+            ON DUPLICATE KEY UPDATE id_student = id_student';
 
             DB::insert($sql_query, $data);
         }

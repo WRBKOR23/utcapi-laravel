@@ -131,7 +131,7 @@ class FileUploadHandle
         {
             $participate_list[] = $participate['ID_Module_Class'];
             $participate_list[] = $participate['ID_Student'];
-            $part_of_sql_3      .= '(?,?,null,null,null,null),';
+            $part_of_sql_3      .= '(?,?),';
         }
         $part_of_sql_3              = rtrim($part_of_sql_3, ',');
         $data['participate']['arr'] = $participate_list;
@@ -141,10 +141,10 @@ class FileUploadHandle
         $part_of_sql_4 = '';
         foreach ($data['class']['arr'] as &$class)
         {
-            $class_list[]  = $class['ID_Class'];
-            $class_list[]  = $class['Academic_Year'];
-            $class_list[]  = $class['Class_Name'];
-            $class_list[]  = $class['ID_Faculty'];
+            $class_list[]  = $class['id_class'];
+            $class_list[]  = $class['academic_year'];
+            $class_list[]  = $class['class_name'];
+            $class_list[]  = $class['id_faculty'];
             $part_of_sql_4 .= '(?,?,?,?),';
         }
         $part_of_sql_4        = rtrim($part_of_sql_4, ',');
@@ -175,32 +175,32 @@ class FileUploadHandle
         {
             if (!isset(SharedData::$faculty_class_info[substr($class, 0, strlen($class) - 1)]))
             {
-                $class_info['ID_Faculty'] = 'KHOAKHAC';
-                $class_info['Class_Name'] = 'Lớp thuộc khoa khác';
+                $class_info['id_faculty'] = 'KHOAKHAC';
+                $class_info['class_name'] = 'Lớp thuộc khoa khác';
             }
             else
             {
                 $class_info               = SharedData::$faculty_class_info[substr($class, 0, strlen($class) - 1)];
                 $name_academic_year       = substr_replace($academic_year, 'hóa ', 1, 0);
-                $class_info['Class_Name'] = $class_info['Class_Name'] . ' ' . $num . ' - ' . $name_academic_year;
+                $class_info['class_name'] = $class_info['class_name'] . ' ' . $num . ' - ' . $name_academic_year;
             }
         }
         else
         {
             if (!isset(SharedData::$faculty_class_info[$class]))
             {
-                $class_info['ID_Faculty'] = 'KHOAKHAC';
-                $class_info['Class_Name'] = 'Lớp thuộc khoa khác';
+                $class_info['id_faculty'] = 'KHOAKHAC';
+                $class_info['class_name'] = 'Lớp thuộc khoa khác';
             }
             else
             {
                 $class_info               = SharedData::$faculty_class_info[$class];
                 $name_academic_year       = substr_replace($academic_year, 'hóa ', 1, 0);
-                $class_info['Class_Name'] = $class_info['Class_Name'] . ' - ' . $name_academic_year;
+                $class_info['class_name'] = $class_info['class_name'] . ' - ' . $name_academic_year;
             }
         }
-        $class_info['ID_Class']      = $id_class;
-        $class_info['Academic_Year'] = $academic_year;
+        $class_info['id_class']      = $id_class;
+        $class_info['academic_year'] = $academic_year;
 
         return $class_info;
     }

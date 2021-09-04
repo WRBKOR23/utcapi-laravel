@@ -15,8 +15,8 @@ class DataVersionTeacher extends Model
     public function get ($id_teacher)
     {
         return DB::table(self::table)
-            ->where('ID_Teacher', '=', $id_teacher)
-            ->select('Schedule')
+            ->where('id_teacher', '=', $id_teacher)
+            ->select('schedule')
             ->get()
             ->first();
     }

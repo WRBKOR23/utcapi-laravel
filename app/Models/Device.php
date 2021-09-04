@@ -18,15 +18,15 @@
             $this->_createTemporaryTable($id_student_list);
 
             return DB::table(self::table_as)
-                ->join('temp2', 'd.ID_Student', '=', 'temp2.ID_Student')
-                ->pluck('Device_Token')
+                ->join('temp2', 'd.id_student', '=', 'temp2.id_student')
+                ->pluck('device_token')
                 ->toArray();
         }
 
         public function deleteMultiple ($device_token_list)
         {
             DB::table(self::table)
-                ->whereIn('Device_Token', $device_token_list)
+                ->whereIn('device_token', $device_token_list)
                 ->delete();
         }
 
@@ -34,12 +34,12 @@
         {
             DB::table(self::table)
                 ->updateOrInsert([
-                    'Device_Token' => $device_token,
-                    'ID_Student' => $id_student,
-                    'Last_Use' => $curr_time
+                    'device_token' => $device_token,
+                    'id_student' => $id_student,
+                    'last_use' => $curr_time
                 ], [
-                    'ID_Student' => $id_student,
-                    'Last_Use' => $curr_time
+                    'id_student' => $id_student,
+                    'last_use' => $curr_time
                 ]);
         }
 
@@ -47,7 +47,7 @@
         {
             $sql_query_1 =
                 'CREATE TEMPORARY TABLE temp2 (
-                  ID_Student varchar(15) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+                  id_student varchar(15) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci';
 
             $sql_of_list =
@@ -55,7 +55,7 @@
 
             $sql_query_2 =
                 'INSERT INTO temp2
-                    (ID_Student)
+                    (id_student)
                 VALUES
                     ' . $sql_of_list;
 

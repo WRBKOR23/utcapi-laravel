@@ -17,9 +17,9 @@
         public function get ($id_student) : Collection
         {
             return DB::connection('mysql2')->table(self::table)
-                ->where('ID_Student', '=', $id_student)
-                ->select('ID', 'School_Year', 'Module_Name', 'Credit', 'Evaluation',
-                    'Process_Score', 'Test_Score', 'Theoretical_Score')
+                ->where('id_student', '=', $id_student)
+                ->select('ID', 'school_year', 'module_name', 'credit', 'evaluation',
+                    'process_Score', 'test_Score', 'theoretical_Score')
                 ->get();
         }
 
@@ -33,29 +33,29 @@
         {
             DB::connection('mysql2')->table(self::table)
                 ->updateOrInsert([
-                    'School_Year' => $data['School_Year'],
-                    'ID_Module' => $data['ID_Module'],
-                    'ID_Student' => $data['ID_Student']
+                    'school_year' => $data['school_year'],
+                    'id_module' => $data['id_module'],
+                    'id_student' => $data['id_student']
                 ], $data);
         }
 
         public function getAllSchoolYear ($id_student) : array
         {
             return DB::connection('mysql2')->table(self::table)
-                ->where('ID_Student', '=', $id_student)
+                ->where('id_student', '=', $id_student)
                 ->distinct()
-                ->orderBy('School_Year')
-                ->pluck('School_Year')
+                ->orderBy('school_year')
+                ->pluck('school_year')
                 ->toArray();
         }
 
         public function getLatestSchoolYear ($id_student)
         {
             return DB::connection('mysql2')->table(self::table)
-                ->where('ID_Student', '=', $id_student)
+                ->where('id_student', '=', $id_student)
                 ->distinct()
-                ->orderBy('School_Year', 'desc')
-                ->pluck('School_Year')
+                ->orderBy('school_year', 'desc')
+                ->pluck('school_year')
                 ->first();
         }
     }

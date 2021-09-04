@@ -64,7 +64,7 @@ class CrawlExamScheduleService extends ACrawlService
 
     protected function _updateDataVersion ($id_student)
     {
-        $this->dataVersionStudentDepository->updateDataVersion($id_student, 'Exam_Schedule');
+        $this->dataVersionStudentDepository->updateDataVersion($id_student, 'exam_schedule');
     }
 
     protected function _customInsertMultiple ($data)

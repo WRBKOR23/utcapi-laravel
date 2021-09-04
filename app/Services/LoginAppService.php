@@ -42,14 +42,14 @@ class LoginAppService extends ALoginService
         {
             case 0:
                 $data       = $this->studentDepository->get($id_account);
-                $data->Name = $data->Student_Name;
-                unset($data->Student_Name);
+                $data->name = $data->student_name;
+                unset($data->student_name);
                 break;
 
             case 1:
                 $data       = $this->teacherDepository->get($id_account);
-                $data->Name = $data->Name_Teacher;
-                unset($data->Name_Teacher);
+                $data->name = $data->teacher_name;
+                unset($data->teacher_name);
                 break;
 
             default:

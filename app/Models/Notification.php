@@ -23,20 +23,20 @@ class Notification extends Model
     public function setDelete ($id_notification_list)
     {
         DB::table(self::table)
-            ->whereIn('ID_Notification', $id_notification_list)
-            ->update(['Is_Delete' => 1]);
+            ->whereIn('id_notification', $id_notification_list)
+            ->update(['is_delete' => 1]);
     }
 
     public function getNotifications ($id_sender, $num): Collection
     {
         return DB::table(self::table)
-            ->where('ID_Sender', '=', $id_sender)
-            ->where('Is_Delete', '=', 0)
-            ->orderBy('ID_Notification')
+            ->where('id_sender', '=', $id_sender)
+            ->where('is_delete', '=', 0)
+            ->orderBy('id_notification', 'desc')
             ->offset($num)
             ->limit(15)
-            ->select('ID_Notification', 'Title', 'Content',
-                'Time_Create', 'Time_Start', 'Time_End')
+            ->select('id_notification', 'title', 'content',
+                'time_create', 'time_start', 'time_end')
             ->get();
     }
 

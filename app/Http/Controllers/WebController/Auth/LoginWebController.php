@@ -33,7 +33,7 @@ class LoginWebController extends Controller
 
     public function showLoginScreen ()
     {
-        if (session('user_name') !== null
+        if (session('username') !== null
             && session('id_account') !== null
             && session('ttl') !== null)
         {

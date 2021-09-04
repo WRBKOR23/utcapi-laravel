@@ -14,7 +14,7 @@ class Account extends Model
     {
         return DB::table(self::table)
             ->where('username', '=', $username)
-            ->select('id', 'username', 'password', 'permission')
+            ->select('id_account', 'username', 'password', 'permission')
             ->get()
             ->toArray();
     }
@@ -32,8 +32,8 @@ class Account extends Model
         $this->_createTemporaryTable($id_student_list);
 
         return DB::table(self::table_as)
-            ->join('temp1', 'acc.username', '=', 'temp1.ID_Student')
-            ->pluck('id')
+            ->join('temp1', 'acc.username', '=', 'temp1.id_student')
+            ->pluck('id_account')
             ->toArray();
     }
 
@@ -55,7 +55,7 @@ class Account extends Model
     {
         $sql_query_1 =
             'CREATE TEMPORARY TABLE temp1 (
-                  ID_Student varchar(15) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+                  id_student varchar(15) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci';
 
         $sql_of_list =
@@ -63,7 +63,7 @@ class Account extends Model
 
         $sql_query_2 =
             'INSERT INTO temp1
-                    (ID_Student)
+                    (id_student)
                 VALUES
                     ' . $sql_of_list;
 

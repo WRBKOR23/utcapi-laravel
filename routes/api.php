@@ -36,15 +36,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request)
-{
-    return $request->user();
-});
-
-Route::prefix('/token')->group(function ()
-{
-});
-
 Route::post('/auth/authenticate', [LoginAppController::class, 'login']);
 
 Route::post('/auth/register', [RegisterController::class, 'register']);

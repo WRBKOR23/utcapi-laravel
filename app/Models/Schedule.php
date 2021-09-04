@@ -8,27 +8,27 @@ use Illuminate\Support\Facades\DB;
 
 class Schedule extends Model
 {
-    public const table = 'schedules';
-    public const table_as = 'schedules as sdu';
+    public const table = 'schedule';
+    public const table_as = 'schedule as sdu';
 
     public function getStudentSchedules ($id_student): Collection
     {
         $mc_t = DB::table(ModuleClass::table_as)
             ->join(Participate::table_as, function ($join) use ($id_student) {
-                $join->on('mc.ID_Module_Class', '=', 'par.ID_Module_Class')
-                    ->where('par.ID_Student', '=', $id_student);
+                $join->on('mc.id_module_class', '=', 'par.id_module_class')
+                    ->where('par.id_student', '=', $id_student);
             })
-            ->leftJoin(Teacher::table_as, 'mc.ID_Teacher', '=', 'tea.ID_Teacher')
-            ->select('mc.ID_Module_Class', 'Module_Class_Name', 'Name_Teacher');
+            ->leftJoin(Teacher::table_as, 'mc.id_teacher', '=', 'tea.id_teacher')
+            ->select('mc.id_module_class', 'module_class_name', 'teacher_name');
 
         return DB::table(self::table_as)
             ->joinSub($mc_t, 'mc_t', function ($join) {
-                $join->on('sdu.ID_Module_Class', '=', 'mc_t.ID_Module_Class');
+                $join->on('sdu.id_module_class', '=', 'mc_t.id_module_class');
             })
-            ->where('sdu.Day_Schedules', '>=', DB::raw('DATE_SUB(NOW(), INTERVAL 1 YEAR)'))
-            ->orderBy('sdu.ID_Module_Class')
-            ->select('sdu.ID_Schedules', 'mc_t.Module_Class_Name', 'sdu.ID_Module_Class',
-                'sdu.ID_Room', 'sdu.Shift_Schedules', 'sdu.Day_Schedules', 'mc_t.Name_Teacher')
+            ->where('sdu.date', '>=', DB::raw('DATE_SUB(NOW(), INTERVAL 1 YEAR)'))
+            ->orderBy('sdu.id_module_class')
+            ->select('sdu.id_schedule', 'mc_t.module_class_name', 'sdu.id_module_class',
+                'sdu.id_room', 'sdu.shift', 'sdu.date', 'mc_t.teacher_name')
             ->get();
     }
 
@@ -36,19 +36,19 @@ class Schedule extends Model
     {
         $mc_t = DB::table(ModuleClass::table . ' as mc')
             ->join(Teacher::table_as, function ($join) use ($id_teacher) {
-                $join->on('mc.ID_Teacher', '=', 'tea.ID_Teacher')
-                    ->where('tea.ID_Teacher', '=', $id_teacher);
+                $join->on('mc.id_teacher', '=', 'tea.id_teacher')
+                    ->where('tea.id_teacher', '=', $id_teacher);
             })
-            ->select('ID_Module_Class', 'Module_Class_Name');
+            ->select('id_module_class', 'module_class_name');
 
         return DB::table(self::table . ' as sdu')
             ->joinSub($mc_t, 'mc_t', function ($join) {
-                $join->on('sdu.ID_Module_Class', '=', 'mc_t.ID_Module_Class');
+                $join->on('sdu.id_module_class', '=', 'mc_t.id_module_class');
             })
-            ->where('sdu.Day_Schedules', '>=', DB::raw('DATE_SUB(NOW(), INTERVAL 1 YEAR)'))
-            ->orderBy('sdu.ID_Module_Class')
-            ->select('sdu.ID_Schedules', 'mc_t.Module_Class_Name', 'sdu.ID_Module_Class',
-                'sdu.ID_Room', 'sdu.Shift_Schedules', 'sdu.Day_Schedules')
+            ->where('sdu.date', '>=', DB::raw('DATE_SUB(NOW(), INTERVAL 1 YEAR)'))
+            ->orderBy('sdu.id_module_class')
+            ->select('sdu.id_schedule', 'mc_t.module_class_name', 'sdu.id_module_class',
+                'sdu.id_room', 'sdu.shift', 'sdu.date')
             ->get();
     }
 }

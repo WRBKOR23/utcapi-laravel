@@ -55,7 +55,7 @@ class CrawlModuleScoreService extends ACrawlService
 
     protected function _updateDataVersion ($id_student)
     {
-        $this->dataVersionStudentDepository->updateDataVersion($id_student, 'Module_Score');
+        $this->dataVersionStudentDepository->updateDataVersion($id_student, 'module_score');
     }
 
     protected function _customInsertMultiple ($data)

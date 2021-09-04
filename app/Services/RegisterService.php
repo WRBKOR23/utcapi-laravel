@@ -75,15 +75,15 @@ class RegisterService implements Contracts\RegisterServiceContract
         $account['qldt_password'] = md5($data['qldt_password']);
         $account['permission']    = 0;
 
-        $student['ID_Student']   = $data['id_student'];
-        $student['Student_Name'] = $student_info['student_name'];
-        $student['DoB_Student']  = $student_info['dob'];
-        $student['ID_Class']     = $student_info['academic_year'] . '.' . $data['id_class'];
+        $student['id_student']   = $data['id_student'];
+        $student['student_name'] = $student_info['student_name'];
+        $student['birth']        = $student_info['birth'];
+        $student['id_class']     = $student_info['academic_year'] . '.' . $data['id_class'];
 
-        $class['ID_Class']      = $student['ID_Class'];
-        $class['Academic_Year'] = $student_info['academic_year'];
-        $class['Class_Name']    = $student_info['class_name'];
-        $class['ID_Faculty']    = $student_info['id_faculty'];
+        $class['id_class']      = $student['id_class'];
+        $class['academic_year'] = $student_info['academic_year'];
+        $class['class_name']    = $student_info['class_name'];
+        $class['id_faculty']    = $student_info['id_faculty'];
 
         return [
             'account' => $account,
@@ -98,7 +98,7 @@ class RegisterService implements Contracts\RegisterServiceContract
 
         $this->classDepositoryContract->upsert($data['class']);
 
-        $data['student']['ID_Account'] = $id_account;
+        $data['student']['id_student'] = $id_account;
         $this->studentDepository->insert($data['student']);
     }
 }

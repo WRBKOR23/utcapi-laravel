@@ -73,15 +73,6 @@ class CrawlQLDTData
                 throw new InvalidQLDTAccount();
             }
         }
-//        else
-//        {
-//            $response = mb_convert_encoding($response, 'HTML-ENTITIES', "UTF-8");
-//            $dom      = new DOMDocument();
-//            @$dom->loadHTML($response);
-//            $field_content = $dom->getElementById('drpField')->childNodes->item(1)->textContent;
-//            $this->major   = explode(' - ', $field_content)[1];
-//            return 1;
-//        }
     }
 
     public function getStudentInfo (): array
@@ -92,16 +83,16 @@ class CrawlQLDTData
         $html = new simple_html_dom();
         $html->load($response1);
 
-        $data['student_name']   = $html->find('span[id=lblStudentName]', 0)->innertext;
+        $data['student_name']  = $html->find('span[id=lblStudentName]', 0)->innertext;
         $data['academic_year'] = $html->find('span[id=lblAy]', 0)->innertext;
-        $data['class_name']     = $html->find('span[id=lblAdminClass]', 0)->innertext;
-        $data['class_name']     = 'Lớp ' . SharedFunctions::formatString(substr_replace($data['class_name'],
-                                                                                        '- Khóa ',
-                                                                                        strlen($data['class_name']) - 2,
-                                                                                        0));
+        $data['class_name']    = $html->find('span[id=lblAdminClass]', 0)->innertext;
+        $data['class_name']    = 'Lớp ' . SharedFunctions::formatString(substr_replace($data['class_name'],
+                                                                                       '- Khóa ',
+                                                                                       strlen($data['class_name']) - 2,
+                                                                                       0));
         $html->load($response2);
-        $data['dob'] = $html->find('input[id=txtNgaySinh]', 0)->value;
-        $data['dob'] = SharedFunctions::formatDate($data['dob']);
+        $data['birth'] = $html->find('input[id=txtNgaySinh]', 0)->value;
+        $data['birth'] = SharedFunctions::formatDate($data['birth']);
 
         $dom = new DOMDocument();
         @$dom->loadHTML(mb_convert_encoding($response1, 'HTML-ENTITIES', "UTF-8"));
@@ -192,24 +183,24 @@ class CrawlQLDTData
             for ($j = 1; $j < count($tr) - 1; $j++)
             {
                 $arr                = [];
-                $arr['School_Year'] = $school_year;
+                $arr['school_year'] = $school_year;
 
                 $td               = explode('<br><br>', $tr[$j]->children(1)->innertext);
-                $arr['ID_Module'] = $td[1] ?? $td[0];
+                $arr['id_module'] = $td[1] ?? $td[0];
 
                 $td                 = explode('<br><br>', $tr[$j]->children(2)->innertext);
                 $str                = $td[1] ?? $td[0];
-                $arr['Module_Name'] = SharedFunctions::formatStringDataCrawled($str);
+                $arr['module_name'] = SharedFunctions::formatStringDataCrawled($str);
 
                 $td            = explode('<br><br>', $tr[$j]->children(3)->innertext);
-                $arr['Credit'] = $td[1] ?? $td[0];
+                $arr['credit'] = $td[1] ?? $td[0];
 
                 $td                = explode('<br><br>', $tr[$j]->children(8)->innertext);
                 $temp_evaluation   = $td[1] ?? $td[0];
-                $arr['Evaluation'] = $temp_evaluation == '&nbsp;' ? null : $temp_evaluation;
+                $arr['evaluation'] = $temp_evaluation == '&nbsp;' ? null : $temp_evaluation;
 
                 $td                = explode('<br><br>', $tr[$j]->children(9)->innertext);
-                $arr['ID_Student'] = $td[1] ?? $td[0];
+                $arr['id_student'] = $td[1] ?? $td[0];
 
                 //------------------Process Score-------------------------------------------
                 $temp_data = $tr[$j]->children(10)->innertext;
@@ -229,15 +220,15 @@ class CrawlQLDTData
 
                 if (count($tr[$j]->children()) == 11)
                 {
-                    $arr['Process_Score']                  = null;
-                    $arr['Test_Score']                     = null;
-                    $arr['Theoretical_Score']              = $temp_score == '&nbsp;' ? null : $temp_score;
-                    $data[$school_year][$arr['ID_Module']] = $arr;
+                    $arr['process_score']                  = null;
+                    $arr['test_score']                     = null;
+                    $arr['theoretical_score']              = $temp_score == '&nbsp;' ? null : $temp_score;
+                    $data[$school_year][$arr['id_module']] = $arr;
 
                     continue;
                 }
 
-                $arr['Process_Score'] = $temp_score == '&nbsp;' ? null : $temp_score;
+                $arr['process_score'] = $temp_score == '&nbsp;' ? null : $temp_score;
                 //------------------------------------------------------------
 
 
@@ -256,13 +247,13 @@ class CrawlQLDTData
                 {
                     $temp_score = $td1[1] ?? $td1[0];
                 }
-                $arr['Test_Score'] = $temp_score == '&nbsp;' ? null : $temp_score;
+                $arr['test_score'] = $temp_score == '&nbsp;' ? null : $temp_score;
                 //------------------------------------------------------------
 
                 if (count($tr[$j]->children()) == 12)
                 {
-                    $arr['Theoretical_Score']              = null;
-                    $data[$school_year][$arr['ID_Module']] = $arr;
+                    $arr['theoretical_score']              = null;
+                    $data[$school_year][$arr['id_module']] = $arr;
 
                     continue;
                 }
@@ -282,10 +273,10 @@ class CrawlQLDTData
                 {
                     $temp_score = $td1[1] ?? $td1[0];
                 }
-                $arr['Theoretical_Score'] = $temp_score == '&nbsp;' ? null : $temp_score;
+                $arr['theoretical_score'] = $temp_score == '&nbsp;' ? null : $temp_score;
                 //------------------------------------------------------------
 
-                $data[$school_year][$arr['ID_Module']] = $arr;
+                $data[$school_year][$arr['id_module']] = $arr;
             }
         }
 
@@ -423,30 +414,30 @@ class CrawlQLDTData
                 {
                     $arr = [];
 
-                    $arr['School_Year'] = SharedFunctions::formatToOfficialSchoolYear($school_year_key);
+                    $arr['school_year'] = SharedFunctions::formatToOfficialSchoolYear($school_year_key);
 
                     $temp_examination   = SharedFunctions::formatWrongWord($exam_type[$i][0]);
-                    $arr['Examination'] = SharedFunctions::formatStringDataCrawled($temp_examination);
+                    $arr['examination'] = SharedFunctions::formatStringDataCrawled($temp_examination);
 
-                    $arr['ID_Student'] = $this->id_student;
+                    $arr['id_student'] = $this->id_student;
 
-                    $arr['ID_Module'] = SharedFunctions::formatStringDataCrawled($tr[$j]->children(1)->innertext);
+                    $arr['id_module'] = SharedFunctions::formatStringDataCrawled($tr[$j]->children(1)->innertext);
 
-                    $arr['Module_Name'] = SharedFunctions::formatStringDataCrawled($tr[$j]->children(2)->innertext);
+                    $arr['module_name'] = SharedFunctions::formatStringDataCrawled($tr[$j]->children(2)->innertext);
 
-                    $arr['Credit'] = SharedFunctions::formatStringDataCrawled($tr[$j]->children(3)->innertext);
+                    $arr['credit'] = SharedFunctions::formatStringDataCrawled($tr[$j]->children(3)->innertext);
 
                     $temp_date         = SharedFunctions::formatStringDataCrawled($tr[$j]->children(4)->innertext);
-                    $arr['Date_Start'] = SharedFunctions::formatDate($temp_date);
+                    $arr['date_start'] = SharedFunctions::formatDate($temp_date);
 
-                    $arr['Time_Start'] = SharedFunctions::formatStringDataCrawled($tr[$j]->children(5)->innertext);
+                    $arr['time_start'] = SharedFunctions::formatStringDataCrawled($tr[$j]->children(5)->innertext);
 
-                    $arr['Method'] = SharedFunctions::formatStringDataCrawled($tr[$j]->children(6)->innertext);
+                    $arr['method'] = SharedFunctions::formatStringDataCrawled($tr[$j]->children(6)->innertext);
 
-                    $arr['Identification_Number'] = SharedFunctions::formatStringDataCrawled($tr[$j]->children(7)->innertext);
+                    $arr['identification_number'] = SharedFunctions::formatStringDataCrawled($tr[$j]->children(7)->innertext);
 
                     $temp_room   = SharedFunctions::formatWrongWord($tr[$j]->children(8)->innertext);
-                    $arr['Room'] = SharedFunctions::formatStringDataCrawled($temp_room);
+                    $arr['room'] = SharedFunctions::formatStringDataCrawled($temp_room);
 
                     $data[$school_year_key][] = $arr;
                 }
@@ -475,22 +466,22 @@ class CrawlQLDTData
             {
                 $official_school_year = SharedFunctions::convertToOfficialSchoolYear(trim($e, ' '));
 
-                if (isset($data[$official_school_year][$module['ID_Module']]))
+                if (isset($data[$official_school_year][$module['id_module']]))
                 {
-                    $dupl_evaluation    = $data[$official_school_year][$module['ID_Module']]['Evaluation'];
-                    $dupl_process_score = $data[$official_school_year][$module['ID_Module']]['Process_Score'];
-                    $dupl_test_score    = $data[$official_school_year][$module['ID_Module']]['Test_Score'];
-                    $dupl_theore_score  = $data[$official_school_year][$module['ID_Module']]['Theoretical_Score'];
+                    $dupl_evaluation    = $data[$official_school_year][$module['id_module']]['evaluation'];
+                    $dupl_process_score = $data[$official_school_year][$module['id_module']]['process_score'];
+                    $dupl_test_score    = $data[$official_school_year][$module['id_module']]['test_score'];
+                    $dupl_theore_score  = $data[$official_school_year][$module['id_module']]['theoretical_score'];
 
-                    $module['Evaluation']        = $dupl_evaluation == null ? $module['Evaluation'] : $dupl_evaluation;
-                    $module['Process_Score']     = $dupl_process_score == null ? $module['Process_Score'] : $dupl_process_score;
-                    $module['Test_Score']        = $dupl_test_score == null ? $module['Test_Score'] : $dupl_test_score;
-                    $module['Theoretical_Score'] = $dupl_theore_score == null ? $module['Theoretical_Score'] : $dupl_theore_score;
+                    $module['evaluation']        = $dupl_evaluation == null ? $module['evaluation'] : $dupl_evaluation;
+                    $module['process_score']     = $dupl_process_score == null ? $module['process_score'] : $dupl_process_score;
+                    $module['test_score']        = $dupl_test_score == null ? $module['test_score'] : $dupl_test_score;
+                    $module['theoretical_score'] = $dupl_theore_score == null ? $module['theoretical_score'] : $dupl_theore_score;
                 }
 
-                $module['School_Year'] = $official_school_year;
+                $module['school_year'] = $official_school_year;
 
-                $data[$official_school_year][$module['ID_Module']] = $module;
+                $data[$official_school_year][$module['id_module']] = $module;
             }
             unset($data[$e]);
         }

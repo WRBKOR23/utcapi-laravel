@@ -1,6 +1,6 @@
 export function autoFillTemplate(templateNoti) {
     title.value = templateNoti.title
-    type.selectedIndex = templateNoti.typez
+    type.selectedIndex = templateNoti.type
     content.value = templateNoti.content
 }
 

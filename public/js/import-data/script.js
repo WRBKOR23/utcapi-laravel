@@ -27,7 +27,7 @@ async function uploadFile ()
         let formData = new FormData();
         formData.append('file', fileUpload.files[i]);
 
-        let responseAsJson1 = await fetch('web/import-data/process-1', {
+        let response1 = await fetch('web/import-data/process-1', {
             method: 'POST',
             cache: 'no-cache',
             headers: {
@@ -35,25 +35,26 @@ async function uploadFile ()
             },
             body: formData
         });
+        refreshToken(response1)
 
-        let status1 = responseAsJson1.status
+        let status1 = response1.status
 
         if (status1 !== 200 && status1 !== 201)
         {
             raiseBackEndError(true, 3)
             return
         }
-        let response1 = await responseAsJson1.json()
+        let responseAsJson1 = await response1.json()
 
         if (status1 === 201)
         {
-            group = response1[0]
-            fileNameError = fileNameError.concat(response1[1])
+            group = responseAsJson1[0]
+            fileNameError = fileNameError.concat(responseAsJson1[1])
         }
 
         if (status1 === 200)
         {
-            group = response1[0]
+            group = responseAsJson1[0]
         }
 
         for (const arr of group)
@@ -66,6 +67,7 @@ async function uploadFile ()
                 },
                 body: JSON.stringify(arr)
             });
+            refreshToken(response)
 
             if (response.status !== 200)
             {
@@ -128,5 +130,13 @@ function displayFileException ()
             divTag.append(aTag)
             divTag.append(brTag)
         }
+    }
+}
+
+function refreshToken(response)
+{
+    if (response.headers.get('Authorization') !== null)
+    {
+        localStorage.setItem('a_t', response.headers.get('Authorization'))
     }
 }

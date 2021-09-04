@@ -88,3 +88,232 @@ Code: 0
 
 C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Routing\AbstractRouteCollection.php  43
 =========================================================================================
+01/09/2021 23:42:49
+Code: 0
+Trying to get property 'student_name' of non-object
+C:\xampp\htdocs\laravel-begin\app\Services\LoginAppService.php  45
+=========================================================================================
+02/09/2021 11:30:29
+Code: 42S22
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'where clause' (SQL: select * from `account` where `id` is null limit 1)
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Database\Connection.php  692
+=========================================================================================
+02/09/2021 11:30:30
+Code: 42S22
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'where clause' (SQL: select * from `account` where `id` is null limit 1)
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Database\Connection.php  692
+=========================================================================================
+02/09/2021 11:36:32
+Code: 42S22
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'where clause' (SQL: select * from `account` where `id` is null limit 1)
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Database\Connection.php  692
+=========================================================================================
+02/09/2021 11:36:32
+Code: 42S22
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'where clause' (SQL: select * from `account` where `id` is null limit 1)
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Database\Connection.php  692
+=========================================================================================
+02/09/2021 11:41:51
+Code: 42S22
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'where clause' (SQL: select * from `account` where `id` is null limit 1)
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Database\Connection.php  692
+=========================================================================================
+02/09/2021 11:41:51
+Code: 42S22
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'where clause' (SQL: select * from `account` where `id` is null limit 1)
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Database\Connection.php  692
+=========================================================================================
+02/09/2021 11:42:58
+Code: 42S22
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'where clause' (SQL: select * from `account` where `id` is null limit 1)
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Database\Connection.php  692
+=========================================================================================
+02/09/2021 11:42:58
+Code: 42S22
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'where clause' (SQL: select * from `account` where `id` is null limit 1)
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Database\Connection.php  692
+=========================================================================================
+02/09/2021 11:45:48
+Code: 42S22
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'where clause' (SQL: select * from `account` where `id` is null limit 1)
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Database\Connection.php  692
+=========================================================================================
+02/09/2021 11:45:49
+Code: 42S22
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'where clause' (SQL: select * from `account` where `id` is null limit 1)
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Database\Connection.php  692
+=========================================================================================
+02/09/2021 11:45:50
+Code: 42S22
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'where clause' (SQL: select * from `account` where `id` is null limit 1)
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Database\Connection.php  692
+=========================================================================================
+02/09/2021 11:45:51
+Code: 42S22
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'where clause' (SQL: select * from `account` where `id` is null limit 1)
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Database\Connection.php  692
+=========================================================================================
+02/09/2021 11:46:19
+Code: 42S22
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'where clause' (SQL: select * from `account` where `id` is null limit 1)
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Database\Connection.php  692
+=========================================================================================
+02/09/2021 11:46:19
+Code: 42S22
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'where clause' (SQL: select * from `account` where `id` is null limit 1)
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Database\Connection.php  692
+=========================================================================================
+02/09/2021 11:46:32
+Code: 42S22
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'where clause' (SQL: select * from `account` where `id` is null limit 1)
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Database\Connection.php  692
+=========================================================================================
+02/09/2021 11:46:32
+Code: 42S22
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'where clause' (SQL: select * from `account` where `id` is null limit 1)
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Database\Connection.php  692
+=========================================================================================
+02/09/2021 11:46:54
+Code: 42S22
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'where clause' (SQL: select * from `account` where `id` is null limit 1)
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Database\Connection.php  692
+=========================================================================================
+02/09/2021 11:46:54
+Code: 42S22
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'where clause' (SQL: select * from `account` where `id` is null limit 1)
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Database\Connection.php  692
+=========================================================================================
+02/09/2021 12:31:45
+Code: 42S02
+SQLSTATE[42S02]: Base table or view not found: 1146 Table 'nckh.schedules' doesn't exist (SQL: select `sdu`.`id_schedule`, `mc_t`.`module_class_name`, `sdu`.`id_module_class`, `sdu`.`id_room`, `sdu`.`shift`, `sdu`.`date`, `mc_t`.`teacher_name` from `schedules` as `sdu` inner join (select `mc`.`id_module_class`, `module_class_name`, `teacher_name` from `module_class` as `mc` inner join `participate` as `par` on `mc`.`id_module_class` = `par`.`id_module_class` and `par`.`id_student` = 191201402 left join `teacher` as `tea` on `mc`.`id_teacher` = `tea`.`id_teacher`) as `mc_t` on `sdu`.`id_module_class` = `mc_t`.`id_module_class` where `sdu`.`date` >= DATE_SUB(NOW(), INTERVAL 1 YEAR) order by `sdu`.`id_module_class` asc)
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Database\Connection.php  692
+=========================================================================================
+02/09/2021 12:33:30
+Code: 42S22
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'module_name' in 'field list' (SQL: select `id_exam_schedule`, `school_year`, `module_name`, `credit`, `date_start`, `time_start`, `method`, `identification_number`, `room` from `exam_schedule` where `id_student` = 191201402 order by `date_start` asc)
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Database\Connection.php  692
+=========================================================================================
+02/09/2021 12:42:20
+Code: 0
+The token has been blacklisted
+C:\xampp\htdocs\laravel-begin\app\Http\Middleware\VerifyJWTToken.php  43
+=========================================================================================
+02/09/2021 12:42:51
+Code: 42S22
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'where clause' (SQL: select * from `account` where `id` is null limit 1)
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Database\Connection.php  692
+=========================================================================================
+02/09/2021 12:42:51
+Code: 42S22
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'where clause' (SQL: select * from `account` where `id` is null limit 1)
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Database\Connection.php  692
+=========================================================================================
+02/09/2021 12:55:54
+Code: 0
+User not found
+C:\xampp\htdocs\laravel-begin\app\Http\Middleware\VerifyJWTToken.php  28
+=========================================================================================
+02/09/2021 14:38:29
+Code: 0
+Token has expired and can no longer be refreshed
+C:\xampp\htdocs\laravel-begin\app\Http\Middleware\VerifyJWTToken.php  43
+=========================================================================================
+02/09/2021 15:04:55
+Code: 0
+
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Routing\AbstractRouteCollection.php  43
+=========================================================================================
+02/09/2021 15:04:58
+Code: 0
+
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Routing\AbstractRouteCollection.php  43
+=========================================================================================
+02/09/2021 17:11:50
+Code: 42S22
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id_delete' in 'where clause' (SQL: select `id_notification`, `title`, `content`, `time_create`, `time_start`, `time_end` from `notification` where `id_sender` = 1 and `id_delete` = 0 order by `id_notification` asc limit 15 offset 0)
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Database\Connection.php  692
+=========================================================================================
+02/09/2021 17:16:17
+Code: 42S22
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id_delete' in 'field list' (SQL: update `notification` set `id_delete` = 1 where `id_notification` in (27, 26))
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Database\Connection.php  692
+=========================================================================================
+02/09/2021 17:45:07
+Code: 0
+The token has been blacklisted
+C:\xampp\htdocs\laravel-begin\app\Http\Middleware\VerifyJWTToken.php  43
+=========================================================================================
+02/09/2021 17:45:07
+Code: 0
+The token has been blacklisted
+C:\xampp\htdocs\laravel-begin\app\Http\Middleware\VerifyJWTToken.php  43
+=========================================================================================
+02/09/2021 18:01:37
+Code: 0
+The token has been blacklisted
+C:\xampp\htdocs\laravel-begin\app\Http\Middleware\VerifyJWTToken.php  43
+=========================================================================================
+02/09/2021 18:01:37
+Code: 0
+The token has been blacklisted
+C:\xampp\htdocs\laravel-begin\app\Http\Middleware\VerifyJWTToken.php  43
+=========================================================================================
+02/09/2021 20:10:35
+Code: 0
+The token has been blacklisted
+C:\xampp\htdocs\laravel-begin\app\Http\Middleware\VerifyJWTToken.php  43
+=========================================================================================
+02/09/2021 20:42:53
+Code: 0
+
+C:\xampp\htdocs\laravel-begin\app\BusinessClass\CrawlQLDTData.php  69
+=========================================================================================
+03/09/2021 22:58:38
+Code: 0
+Argument 1 passed to Symfony\Component\HttpFoundation\Response::setContent() must be of the type string or null, object given, called in C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Http\Response.php on line 72
+C:\xampp\htdocs\laravel-begin\vendor\symfony\http-foundation\Response.php  412
+=========================================================================================
+03/09/2021 23:16:02
+Code: 42S22
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'process_score' in 'field list' (SQL: INSERT INTO
+                participate
+            (
+                id_module_class, id_student, process_score, test_score,
+                theoretical_score, status_studying
+            )
+            VALUES
+                (MHT06.3-2-20-2 (N01),160704557,null,null,null,null),(MHT06.3-2-20-2 (N01),171202883,null,null,null,null),(MHT06.3-2-20-2 (N01),181230369,null,null,null,null),(MHT06.3-2-20-2 (N01),171201440,null,null,null,null),(MHT06.3-2-20-2 (N01),181201683,null,null,null,null),(MHT06.3-2-20-2 (N01),181211817,null,null,null,null),(MHT06.3-2-20-2 (N01),181200814,null,null,null,null),(MHT06.3-2-20-2 (N01),171211424,null,null,null,null),(MHT06.3-2-20-2 (N01),181200916,null,null,null,null),(MHT06.3-2-20-2 (N01),181201611,null,null,null,null),(MHT06.3-2-20-2 (N01),171200013,null,null,null,null),(MHT06.3-2-20-2 (N01),171201648,null,null,null,null),(MHT06.3-2-20-2 (N01),171201636,null,null,null,null),(MHT06.3-2-20-2 (N01),181210613,null,null,null,null),(MHT06.3-2-20-2 (N01),181203918,null,null,null,null),(MHT06.3-2-20-2 (N01),181200770,null,null,null,null),(MHT06.3-2-20-2 (N01),171200455,null,null,null,null),(MHT06.3-2-20-2 (N01),181201226,null,null,null,null),(MHT06.3-2-20-2 (N01),181203531,null,null,null,null),(MHT06.3-2-20-2 (N01),881891002,null,null,null,null),(MHT06.3-2-20-2 (N01),171212668,null,null,null,null),(MHT06.3-2-20-2 (N01),171201228,null,null,null,null),(MHT06.3-2-20-2 (N01),171212200,null,null,null,null),(MHT06.3-2-20-2 (N01),151211669,null,null,null,null),(MHT06.3-2-20-2 (N01),171201944,null,null,null,null),(MHT06.3-2-20-2 (N01),171201468,null,null,null,null),(MHT06.3-2-20-2 (N01),171510196,null,null,null,null),(MHT06.3-2-20-2 (N01),181203243,null,null,null,null),(MHT06.3-2-20-2 (N01),181202020,null,null,null,null),(MHT06.3-2-20-2 (N01),181203244,null,null,null,null),(MHT06.3-2-20-2 (N01),181202916,null,null,null,null),(MHT06.3-2-20-2 (N01),181213609,null,null,null,null),(MHT06.3-2-20-2 (N01),181202886,null,null,null,null),(MHT06.3-2-20-2 (N01),181203827,null,null,null,null),(MHT06.3-2-20-2 (N01),181200582,null,null,null,null),(MHT06.3-2-20-2 (N01),171201348,null,null,null,null),(MHT06.3-2-20-2 (N01),181201176,null,null,null,null),(MHT06.3-2-20-2 (N01),181201589,null,null,null,null),(MHT06.3-2-20-2 (N01),181201905,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),160704557,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),171202883,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),181230369,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),171201440,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),181201683,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),181211817,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),181200814,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),171211424,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),181200916,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),181201611,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),171200013,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),171201648,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),171201636,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),181210613,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),181203918,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),181200770,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),171200455,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),181201226,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),181203531,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),881891002,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),171212668,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),171201228,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),171212200,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),151211669,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),171201944,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),171201468,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),171510196,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),181203243,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),181202020,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),181203244,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),181202916,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),181213609,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),181202886,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),181203827,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),181200582,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),171201348,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),181201176,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),181201589,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),181201905,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),160704557,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),171202883,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),181230369,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),171201440,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),181201683,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),181211817,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),181200814,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),171211424,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),181200916,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),181201611,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),171200013,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),171201648,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),171201636,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),181210613,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),181203918,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),181200770,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),171200455,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),181201226,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),181203531,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),881891002,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),171212668,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),171201228,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),171212200,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),151211669,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),171201944,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),171201468,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),171510196,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),181203243,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),181202020,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),181203244,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),181202916,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),181213609,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),181202886,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),181203827,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),181200582,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),171201348,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),181201176,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),181201589,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),181201905,null,null,null,null)
+            ON DUPLICATE KEY UPDATE id_student = id_student)
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Database\Connection.php  692
+=========================================================================================
+03/09/2021 23:16:11
+Code: 0
+Argument 1 passed to Symfony\Component\HttpFoundation\Response::setContent() must be of the type string or null, object given, called in C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Http\Response.php on line 72
+C:\xampp\htdocs\laravel-begin\vendor\symfony\http-foundation\Response.php  412
+=========================================================================================
+03/09/2021 23:19:56
+Code: 42S22
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'process_score' in 'field list' (SQL: INSERT INTO
+                participate
+            (
+                id_module_class, id_student, process_score, test_score,
+                theoretical_score, status_studying
+            )
+            VALUES
+                (MHT06.3-2-20-2 (N01),160704557,null,null,null,null),(MHT06.3-2-20-2 (N01),171202883,null,null,null,null),(MHT06.3-2-20-2 (N01),181230369,null,null,null,null),(MHT06.3-2-20-2 (N01),171201440,null,null,null,null),(MHT06.3-2-20-2 (N01),181201683,null,null,null,null),(MHT06.3-2-20-2 (N01),181211817,null,null,null,null),(MHT06.3-2-20-2 (N01),181200814,null,null,null,null),(MHT06.3-2-20-2 (N01),171211424,null,null,null,null),(MHT06.3-2-20-2 (N01),181200916,null,null,null,null),(MHT06.3-2-20-2 (N01),181201611,null,null,null,null),(MHT06.3-2-20-2 (N01),171200013,null,null,null,null),(MHT06.3-2-20-2 (N01),171201648,null,null,null,null),(MHT06.3-2-20-2 (N01),171201636,null,null,null,null),(MHT06.3-2-20-2 (N01),181210613,null,null,null,null),(MHT06.3-2-20-2 (N01),181203918,null,null,null,null),(MHT06.3-2-20-2 (N01),181200770,null,null,null,null),(MHT06.3-2-20-2 (N01),171200455,null,null,null,null),(MHT06.3-2-20-2 (N01),181201226,null,null,null,null),(MHT06.3-2-20-2 (N01),181203531,null,null,null,null),(MHT06.3-2-20-2 (N01),881891002,null,null,null,null),(MHT06.3-2-20-2 (N01),171212668,null,null,null,null),(MHT06.3-2-20-2 (N01),171201228,null,null,null,null),(MHT06.3-2-20-2 (N01),171212200,null,null,null,null),(MHT06.3-2-20-2 (N01),151211669,null,null,null,null),(MHT06.3-2-20-2 (N01),171201944,null,null,null,null),(MHT06.3-2-20-2 (N01),171201468,null,null,null,null),(MHT06.3-2-20-2 (N01),171510196,null,null,null,null),(MHT06.3-2-20-2 (N01),181203243,null,null,null,null),(MHT06.3-2-20-2 (N01),181202020,null,null,null,null),(MHT06.3-2-20-2 (N01),181203244,null,null,null,null),(MHT06.3-2-20-2 (N01),181202916,null,null,null,null),(MHT06.3-2-20-2 (N01),181213609,null,null,null,null),(MHT06.3-2-20-2 (N01),181202886,null,null,null,null),(MHT06.3-2-20-2 (N01),181203827,null,null,null,null),(MHT06.3-2-20-2 (N01),181200582,null,null,null,null),(MHT06.3-2-20-2 (N01),171201348,null,null,null,null),(MHT06.3-2-20-2 (N01),181201176,null,null,null,null),(MHT06.3-2-20-2 (N01),181201589,null,null,null,null),(MHT06.3-2-20-2 (N01),181201905,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),160704557,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),171202883,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),181230369,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),171201440,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),181201683,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),181211817,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),181200814,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),171211424,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),181200916,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),181201611,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),171200013,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),171201648,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),171201636,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),181210613,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),181203918,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),181200770,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),171200455,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),181201226,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),181203531,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),881891002,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),171212668,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),171201228,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),171212200,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),151211669,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),171201944,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),171201468,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),171510196,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),181203243,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),181202020,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),181203244,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),181202916,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),181213609,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),181202886,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),181203827,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),181200582,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),171201348,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),181201176,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),181201589,null,null,null,null),(MHT06.3-2-20-2 (N01.BT1),181201905,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),160704557,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),171202883,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),181230369,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),171201440,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),181201683,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),181211817,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),181200814,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),171211424,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),181200916,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),181201611,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),171200013,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),171201648,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),171201636,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),181210613,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),181203918,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),181200770,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),171200455,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),181201226,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),181203531,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),881891002,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),171212668,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),171201228,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),171212200,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),151211669,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),171201944,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),171201468,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),171510196,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),181203243,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),181202020,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),181203244,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),181202916,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),181213609,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),181202886,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),181203827,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),181200582,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),171201348,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),181201176,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),181201589,null,null,null,null),(MHT06.3-2-20-2 (N01.TH1),181201905,null,null,null,null)
+            ON DUPLICATE KEY UPDATE id_student = id_student)
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Database\Connection.php  692
+=========================================================================================
+03/09/2021 23:25:51
+Code: 42S22
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'process_score' in 'field list' (SQL: INSERT INTO
+                participate
+            (
+                id_module_class, id_student, process_score, test_score,
+                theoretical_score, status_studying
+            )
+            VALUES
+                (MHT06.3-2-20-2 (N01),160704557),(MHT06.3-2-20-2 (N01),171202883),(MHT06.3-2-20-2 (N01),181230369),(MHT06.3-2-20-2 (N01),171201440),(MHT06.3-2-20-2 (N01),181201683),(MHT06.3-2-20-2 (N01),181211817),(MHT06.3-2-20-2 (N01),181200814),(MHT06.3-2-20-2 (N01),171211424),(MHT06.3-2-20-2 (N01),181200916),(MHT06.3-2-20-2 (N01),181201611),(MHT06.3-2-20-2 (N01),171200013),(MHT06.3-2-20-2 (N01),171201648),(MHT06.3-2-20-2 (N01),171201636),(MHT06.3-2-20-2 (N01),181210613),(MHT06.3-2-20-2 (N01),181203918),(MHT06.3-2-20-2 (N01),181200770),(MHT06.3-2-20-2 (N01),171200455),(MHT06.3-2-20-2 (N01),181201226),(MHT06.3-2-20-2 (N01),181203531),(MHT06.3-2-20-2 (N01),881891002),(MHT06.3-2-20-2 (N01),171212668),(MHT06.3-2-20-2 (N01),171201228),(MHT06.3-2-20-2 (N01),171212200),(MHT06.3-2-20-2 (N01),151211669),(MHT06.3-2-20-2 (N01),171201944),(MHT06.3-2-20-2 (N01),171201468),(MHT06.3-2-20-2 (N01),171510196),(MHT06.3-2-20-2 (N01),181203243),(MHT06.3-2-20-2 (N01),181202020),(MHT06.3-2-20-2 (N01),181203244),(MHT06.3-2-20-2 (N01),181202916),(MHT06.3-2-20-2 (N01),181213609),(MHT06.3-2-20-2 (N01),181202886),(MHT06.3-2-20-2 (N01),181203827),(MHT06.3-2-20-2 (N01),181200582),(MHT06.3-2-20-2 (N01),171201348),(MHT06.3-2-20-2 (N01),181201176),(MHT06.3-2-20-2 (N01),181201589),(MHT06.3-2-20-2 (N01),181201905),(MHT06.3-2-20-2 (N01.BT1),160704557),(MHT06.3-2-20-2 (N01.BT1),171202883),(MHT06.3-2-20-2 (N01.BT1),181230369),(MHT06.3-2-20-2 (N01.BT1),171201440),(MHT06.3-2-20-2 (N01.BT1),181201683),(MHT06.3-2-20-2 (N01.BT1),181211817),(MHT06.3-2-20-2 (N01.BT1),181200814),(MHT06.3-2-20-2 (N01.BT1),171211424),(MHT06.3-2-20-2 (N01.BT1),181200916),(MHT06.3-2-20-2 (N01.BT1),181201611),(MHT06.3-2-20-2 (N01.BT1),171200013),(MHT06.3-2-20-2 (N01.BT1),171201648),(MHT06.3-2-20-2 (N01.BT1),171201636),(MHT06.3-2-20-2 (N01.BT1),181210613),(MHT06.3-2-20-2 (N01.BT1),181203918),(MHT06.3-2-20-2 (N01.BT1),181200770),(MHT06.3-2-20-2 (N01.BT1),171200455),(MHT06.3-2-20-2 (N01.BT1),181201226),(MHT06.3-2-20-2 (N01.BT1),181203531),(MHT06.3-2-20-2 (N01.BT1),881891002),(MHT06.3-2-20-2 (N01.BT1),171212668),(MHT06.3-2-20-2 (N01.BT1),171201228),(MHT06.3-2-20-2 (N01.BT1),171212200),(MHT06.3-2-20-2 (N01.BT1),151211669),(MHT06.3-2-20-2 (N01.BT1),171201944),(MHT06.3-2-20-2 (N01.BT1),171201468),(MHT06.3-2-20-2 (N01.BT1),171510196),(MHT06.3-2-20-2 (N01.BT1),181203243),(MHT06.3-2-20-2 (N01.BT1),181202020),(MHT06.3-2-20-2 (N01.BT1),181203244),(MHT06.3-2-20-2 (N01.BT1),181202916),(MHT06.3-2-20-2 (N01.BT1),181213609),(MHT06.3-2-20-2 (N01.BT1),181202886),(MHT06.3-2-20-2 (N01.BT1),181203827),(MHT06.3-2-20-2 (N01.BT1),181200582),(MHT06.3-2-20-2 (N01.BT1),171201348),(MHT06.3-2-20-2 (N01.BT1),181201176),(MHT06.3-2-20-2 (N01.BT1),181201589),(MHT06.3-2-20-2 (N01.BT1),181201905),(MHT06.3-2-20-2 (N01.TH1),160704557),(MHT06.3-2-20-2 (N01.TH1),171202883),(MHT06.3-2-20-2 (N01.TH1),181230369),(MHT06.3-2-20-2 (N01.TH1),171201440),(MHT06.3-2-20-2 (N01.TH1),181201683),(MHT06.3-2-20-2 (N01.TH1),181211817),(MHT06.3-2-20-2 (N01.TH1),181200814),(MHT06.3-2-20-2 (N01.TH1),171211424),(MHT06.3-2-20-2 (N01.TH1),181200916),(MHT06.3-2-20-2 (N01.TH1),181201611),(MHT06.3-2-20-2 (N01.TH1),171200013),(MHT06.3-2-20-2 (N01.TH1),171201648),(MHT06.3-2-20-2 (N01.TH1),171201636),(MHT06.3-2-20-2 (N01.TH1),181210613),(MHT06.3-2-20-2 (N01.TH1),181203918),(MHT06.3-2-20-2 (N01.TH1),181200770),(MHT06.3-2-20-2 (N01.TH1),171200455),(MHT06.3-2-20-2 (N01.TH1),181201226),(MHT06.3-2-20-2 (N01.TH1),181203531),(MHT06.3-2-20-2 (N01.TH1),881891002),(MHT06.3-2-20-2 (N01.TH1),171212668),(MHT06.3-2-20-2 (N01.TH1),171201228),(MHT06.3-2-20-2 (N01.TH1),171212200),(MHT06.3-2-20-2 (N01.TH1),151211669),(MHT06.3-2-20-2 (N01.TH1),171201944),(MHT06.3-2-20-2 (N01.TH1),171201468),(MHT06.3-2-20-2 (N01.TH1),171510196),(MHT06.3-2-20-2 (N01.TH1),181203243),(MHT06.3-2-20-2 (N01.TH1),181202020),(MHT06.3-2-20-2 (N01.TH1),181203244),(MHT06.3-2-20-2 (N01.TH1),181202916),(MHT06.3-2-20-2 (N01.TH1),181213609),(MHT06.3-2-20-2 (N01.TH1),181202886),(MHT06.3-2-20-2 (N01.TH1),181203827),(MHT06.3-2-20-2 (N01.TH1),181200582),(MHT06.3-2-20-2 (N01.TH1),171201348),(MHT06.3-2-20-2 (N01.TH1),181201176),(MHT06.3-2-20-2 (N01.TH1),181201589),(MHT06.3-2-20-2 (N01.TH1),181201905)
+            ON DUPLICATE KEY UPDATE id_student = id_student)
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Database\Connection.php  692
+=========================================================================================

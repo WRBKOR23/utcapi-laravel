@@ -55,27 +55,27 @@ class LoginWebService extends ALoginService
         {
             case 1:
                 $data       = $this->teacherDepository->get($id_account);
-                $data->Name = 'Gv.' . $data->Name_Teacher;
+                $data->name = 'Gv.' . $data->teacher_name;
                 break;
 
             case 2:
                 $data       = $this->departmentDepository->get($id_account);
-                $data->Name = 'Bộ môn ' . $data->Department_Name;
+                $data->name = 'Bộ môn ' . $data->department_name;
                 break;
             case 3:
                 $data       = $this->facultyDepository->get($id_account);
-                $data->Name = 'Khoa ' . $data->Faculty_Name;
+                $data->name = 'Khoa ' . $data->faculty_name;
                 break;
 
             case 4:
                 $data       = $this->otherDepartmentDepository->get($id_account);
-                $data->Name = $data->Other_Department_Name;
+                $data->name = $data->other_department_name;
                 break;
 
             default:
                 throw new InvalidAccountException();
 
         }
-        $this->_setSession($data->ID_Account, $data->Name);
+        $this->_setSession($data->id_account, $data->name);
     }
 }

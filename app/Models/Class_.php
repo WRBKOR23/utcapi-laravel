@@ -17,10 +17,10 @@ class Class_ extends Model
     public function getAcademicYear (): array
     {
         return DB::table('class')
-            ->orderBy('Academic_Year', 'desc')
+            ->orderBy('academic_year', 'desc')
             ->limit(9)
             ->distinct()
-            ->pluck('Academic_Year')
+            ->pluck('academic_year')
             ->toArray();
     }
 
@@ -29,11 +29,11 @@ class Class_ extends Model
         $this->_createTemporaryTable($academic_year_list);
 
         return DB::table('class as c')
-            ->join('temp as t', 'c.Academic_Year', '=', 't.Academic_Year')
-            ->orderBy('Academic_Year')
-            ->orderBy('ID_Faculty')
-            ->orderBy('ID_Class')
-            ->select('c.Academic_Year', 'ID_Faculty', 'ID_Class')
+            ->join('temp as t', 'c.academic_year', '=', 't.academic_year')
+            ->orderBy('academic_year')
+            ->orderBy('id_faculty')
+            ->orderBy('id_class')
+            ->select('c.academic_year', 'id_faculty', 'id_class')
             ->get();
     }
 
@@ -41,13 +41,13 @@ class Class_ extends Model
     {
         $sql_query =
             'CREATE TEMPORARY TABLE temp (
-                  Academic_Year varchar(3) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+                  academic_year varchar(3) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci';
 
         $arr = [];
         foreach ($academic_year_list as $academic_year)
         {
-            $arr[] = ['Academic_Year' => $academic_year];
+            $arr[] = ['academic_year' => $academic_year];
         }
 
         DB::unprepared($sql_query);
@@ -59,7 +59,7 @@ class Class_ extends Model
     public function upsert($data)
     {
         DB::table(self::table)
-            ->updateOrInsert(['ID_Class' => $data['ID_Class']],$data);
+            ->updateOrInsert(['id_class' => $data['id_class']],$data);
     }
 
     public function insertMultiple ($part_of_sql, $data)
@@ -68,11 +68,11 @@ class Class_ extends Model
             'INSERT INTO
                 ' . self::table . '
             (
-                ID_Class, Academic_Year, Class_Name, ID_Faculty
+                id_class, academic_year, Class_Name, id_faculty
             )
             VALUES
                 ' . $part_of_sql . '
-            ON DUPLICATE KEY UPDATE ID_Class = ID_Class';
+            ON DUPLICATE KEY UPDATE id_class = id_class';
 
         DB::insert($sql_query, $data);
     }

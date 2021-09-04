@@ -5,17 +5,17 @@ namespace App\Depositories;
 
 
 use App\Depositories\Contracts\FixDepositoryContract;
-use App\Models\Fix;
+use App\Models\FixSchedule;
 
 class FixDepository implements Contracts\FixDepositoryContract
 {
-    private Fix $model;
+    private FixSchedule $model;
 
     /**
      * Fix constructor.
-     * @param Fix $model
+     * @param FixSchedule $model
      */
-    public function __construct (Fix $model)
+    public function __construct (FixSchedule $model)
     {
         $this->model = $model;
     }

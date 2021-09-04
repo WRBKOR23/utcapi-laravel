@@ -13,7 +13,7 @@ class Student extends Model
     public function get ($id_account)
     {
         return DB::table(self::table)
-            ->where('ID_Account', '=', $id_account)
+            ->where('id_account', '=', $id_account)
             ->get()
             ->first();
     }
@@ -23,8 +23,8 @@ class Student extends Model
         $this->_createTemporaryTable($class_list);
 
         return DB::table(self::table_as)
-            ->join('temp', 'stu.ID_Class', 'temp.ID_Class')
-            ->pluck('ID_Student')
+            ->join('temp', 'stu.id_class', 'temp.id_class')
+            ->pluck('id_student')
             ->toArray();
     }
 
@@ -32,7 +32,7 @@ class Student extends Model
     {
         $sql_query_1 =
             'CREATE TEMPORARY TABLE temp (
-                  ID_Class varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+                  id_class varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci';
 
         $sql_of_list =
@@ -40,7 +40,7 @@ class Student extends Model
 
         $sql_query_2 =
             'INSERT INTO temp
-                    (ID_Class)
+                    (id_class)
                 VALUES
                     ' . $sql_of_list;
 
@@ -61,12 +61,12 @@ class Student extends Model
             'INSERT INTO
                 ' . self::table . '
             (
-                ID_Student, Student_Name, DoB_Student, ID_Class,
-                ID_Card_Number, Phone_Number_Student, Address_Student
+                id_student, student_name, birth, id_class,
+                id_card_number, phone_number, address
             )
             VALUES
                 ' . $part_of_sql . '
-            ON DUPLICATE KEY UPDATE ID_Student = ID_Student';
+            ON DUPLICATE KEY UPDATE id_student = id_student';
 
         DB::insert($sql_query, $data);
     }
@@ -75,15 +75,15 @@ class Student extends Model
     {
         $sql_query =
             'UPDATE
-                student
+                student as stu
             INNER JOIN
-                account
+                account as acc
             ON
-                ID_Student = username
+                id_student = username
             SET
-                ID_Account = id
+                stu.id_account = acc.id_account
             WHERE
-                ID_Student IN (' . $part_of_sql . ')';
+                id_student IN (' . $part_of_sql . ')';
 
         DB::update($sql_query, $data);
     }

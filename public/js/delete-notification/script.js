@@ -1,7 +1,7 @@
 import {fetchData, postData} from '../shared_functions.js'
 import {raiseBackEndError, raiseEmptyFieldError, raiseSuccess} from '../alerts.js'
 
-let id_sender = $('[name="_id"]').val()
+let id_sender = $('[name="id_"]').val()
 let data
 let selectedNoti = []
 let num = 0
@@ -51,14 +51,14 @@ function createScrollList ()
         let colTag5 = createColumn('time-start')
         let colTag6 = createColumn('time-end')
 
-        let extractedContent = extractContent(e.Content)
+        let extractedContent = extractContent(e.content)
 
-        colTag1.append(createCheckBox(e.ID_Notification))
-        colTag2.append(createLabel(e.Title, e.ID_Notification))
-        colTag3.append(createLabel(extractedContent[0], e.ID_Notification))
-        colTag4.append(createLabel(formatDate(e.Time_Create), e.ID_Notification))
-        colTag5.append(createLabel(formatDate(e.Time_Start), e.ID_Notification))
-        colTag6.append(createLabel(formatDate(e.Time_End), e.ID_Notification))
+        colTag1.append(createCheckBox(e.id_notification))
+        colTag2.append(createLabel(e.title, e.id_notification))
+        colTag3.append(createLabel(extractedContent[0], e.id_notification))
+        colTag4.append(createLabel(formatDate(e.time_create), e.id_notification))
+        colTag5.append(createLabel(formatDate(e.time_start), e.id_notification))
+        colTag6.append(createLabel(formatDate(e.time_end), e.id_notification))
 
         if (extractedContent[1] !== '')
         {

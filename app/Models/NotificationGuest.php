@@ -39,7 +39,7 @@ class NotificationGuest extends Model
             {
                 $join->on('od.ID_Account', '=', 'noti.ID_Sender');
             })
-            ->join(Account::table_as, 'od.ID_Account', '=', 'acc.id')
+            ->join(Account::table_as, 'od.ID_Account', '=', 'acc.id_account')
             ->select('noti.*',
                      'od.Other_Department_Name as Sender_Name',
                      'acc.permission');
@@ -49,7 +49,7 @@ class NotificationGuest extends Model
             {
                 $join->on('dep.ID_Account', '=', 'noti.ID_Sender');
             })
-            ->join(Account::table_as, 'dep.ID_Account', '=', 'acc.id')
+            ->join(Account::table_as, 'dep.ID_Account', '=', 'acc.id_account')
             ->select('noti.*',
                      'dep.Department_Name as Sender_Name',
                      'acc.permission');
@@ -59,7 +59,7 @@ class NotificationGuest extends Model
             {
                 $join->on('fac.ID_Account', '=', 'noti.ID_Sender');
             })
-            ->join(Account::table_as, 'fac.ID_Account', '=', 'acc.id')
+            ->join(Account::table_as, 'fac.ID_Account', '=', 'acc.id_account')
             ->select('noti.*',
                      DB::raw('CONCAT(\'Khoa \', fac.Faculty_Name) as Sender_Name'),
                      'acc.permission');
@@ -69,7 +69,7 @@ class NotificationGuest extends Model
             {
                 $join->on('tea.ID_Account', '=', 'noti.ID_Sender');
             })
-            ->join(Account::table_as, 'tea.ID_Account', '=', 'acc.id')
+            ->join(Account::table_as, 'tea.ID_Account', '=', 'acc.id_account')
             ->select('noti.*',
                      DB::raw('concat(\'Gv.\', tea.Name_Teacher) as Sender_Name'),
                      'acc.permission')

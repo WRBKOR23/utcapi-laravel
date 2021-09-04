@@ -63,13 +63,13 @@ class SharedFunctions
     public static function setUpNotificationData ($notification): array
     {
         return [
-            'Title' => SharedFunctions::formatString($notification['title']),
-            'Content' => SharedFunctions::formatString($notification['content']),
-            'Typez' => $notification['typez'],
-            'ID_Sender' => $notification['id_sender'],
-            'Time_Create' => SharedFunctions::getDateTimeNow(),
-            'Time_Start' => $notification['time_start'],
-            'Time_End' => $notification['time_end']
+            'title' => SharedFunctions::formatString($notification['title']),
+            'content' => SharedFunctions::formatString($notification['content']),
+            'type' => $notification['type'],
+            'id_sender' => $notification['id_sender'],
+            'time_create' => SharedFunctions::getDateTimeNow(),
+            'time_start' => $notification['time_start'],
+            'time_end' => $notification['time_end']
         ];
     }
 
@@ -82,8 +82,8 @@ class SharedFunctions
         foreach ($id_account_list as $id_account)
         {
             $arr[] = [
-                'ID_Notification' => $id_notification,
-                'ID_Account' => $id_account
+                'id_notification' => $id_notification,
+                'id_account' => $id_account
             ];
         }
 
@@ -152,11 +152,11 @@ class SharedFunctions
         {
             $response['notification'][$i] = $data[$i];
 
-            $response['sender'][$i]['ID_Sender']   = $data[$i]->ID_Sender;
-            $response['sender'][$i]['Sender_Name'] = $data[$i]->Sender_Name;
+            $response['sender'][$i]['id_sender']   = $data[$i]->id_sender;
+            $response['sender'][$i]['sender_name'] = $data[$i]->sender_name;
             $response['sender'][$i]['permission']  = $data[$i]->permission;
 
-            unset($response['notification'][$i]->Sender_Name);
+            unset($response['notification'][$i]->sender_name);
             unset($response['notification'][$i]->permission);
         }
 

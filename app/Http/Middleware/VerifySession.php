@@ -21,7 +21,7 @@ class VerifySession
         if (session('ttl') === null
             || time() > session('ttl'))
         {
-            Session::forget('user_name');
+            Session::forget('username');
             Session::forget('id_account');
             Session::forget('ttl');
 

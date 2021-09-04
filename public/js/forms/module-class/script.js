@@ -8,34 +8,34 @@ const moduleClassId = $('#module-class-id')
 const fieldList = {
     title: 'Tiêu đề',
     content: 'Nội dung',
-    typez: 'Loại thông báo'
+    type: 'Loại thông báo'
 }
 
 const templateNoti = {
     study: {
         title: 'Học tập',
         content: 'Nội dung thông báo học tập',
-        typez: 0
+        type: 0
     },
     fee: {
         title: 'Học phí',
         content: 'Nội dung thông báo học phí',
-        typez: 1
+        type: 1
     },
     extracurricular: {
         title: 'Thông báo ngoại khóa',
         content: 'Nội dung thông báo ngoại khóa',
-        typez: 2
+        type: 2
     },
     social_payment: {
         title: 'Chi trả xã hội',
         content: 'Nội dung thông báo chi trả xã hội',
-        typez: 3
+        type: 3
     },
     others: {
         title: 'Thông báo khác',
         content: 'Nội dung thông báo khác',
-        typez: 4
+        type: 4
     }
 }
 
@@ -75,7 +75,7 @@ async function loadData ()
 
     data.forEach((row, index) =>
     {
-        moduleClassIdList.push({id: index, text: row['ID_Module_Class']})
+        moduleClassIdList.push({id: index, text: row['id_module_class']})
     })
 }
 
@@ -104,15 +104,15 @@ async function pushNotification ()
     let csrf_token = $('[name="_token"]').attr('content')
     let title = $('#title').val()
     let content = $('#content').val()
-    let typez = $('#type').val()
-    let id_sender = $('[name="_id"]').val()
+    let type = $('#type').val()
+    let id_sender = $('[name="id_"]').val()
 
     const data = {
         token: csrf_token,
         info: {
             title: title,
             content: content,
-            typez: typez,
+            type: type,
             time_start: timeStartRsBtClass === 'disable' ? null : $('#time-start').val() + ' 00:00:00.00',
             time_end: timeEndRsBtClass === 'disable' ? null : $('#time-end').val() + '  23:59:59.00',
             id_sender: id_sender

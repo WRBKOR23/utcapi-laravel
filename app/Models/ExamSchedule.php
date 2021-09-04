@@ -17,10 +17,10 @@ class ExamSchedule extends Model
     public function get ($id_student) : Collection
     {
         return DB::connection('mysql2')->table(self::table)
-            ->where('ID_Student', '=', $id_student)
-            ->orderBy('Date_Start')
-            ->select('ID', 'School_Year', 'Module_Name', 'Credit', 'Date_Start',
-                'Time_Start', 'Method', 'Identification_Number', 'Room')
+            ->where('id_student', '=', $id_student)
+            ->orderBy('date_start')
+            ->select('id_exam_schedule', 'school_year', 'module_name', 'credit', 'date_start',
+                'time_start', 'method', 'identification_number', 'room')
             ->get();
     }
 
@@ -34,9 +34,9 @@ class ExamSchedule extends Model
     {
         DB::connection('mysql2')->table(self::table)
             ->updateOrInsert([
-                'School_Year' => $data['School_Year'],
-                'ID_Module' => $data['ID_Module'],
-                'ID_Student' => $data['ID_Student']
+                'school_year' => $data['school_year'],
+                'id_module' => $data['id_module'],
+                'id_student' => $data['id_student']
             ], $data);
     }
 }

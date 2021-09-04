@@ -15,8 +15,8 @@ class DataVersionStudent extends Model
     public function get ($id_student)
     {
         return DB::table(self::table)
-            ->where('ID_Student', '=', $id_student)
-            ->select('Schedule', 'Notification', 'Module_Score', 'Exam_Schedule')
+            ->where('id_student', '=', $id_student)
+            ->select('schedule', 'notification', 'module_score', 'exam_schedule')
             ->get()
             ->first();
     }
@@ -24,26 +24,26 @@ class DataVersionStudent extends Model
     public function updateDataVersion ($id_student, $type)
     {
         DB::table(self::table)
-            ->where('ID_Student', '=', $id_student)
+            ->where('id_student', '=', $id_student)
             ->increment($type);
     }
 
     public function updateMultiple ($id_notification)
     {
         $stu_na = DB::table(NotificationAccount::table_as)
-            ->join(Student::table_as, 'stu.ID_Account', '=', 'na.ID_Account')
-            ->where('na.ID_Notification', '=', $id_notification)
-            ->select('ID_Student');
+            ->join(Student::table_as, 'stu.id_account', '=', 'na.id_account')
+            ->where('na.id_notification', '=', $id_notification)
+            ->select('id_student');
 
         DB::table(self::table_as)
-            ->joinSub($stu_na, 'stu_na', 'dvs.ID_Student', '=', 'stu_na.ID_Student')
-            ->increment('Notification');
+            ->joinSub($stu_na, 'stu_na', 'dvs.id_student', '=', 'stu_na.id_student')
+            ->increment('notification');
     }
 
     public function updateMultiple2 ($id_student_list, $column_name)
     {
         DB::table(self::table_as)
-            ->whereIn('ID_Student', $id_student_list)
+            ->whereIn('id_student', $id_student_list)
             ->increment($column_name);
     }
 
@@ -53,11 +53,11 @@ class DataVersionStudent extends Model
             'INSERT INTO
                 ' . self::table . '
             (
-                ID_Student, Schedule, Notification, Module_Score, Exam_Schedule
+                id_student, schedule, notification, module_score, exam_schedule
             )
             VALUES
                 ' . $part_of_sql . '
-            ON DUPLICATE KEY UPDATE ID_Student = ID_Student';
+            ON DUPLICATE KEY UPDATE id_student = id_student';
 
         DB::insert($sql_query, $data);
     }
