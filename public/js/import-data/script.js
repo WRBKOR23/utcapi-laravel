@@ -137,6 +137,7 @@ function refreshToken(response)
 {
     if (response.headers.get('Authorization') !== null)
     {
-        localStorage.setItem('a_t', response.headers.get('Authorization'))
+        let token = response.headers.get('Authorization')
+        localStorage.setItem('a_t', token.slice(7))
     }
 }

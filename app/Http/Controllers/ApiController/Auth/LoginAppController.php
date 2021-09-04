@@ -43,6 +43,6 @@ class LoginAppController extends Controller
 
         return response(json_encode($data['data']))
             ->header('Content-Type', 'application/json')
-            ->header('Authorization', $data['access_token']);
+            ->header('Authorization', 'Bearer ' . $data['access_token']);
     }
 }
