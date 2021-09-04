@@ -4,5 +4,5 @@
 
     interface DeviceServiceContract
     {
-        public function upsert ($id_student, $device_token);
+        public function upsert ($id_account, $device_token);
     }

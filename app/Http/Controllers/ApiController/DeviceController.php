@@ -30,6 +30,6 @@
         public function updateDeviceToken (Request $request)
         {
             $this->form->validate($request);
-            $this->deviceService->upsert($request->id_student, $request->device_token);
+            $this->deviceService->upsert($request->id_account, $request->device_token);
         }
     }

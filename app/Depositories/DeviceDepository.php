@@ -33,9 +33,9 @@
             $this->model->deleteMultiple($device_token_list);
         }
 
-        public function upsert ($id_student, $device_token, $curr_time)
+        public function upsert ($id_account, $device_token, $curr_time)
         {
-            $this->model->upsert($id_student, $device_token, $curr_time);
+            $this->model->upsert($id_account, $device_token, $curr_time);
         }
 
     }

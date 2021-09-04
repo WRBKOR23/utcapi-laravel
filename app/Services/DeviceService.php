@@ -21,10 +21,10 @@ class DeviceService implements DeviceServiceContract
     }
 
 
-    public function upsert ($id_student, $device_token)
+    public function upsert ($id_account, $device_token)
     {
         $curr_time = $this->_getCurrentTime();
-        $this->deviceDepository->upsert($id_student, $device_token, $curr_time);
+        $this->deviceDepository->upsert($id_account, $device_token, $curr_time);
     }
 
     private function _getCurrentTime ()
