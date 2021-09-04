@@ -30,16 +30,16 @@ class NotifyService implements NotifyServiceContract
      * @throws MessagingException
      * @throws FirebaseException
      */
-    public function sendNotification ($noti, $id_student_list)
+    public function sendNotification ($noti, $id_account_list)
     {
-        $device_token_list = $this->_getDeviceTokens($id_student_list);
+        $device_token_list = $this->_getDeviceTokens($id_account_list);
         $invalid_dt_list   = $this->_send($noti, $device_token_list);
         $this->_deleteInvalidTokens($invalid_dt_list);
     }
 
-    private function _getDeviceTokens ($id_student_list)
+    private function _getDeviceTokens ($id_account_list)
     {
-        return $this->deviceDepository->getTokens($id_student_list);
+        return $this->deviceDepository->getTokens($id_account_list);
     }
 
     /**

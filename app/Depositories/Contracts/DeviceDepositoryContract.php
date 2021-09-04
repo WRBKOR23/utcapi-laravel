@@ -4,7 +4,7 @@
 
     interface DeviceDepositoryContract
     {
-        public function getTokens($id_student_list);
+        public function getTokens($id_account_list);
 
         public function deleteMultiple ($device_token_list);
 

@@ -18,8 +18,8 @@
         {
             return DB::connection('mysql2')->table(self::table)
                 ->where('id_student', '=', $id_student)
-                ->select('ID', 'school_year', 'module_name', 'credit', 'evaluation',
-                    'process_Score', 'test_Score', 'theoretical_Score')
+                ->select('id_module_score', 'school_year', 'module_name', 'credit', 'evaluation',
+                    'process_score', 'test_score', 'theoretical_score')
                 ->get();
         }
 

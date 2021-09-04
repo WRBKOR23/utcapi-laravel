@@ -29,7 +29,7 @@ class NotificationController extends Controller
     {
         $this->form                = $pushNotificationForm;
         $this->notificationService = $notificationService;
-        $this->notifyService        = $notifyService;
+        $this->notifyService       = $notifyService;
     }
 
     public function getNotifications ($id_sender, $num)
@@ -44,10 +44,10 @@ class NotificationController extends Controller
     {
         $this->form->validate($request);
 
-        $data = $this->notificationService->pushNotificationBFC($request->info, $request->class_list);
-        $this->notifyService->sendNotification($request->info, $data[1]);
+        $id_account_list = $this->notificationService->pushNotificationBFC($request->info, $request->class_list);
+        $this->notifyService->sendNotification($request->info, $id_account_list);
 
-        return response(json_encode($data[0]));
+        return response('');
     }
 
     /**
@@ -57,10 +57,10 @@ class NotificationController extends Controller
     {
         $this->form->validate($request);
 
-        $data = $this->notificationService->pushNotificationBMC($request->info, $request->class_list);
-        $this->notifyService->sendNotification($request->info, $data[1]);
+        $id_account_list = $this->notificationService->pushNotificationBMC($request->info, $request->class_list);
+        $this->notifyService->sendNotification($request->info, $id_account_list);
 
-        return response(json_encode($data[0]));
+        return response('');
     }
 
     public function deleteNotifications (Request $request)

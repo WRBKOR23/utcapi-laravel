@@ -15,13 +15,13 @@
             $this->model = $model;
         }
 
-        public function getTokens ($id_student_list) : array
+        public function getTokens ($id_account_list) : array
         {
-            if (empty($id_student_list)) {
+            if (empty($id_account_list)) {
                 return [];
             }
 
-            return $this->model->getDeviceTokens($id_student_list);
+            return $this->model->getDeviceTokens($id_account_list);
         }
 
         public function deleteMultiple ($device_token_list)
