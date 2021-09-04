@@ -7,7 +7,7 @@ namespace App\Http\RequestForm;
 class UpdateDeviceTokenForm extends BaseForm
 {
 
-    protected function getRules ()
+    protected function getRules (): array
     {
         return [
             'id_student'   => 'required',

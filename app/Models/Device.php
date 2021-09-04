@@ -35,8 +35,6 @@
             DB::table(self::table)
                 ->updateOrInsert([
                     'device_token' => $device_token,
-                    'id_student' => $id_student,
-                    'last_use' => $curr_time
                 ], [
                     'id_student' => $id_student,
                     'last_use' => $curr_time

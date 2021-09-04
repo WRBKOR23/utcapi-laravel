@@ -53,6 +53,12 @@ Route::middleware('cus.auth')->group(function ()
 
         Route::post('change-password', [AccountController::class, 'changePassword']);
     });
+
+    Route::group(['prefix' => 'device'], function ()
+    {
+        Route::post('upsert-device-token', [DeviceController::class, 'updateDeviceToken']);
+    });
+
     /**
      * @Student----------------------------------------------------------------------------
      */
@@ -63,7 +69,6 @@ Route::middleware('cus.auth')->group(function ()
 
         Route::get('data-version/{id_student}', [DataVersionStudentController::class, 'getDataVersion']);
 
-        Route::post('device/upsert', [DeviceController::class, 'updateDeviceToken']);
 
         Route::get('notification/{id_account}/{id_notification?}', [NotificationController::class, 'getNotifications']);
 
