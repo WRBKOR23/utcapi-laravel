@@ -19,30 +19,30 @@ class VerifyJWTToken extends BaseMiddleware
      */
     public function handle (Request $request, Closure $next)
     {
-        $this->checkForToken($request);
-
-        try
-        {
-            if (!$this->auth->parseToken()->authenticate())
-            {
-                throw new UnauthorizedHttpException('jwt-auth', 'User not found');
-            }
-        }
-        catch (JWTException $e)
-        {
-            try
-            {
-                $token    = $this->auth->parseToken()->refresh();
-                $response = $next($request);
-
-//                Send the refreshed token back to the client .
-                return $this->setAuthenticationHeader($response, $token);
-            }
-            catch (JWTException $e)
-            {
-                throw new UnauthorizedHttpException('jwt-auth', $e->getMessage(), $e, $e->getCode());
-            }
-        }
+//        $this->checkForToken($request);
+//
+//        try
+//        {
+//            if (!$this->auth->parseToken()->authenticate())
+//            {
+//                throw new UnauthorizedHttpException('jwt-auth', 'User not found');
+//            }
+//        }
+//        catch (JWTException $e)
+//        {
+//            try
+//            {
+//                $token    = $this->auth->parseToken()->refresh();
+//                $response = $next($request);
+//
+////                Send the refreshed token back to the client .
+//                return $this->setAuthenticationHeader($response, $token);
+//            }
+//            catch (JWTException $e)
+//            {
+//                throw new UnauthorizedHttpException('jwt-auth', $e->getMessage(), $e, $e->getCode());
+//            }
+//        }
 
         return $next($request);
     }

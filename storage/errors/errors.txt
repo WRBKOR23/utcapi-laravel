@@ -317,3 +317,68 @@ SQLSTATE[42S22]: Column not found: 1054 Unknown column 'process_score' in 'field
             ON DUPLICATE KEY UPDATE id_student = id_student)
 C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Database\Connection.php  692
 =========================================================================================
+04/09/2021 15:15:35
+Code: 0
+Token has expired and can no longer be refreshed
+C:\xampp\htdocs\laravel-begin\app\Http\Middleware\VerifyJWTToken.php  43
+=========================================================================================
+04/09/2021 15:15:43
+Code: 0
+Token has expired and can no longer be refreshed
+C:\xampp\htdocs\laravel-begin\app\Http\Middleware\VerifyJWTToken.php  43
+=========================================================================================
+04/09/2021 15:18:46
+Code: 0
+The token has been blacklisted
+C:\xampp\htdocs\laravel-begin\app\Http\Middleware\VerifyJWTToken.php  43
+=========================================================================================
+04/09/2021 15:19:02
+Code: 0
+The token has been blacklisted
+C:\xampp\htdocs\laravel-begin\app\Http\Middleware\VerifyJWTToken.php  43
+=========================================================================================
+04/09/2021 15:20:17
+Code: 0
+Token Signature could not be verified.
+C:\xampp\htdocs\laravel-begin\app\Http\Middleware\VerifyJWTToken.php  43
+=========================================================================================
+04/09/2021 15:20:46
+Code: 0
+Token Signature could not be verified.
+C:\xampp\htdocs\laravel-begin\app\Http\Middleware\VerifyJWTToken.php  43
+=========================================================================================
+04/09/2021 15:21:00
+Code: 0
+Token Signature could not be verified.
+C:\xampp\htdocs\laravel-begin\app\Http\Middleware\VerifyJWTToken.php  43
+=========================================================================================
+04/09/2021 15:21:05
+Code: 0
+The token has been blacklisted
+C:\xampp\htdocs\laravel-begin\app\Http\Middleware\VerifyJWTToken.php  43
+=========================================================================================
+04/09/2021 15:21:15
+Code: 0
+The token has been blacklisted
+C:\xampp\htdocs\laravel-begin\app\Http\Middleware\VerifyJWTToken.php  43
+=========================================================================================
+04/09/2021 15:21:26
+Code: 0
+The token has been blacklisted
+C:\xampp\htdocs\laravel-begin\app\Http\Middleware\VerifyJWTToken.php  43
+=========================================================================================
+04/09/2021 15:31:04
+Code: 0
+
+C:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Routing\AbstractRouteCollection.php  43
+=========================================================================================
+04/09/2021 15:31:15
+Code: 0
+Token has expired and can no longer be refreshed
+C:\xampp\htdocs\laravel-begin\app\Http\Middleware\VerifyJWTToken.php  43
+=========================================================================================
+04/09/2021 15:39:35
+Code: 0
+The token has been blacklisted
+C:\xampp\htdocs\laravel-begin\app\Http\Middleware\VerifyJWTToken.php  43
+=========================================================================================

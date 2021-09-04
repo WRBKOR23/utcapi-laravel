@@ -2,26 +2,35 @@
 
 namespace App\Services;
 
+use App\BusinessClass\CrawlQLDTData;
 use App\Depositories\Contracts\AccountDepositoryContract;
 use App\Depositories\Contracts\StudentDepositoryContract;
 use App\Exceptions\InvalidAccountException;
 use App\Services\Contracts\AccountServiceContract;
+use Exception;
 
 class AccountService implements AccountServiceContract
 {
+    private CrawlQLDTData $crawl;
     private AccountDepositoryContract $accountDepository;
 
     /**
      * AccountService constructor.
+     * @param CrawlQLDTData $crawl
      * @param AccountDepositoryContract $accountDepository
      */
-    public function __construct (AccountDepositoryContract $accountDepository)
+    public function __construct (CrawlQLDTData $crawl, AccountDepositoryContract $accountDepository)
     {
+        $this->crawl             = $crawl;
         $this->accountDepository = $accountDepository;
     }
 
+    /**
+     * @throws Exception
+     */
     public function updateQLDTPassword ($username, $qldt_password)
     {
+        $this->crawl->loginQLDT($username, $qldt_password);
         $this->accountDepository->updateQLDTPassword($username, md5($qldt_password));
     }
 
