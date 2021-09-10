@@ -68,7 +68,7 @@ class Class_ extends Model
             'INSERT INTO
                 ' . self::table . '
             (
-                id_class, academic_year, Class_Name, id_faculty
+                id_class, academic_year, class_name, id_faculty
             )
             VALUES
                 ' . $part_of_sql . '
