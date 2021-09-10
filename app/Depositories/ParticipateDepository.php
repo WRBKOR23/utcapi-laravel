@@ -21,21 +21,8 @@ class ParticipateDepository implements ParticipateDepositoryContract
         return $this->model->getIDStudentsByModuleClass($class_list);
     }
 
-    public function insertMultiple ($part_of_sql, $data): bool
+    public function insertMultiple ($part_of_sql, $data)
     {
-        try
-        {
-            $this->model->insertMultiple($part_of_sql, $data);
-            return true;
-        }
-        catch (PDOException $error)
-        {
-            if ($error->getCode() == 23000
-                && $error->errorInfo[1] == 1452)
-            {
-                return false;
-            }
-            throw $error;
-        }
+        $this->model->insertMultiple($part_of_sql, $data);
     }
 }

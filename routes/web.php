@@ -105,4 +105,4 @@ Route::get('/optimize', function () {
     Artisan::call('optimize');
 });
 
-Route::get('test/{file}', [TestController::class, 'test'])->name('a');
+Route::get('test', [TestController::class, 'test'])->name('a');

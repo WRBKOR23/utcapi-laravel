@@ -17,14 +17,8 @@ class SharedFunctions
         file_put_contents(config('filesystems.disks.errors.file_path'), $message, FILE_APPEND);
     }
 
-    public static function printFileImportException ($file_name, $module_class_list, $title)
+    public static function printFileImportException ($file_name,$message)
     {
-        $message = $title . PHP_EOL;
-        foreach ($module_class_list as $module_class)
-        {
-            $message .= $module_class . PHP_EOL;
-        }
-
         file_put_contents(storage_path('app/public/excels/errors/') . $file_name, $message);
     }
 

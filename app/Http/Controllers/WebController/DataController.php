@@ -25,20 +25,11 @@ class DataController extends Controller
      */
     public function process1 (Request $request)
     {
-        $data = $this->dataService->process1($request->file);
-
-        if (!empty($data[1]))
-        {
-            return response($data, 201);
-        }
-
-        return response($data);
+        return $this->dataService->process1($request->file);
     }
 
     public function process2 (Request $request)
     {
-        $this->dataService->process2($request->all());
-
-        return response('OK');
+        return  $this->dataService->process2($request->all());
     }
 }

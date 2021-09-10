@@ -1,5 +1,5 @@
-import {postData, fetchData} from '../shared_functions.js'
 import {raiseBackEndError, raiseEmptyFieldError, raiseSuccess} from '../alerts.js'
+
 let fileNameError = []
 let group = [];
 document.addEventListener('DOMContentLoaded', async () =>
@@ -12,17 +12,16 @@ document.addEventListener('DOMContentLoaded', async () =>
 
 async function uploadFile ()
 {
-    if (fileUpload.files.length === 0)
+    let fileLength = fileUpload.files.length
+    if (fileLength === 0)
     {
         raiseEmptyFieldError(`Chưa có tệp nào được chọn`)
         return
     }
 
-    let divTag = document.getElementById('file-exception');
-    divTag.innerHTML = ''
+    reset()
 
-    let flag = true;
-    for (let i = 0; i < fileUpload.files.length; i++)
+    for (let i = 0; i < fileLength; i++)
     {
         let formData = new FormData();
         formData.append('file', fileUpload.files[i]);
@@ -39,22 +38,21 @@ async function uploadFile ()
 
         let status1 = response1.status
 
-        if (status1 !== 200 && status1 !== 201)
+        if (status1 === 500)
         {
             raiseBackEndError(true, 3)
             return
         }
-        let responseAsJson1 = await response1.json()
 
-        if (status1 === 201)
+        if (status1 === 406)
         {
-            group = responseAsJson1[0]
-            fileNameError = fileNameError.concat(responseAsJson1[1])
+            let fileName = fileUpload.files[i].name
+            fileNameError.push(fileName.substr(0, fileName.lastIndexOf('.')) + '.txt')
         }
 
         if (status1 === 200)
         {
-            group = responseAsJson1[0]
+            group = await response1.json()
         }
 
         for (const arr of group)
@@ -69,33 +67,22 @@ async function uploadFile ()
             });
             refreshToken(response)
 
-            if (response.status !== 200)
+            if (response.status === 500)
             {
-                flag = false
-                break;
+                raiseBackEndError(true, 3)
+                return
             }
         }
     }
 
-    if (!flag)
-    {
-        raiseBackEndError(1)
-        return
-    }
-
     if (fileNameError.length === 0)
     {
-        if (flag)
-        {
-            raiseSuccess('Tải tệp lên thành công!', 'Tiếp tục tải tệp', 'home');
-            return;
-        }
-        raiseBackEndError(1)
-    } else
+        raiseSuccess('Tải tệp lên thành công!', 'Tiếp tục tải tệp', 'home');
+    }
+    else
     {
         raiseBackEndError(0)
         displayFileException(fileNameError)
-        fileNameError = []
     }
 }
 
@@ -111,6 +98,13 @@ function listFileName ()
     }
 
     divTag.innerHTML = innerHtml
+}
+
+function reset ()
+{
+    let divTag = document.getElementById('file-exception');
+    divTag.innerHTML = ''
+    fileNameError = []
 }
 
 function displayFileException ()
@@ -133,7 +127,7 @@ function displayFileException ()
     }
 }
 
-function refreshToken(response)
+function refreshToken (response)
 {
     if (response.headers.get('Authorization') !== null)
     {

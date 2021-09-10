@@ -11,7 +11,7 @@ class ModuleClass extends Model
     public const table = 'module_class';
     public const table_as = 'module_class as mc';
 
-    public function getModuleClass ($first_school_year, $second_school_year): Collection
+    public function getModuleClasses1 ($first_school_year, $second_school_year): Collection
     {
         $this->_createTemporaryTable($first_school_year, $second_school_year);
 
@@ -20,6 +20,14 @@ class ModuleClass extends Model
             ->orderBy('id_module_class')
             ->select('id_module_class', 'module_class_name')
             ->get();
+    }
+
+    public function getModuleClasses2 ($module_class_list): array
+    {
+        return DB::table(self::table_as)
+            ->whereIn('id_module_class',$module_class_list)
+            ->pluck('id_module_class')
+            ->toArray();
     }
 
     private function _createTemporaryTable ($first_school_year, $second_school_year)

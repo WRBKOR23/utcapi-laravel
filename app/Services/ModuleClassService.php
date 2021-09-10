@@ -21,7 +21,7 @@ class ModuleClassService implements ModuleClassServiceContract
     public function getModuleClasses ()
     {
         $school_year_list = $this->_getSchoolYears();
-        return $this->moduleClassDepository->getModuleClasses($school_year_list[0], $school_year_list[1]);
+        return $this->moduleClassDepository->getModuleClasses1($school_year_list[0], $school_year_list[1]);
     }
 
     private function _getSchoolYears (): array

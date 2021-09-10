@@ -34,7 +34,7 @@
 
       <div class=" mt-4">
         <span>Tải lên file điểm danh để phục vụ công việc nhập dữ liệu bảng lớp học, sinh viên và bảng tham gia vào cơ sở dữ liệu</span><br>
-        <a href="{{ storage_path('app/public/excels/data.xls') }}">Tải file mẫu tại đây</a><br>
+        <a href="../storage/app/public/excels/data.xls">Tải file mẫu tại đây</a><br>
         <span
             id="notice">*Lưu ý: Tính năng này được khuyến khích chỉ nên tải 1 đến 2 file một lần mỗi 1 tiếng</span><br><br>
         <legend>Tải lên tệp dữ liệu ở đây:</legend>

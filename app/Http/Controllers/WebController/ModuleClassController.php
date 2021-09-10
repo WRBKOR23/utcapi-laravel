@@ -24,6 +24,6 @@ class ModuleClassController extends Controller
         $module_class_list = $this->moduleClassService->getModuleClasses();
 
         return response($module_class_list)
-            ->header('Content-Type', 'application/json');
+            ->header('Content-Type', 'application/data');
     }
 }

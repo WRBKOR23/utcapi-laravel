@@ -2,60 +2,70 @@
 
 namespace App\Services;
 
-use App\BusinessClass\FileUploadHandle;
+use App\BusinessClass\FileUploadHandler;
 use App\Depositories\Contracts\AccountDepositoryContract;
 use App\Depositories\Contracts\ClassDepositoryContract;
 use App\Depositories\Contracts\DataVersionStudentDepositoryContract;
+use App\Depositories\Contracts\ModuleClassDepositoryContract;
+use App\Depositories\Contracts\ModuleDepositoryContract;
 use App\Depositories\Contracts\ParticipateDepositoryContract;
 use App\Depositories\Contracts\StudentDepositoryContract;
+use App\Helpers\SharedData;
 use App\Helpers\SharedFunctions;
 use App\Services\Contracts\DataServiceContract;
 use Exception;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class DataService implements DataServiceContract
 {
-    private FileUploadHandle $fileUploadHandle;
+    private FileUploadHandler $fileUploadHandle;
     private DataVersionStudentDepositoryContract $dataVersionStudentDepository;
+    private ModuleClassDepositoryContract $moduleClassDepository;
     private ParticipateDepositoryContract $participateDepository;
     private StudentDepositoryContract $studentDepository;
     private AccountDepositoryContract $accountDepository;
+    private ModuleDepositoryContract $moduleDepository;
     private ClassDepositoryContract $classDepository;
 
     /**
      * DataService constructor.
-     * @param FileUploadHandle $fileUploadHandle
+     * @param FileUploadHandler $fileUploadHandle
      * @param DataVersionStudentDepositoryContract $dataVersionStudentDepository
+     * @param ModuleClassDepositoryContract $moduleClassDepository
      * @param ParticipateDepositoryContract $participateDepository
      * @param StudentDepositoryContract $studentDepository
      * @param AccountDepositoryContract $accountDepository
+     * @param ModuleDepositoryContract $moduleDepository
      * @param ClassDepositoryContract $classDepository
      */
-    public function __construct (FileUploadHandle $fileUploadHandle, DataVersionStudentDepositoryContract $dataVersionStudentDepository, ParticipateDepositoryContract $participateDepository, StudentDepositoryContract $studentDepository, AccountDepositoryContract $accountDepository, ClassDepositoryContract $classDepository)
+    public function __construct (FileUploadHandler $fileUploadHandle, DataVersionStudentDepositoryContract $dataVersionStudentDepository, ModuleClassDepositoryContract $moduleClassDepository, ParticipateDepositoryContract $participateDepository, StudentDepositoryContract $studentDepository, AccountDepositoryContract $accountDepository, ModuleDepositoryContract $moduleDepository, ClassDepositoryContract $classDepository)
     {
         $this->fileUploadHandle             = $fileUploadHandle;
         $this->dataVersionStudentDepository = $dataVersionStudentDepository;
+        $this->moduleClassDepository        = $moduleClassDepository;
         $this->participateDepository        = $participateDepository;
         $this->studentDepository            = $studentDepository;
         $this->accountDepository            = $accountDepository;
+        $this->moduleDepository             = $moduleDepository;
         $this->classDepository              = $classDepository;
     }
 
     /**
      * @throws Exception
      */
-    public function process1 ($file): array
+    public function process1 ($file)
     {
-        $data = $this->_getDataFromFile($file);
-        $this->_insertFacultyClasses($data['class']['sql'], $data['class']['arr']);
-        $this->_insertStudents($data['student']['sql'], $data['student']['arr']);
-        $this->_insertDataVersionStudents($data['data_version']['sql'], $data['data_version']['arr']);
-        $this->_updateScheduleVersion($data['data_version']['arr']);
-        $fk_exception = $this->_insertParticipates($data['participate']['sql'], $data['participate']['arr']);
-        $exception    = $data['exception_json'];
+        $data               = $this->_getDataFromFile($file);
+        $data['exception2'] = $this->_checkModuleClassException($data['module_class']);
 
-        $arr = $this->_checkException($fk_exception, $exception);
+        if ($this->_checkException($data['exception1'], $data['exception2']))
+        {
+            return response('', 406);
+        }
+        $this->_pushDataToDatabase($data);
 
-        return [$data['account']['arr'], $arr];
+        return response($data['account']['arr']);
     }
 
     /**
@@ -63,7 +73,36 @@ class DataService implements DataServiceContract
      */
     private function _getDataFromFile ($file): array
     {
-        return $this->fileUploadHandle->getData($file);
+        $module_list = Cache::remember('module_list', 500, function ()
+        {
+            return $this->moduleDepository->getAll();
+        });
+        return $this->fileUploadHandle->getData($file, $module_list);
+    }
+
+    private function _checkModuleClassException ($module_classes): array
+    {
+        $exception         = [];
+        $module_class_list = $this->moduleClassDepository->getModuleClasses2($module_classes);
+
+        foreach ($module_classes as $module_class)
+        {
+            if (!in_array($module_class, $module_class_list))
+            {
+                $exception[] = $module_class;
+            }
+        }
+
+        return $exception;
+    }
+
+    private function _pushDataToDatabase ($data)
+    {
+        $this->_insertFacultyClasses($data['class']['sql'], $data['class']['arr']);
+        $this->_insertStudents($data['student']['sql'], $data['student']['arr']);
+        $this->_insertDataVersionStudents($data['data_version']['sql'], $data['data_version']['arr']);
+        $this->_updateScheduleVersion($data['data_version']['arr']);
+        $this->_insertParticipates($data['participate']['sql'], $data['participate']['arr']);
     }
 
     private function _insertFacultyClasses ($part_of_sql, $data)
@@ -78,7 +117,7 @@ class DataService implements DataServiceContract
 
     private function _insertParticipates ($part_of_sql, $data)
     {
-        return $this->participateDepository->insertMultiple($part_of_sql, $data);
+        $this->participateDepository->insertMultiple($part_of_sql, $data);
     }
 
     private function _insertDataVersionStudents ($part_of_sql, $data)
@@ -91,25 +130,30 @@ class DataService implements DataServiceContract
         $this->dataVersionStudentDepository->updateMultiple2($id_student_list, 'Schedule');
     }
 
-    private function _checkException ($fk_exception, $exception): array
+    private function _checkException ($exception, $exception2): bool
     {
-        $arr = [];
+        $file_name = $this->fileUploadHandle->getOldFileName() . '.txt';
+        $message   = '';
+
         if (!empty($exception))
         {
-            $file_name = '1-' . $this->fileUploadHandle->getOldFileName() . '.txt';
-            $title     = 'File excel cùng tên hiện tại có chứa lớp học ko có mã lớp học phần đi kèm:';
-            SharedFunctions::printFileImportException($file_name, $exception, $title);
-            $arr[] = $file_name;
+            $message .= 'Cơ sở dữ liệu hiện tại không có một vài mã học phần trong file excel cùng tên này:' . PHP_EOL;;
+            foreach ($exception as $module)
+            {
+                $message .= $module . PHP_EOL;
+            }
         }
-        if (!$fk_exception)
+        if (!empty($exception2))
         {
-            $file_name = '2-' . $this->fileUploadHandle->getOldFileName() . '.txt';
-            $title     = 'Cơ sở dữ liệu hiện tại không có một vài mã lớp học phần trong file excel cùng tên này';
-            SharedFunctions::printFileImportException($file_name, [], $title);
-            $arr[] = $file_name;
+            $message .= 'Cơ sở dữ liệu hiện tại không có một vài mã lớp học phần trong file excel cùng tên này:' . PHP_EOL;;
+            foreach ($exception2 as $module_class)
+            {
+                $message .= $module_class . PHP_EOL;
+            }
         }
+        SharedFunctions::printFileImportException($file_name, $message);
 
-        return $arr;
+        return $message != '';
     }
 
 
@@ -118,6 +162,8 @@ class DataService implements DataServiceContract
         $data = $this->_prepareData($data);
         $this->_createAccount($data['create'][1], $data['create'][0]);
         $this->_bindAccountToStudent($data['bind'][1], $data['bind'][0]);
+
+        return response('OK');
     }
 
     private function _createAccount ($part_of_sql, $data)

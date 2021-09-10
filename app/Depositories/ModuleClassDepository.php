@@ -23,8 +23,13 @@ class ModuleClassDepository implements Contracts\ModuleClassDepositoryContract
         return $this->model->getLatestSchoolYear();
     }
 
-    public function getModuleClasses ($first_school_year, $second_school_year): Collection
+    public function getModuleClasses1 ($first_school_year, $second_school_year): Collection
     {
-        return $this->model->getModuleClass($first_school_year, $second_school_year);
+        return $this->model->getModuleClasses1($first_school_year, $second_school_year);
+    }
+
+    public function getModuleClasses2 ($module_class_list): array
+    {
+        return $this->model->getModuleClasses2($module_class_list);
     }
 }
