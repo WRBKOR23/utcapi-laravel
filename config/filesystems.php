@@ -57,7 +57,7 @@ return [
         ],
 
         'credentials' => [
-            'file_path' => dirname(storage_path()) . '/config/firebase_credentials.json',
+            'file_path' => storage_path('app/firebase_credentials.json'),
         ],
 
         'errors' => [

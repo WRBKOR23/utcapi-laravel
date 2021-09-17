@@ -85,32 +85,32 @@ class CrawlQLDTData
 
         $data['student_name']  = $html->find('span[id=lblStudentName]', 0)->innertext;
         $data['academic_year'] = $html->find('span[id=lblAy]', 0)->innertext;
-        $data['class_name']    = $html->find('span[id=lblAdminClass]', 0)->innertext;
-        $data['class_name']    = 'Lớp ' . SharedFunctions::formatString(substr_replace($data['class_name'],
-                                                                                       '- Khóa ',
-                                                                                       strlen($data['class_name']) - 2,
-                                                                                       0));
+//        $data['class_name']    = $html->find('span[id=lblAdminClass]', 0)->innertext;
+//        $data['class_name']    = 'Lớp ' . SharedFunctions::formatString(substr_replace($data['class_name'],
+//                                                                                       '- Khóa ',
+//                                                                                       strlen($data['class_name']) - 2,
+//                                                                                       0));
         $html->load($response2);
         $data['birth'] = $html->find('input[id=txtNgaySinh]', 0)->value;
         $data['birth'] = SharedFunctions::formatDate($data['birth']);
 
-        $dom = new DOMDocument();
-        @$dom->loadHTML(mb_convert_encoding($response1, 'HTML-ENTITIES', "UTF-8"));
-        $major = $dom->getElementById('drpField')->childNodes->item(1)->textContent;
+//        $dom = new DOMDocument();
+//        @$dom->loadHTML(mb_convert_encoding($response1, 'HTML-ENTITIES', "UTF-8"));
+//        $major = $dom->getElementById('drpField')->childNodes->item(1)->textContent;
 
-        $str_length = 0;
-        foreach (SharedData::$faculties as $faculty => $arr)
-        {
-            foreach ($arr as $a)
-            {
-                if (strpos($major, $a) !== false
-                    && strlen($a) > $str_length)
-                {
-                    $data['id_faculty'] = $faculty;
-                    $str_length         = strlen($a);
-                }
-            }
-        }
+//        $str_length = 0;
+//        foreach (SharedData::$faculties as $faculty => $arr)
+//        {
+//            foreach ($arr as $a)
+//            {
+//                if (strpos($major, $a) !== false
+//                    && strlen($a) > $str_length)
+//                {
+//                    $data['id_faculty'] = $faculty;
+//                    $str_length         = strlen($a);
+//                }
+//            }
+//        }
 
         return $data;
     }

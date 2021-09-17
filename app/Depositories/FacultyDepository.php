@@ -5,6 +5,7 @@ namespace App\Depositories;
 
 
 use App\Models\Faculty;
+use Illuminate\Support\Collection;
 
 class FacultyDepository implements Contracts\FacultyDepositoryContract
 {
@@ -22,5 +23,10 @@ class FacultyDepository implements Contracts\FacultyDepositoryContract
     public function get ($id_account)
     {
         return $this->model->get($id_account);
+    }
+
+    public function getAll ($data) : Collection
+    {
+        return $this->model->getAll($data);
     }
 }

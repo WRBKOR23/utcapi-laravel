@@ -7,51 +7,59 @@ namespace App\Services;
 use App\BusinessClass\CrawlQLDTData;
 use App\Depositories\Contracts\AccountDepositoryContract;
 use App\Depositories\Contracts\ClassDepositoryContract;
+use App\Depositories\Contracts\DataVersionStudentDepositoryContract;
 use App\Depositories\Contracts\FacultyDepositoryContract;
 use App\Depositories\Contracts\StudentDepositoryContract;
+use App\Helpers\SharedData;
 use App\Services\Contracts\FacultyClassServiceContract;
 use Exception;
 
 class RegisterService implements Contracts\RegisterServiceContract
 {
     private CrawlQLDTData $crawl;
+    private ClassDepositoryContract $classDepositoryContract;
     private AccountDepositoryContract $accountDepository;
     private StudentDepositoryContract $studentDepository;
-    private ClassDepositoryContract $classDepositoryContract;
+    private DataVersionStudentDepositoryContract $dataVersionStudentDepository;
 
     /**
-     * RegisterService constructor.
      * @param CrawlQLDTData $crawl
+     * @param ClassDepositoryContract $classDepositoryContract
      * @param AccountDepositoryContract $accountDepository
      * @param StudentDepositoryContract $studentDepository
-     * @param ClassDepositoryContract $classDepositoryContract
+     * @param DataVersionStudentDepositoryContract $dataVersionStudentDepository
      */
-    public function __construct (CrawlQLDTData $crawl, AccountDepositoryContract $accountDepository, StudentDepositoryContract $studentDepository, ClassDepositoryContract $classDepositoryContract)
+    public function __construct (CrawlQLDTData                        $crawl,
+                                 ClassDepositoryContract              $classDepositoryContract,
+                                 AccountDepositoryContract            $accountDepository,
+                                 StudentDepositoryContract            $studentDepository,
+                                 DataVersionStudentDepositoryContract $dataVersionStudentDepository)
     {
-        $this->crawl                   = $crawl;
-        $this->accountDepository       = $accountDepository;
-        $this->studentDepository       = $studentDepository;
-        $this->classDepositoryContract = $classDepositoryContract;
+        $this->crawl                        = $crawl;
+        $this->classDepositoryContract      = $classDepositoryContract;
+        $this->accountDepository            = $accountDepository;
+        $this->studentDepository            = $studentDepository;
+        $this->dataVersionStudentDepository = $dataVersionStudentDepository;
     }
 
     /**
      * @throws Exception
      */
-    public function register ($data): bool
+    public function process1 ($id_student, $qldt_password)
     {
-        if ($this->_checkAccountExist($data['id_student']))
+        $this->_loginQLDT($id_student, $qldt_password);
+        if ($this->_checkAccountExist($id_student))
         {
-            return false;
+            return response('Account available', 406);
         }
-
-        $this->_loginQLDT($data['id_student'], $data['qldt_password']);
-        $data = $this->_setupData($data);
-        $this->_createData($data);
-
-        return true;
+        else
+        {
+            return response('', 200);
+        }
     }
 
-    private function _checkAccountExist ($username): bool
+
+    private function _checkAccountExist ($username) : bool
     {
         $account = $this->accountDepository->get($username);
 
@@ -66,7 +74,22 @@ class RegisterService implements Contracts\RegisterServiceContract
         $this->crawl->loginQLDT($id_student, md5($qldt_password));
     }
 
-    private function _setupData ($data): array
+    /**
+     * @throws Exception
+     */
+    public function process2 ($data)
+    {
+        $this->_loginQLDT($data['id_student'], $data['qldt_password']);
+        $data = $this->_setupData($data);
+        $this->_createData($data);
+
+        return response('', 201);
+    }
+
+    /**
+     * @throws Exception
+     */
+    private function _setupData ($data) : array
     {
         $student_info = $this->crawl->getStudentInfo();
 
@@ -82,24 +105,67 @@ class RegisterService implements Contracts\RegisterServiceContract
 
         $class['id_class']      = $student['id_class'];
         $class['academic_year'] = $student_info['academic_year'];
-        $class['class_name']    = $student_info['class_name'];
-        $class['id_faculty']    = $student_info['id_faculty'];
+        $class['class_name']    = $this->_getInfoClass($class['id_class'], $data['id_faculty'])['class_name'];
+        $class['id_faculty']    = $data['id_faculty'];
+
+        $data_version['id_student'] = $data['id_student'];
 
         return [
-            'account' => $account,
-            'student' => $student,
-            'class'   => $class
+                'data_version' => $data_version,
+                'account'      => $account,
+                'student'      => $student,
+                'class'        => $class
         ];
+    }
+
+    /**
+     * @throws Exception
+     */
+    private function _getInfoClass ($id_class, $id_faculty)
+    {
+        $id_class      = preg_replace('/\s+/', '', $id_class);
+        $arr           = explode('.', $id_class);
+        $academic_year = $arr[0];
+
+        unset($arr[0]);
+        $class = '';
+        foreach ($arr as $a)
+        {
+            $class .= $a . '.';
+        }
+        $class = rtrim($class, '.');
+
+        $num = substr($class, strlen($class) - 1, 1);
+        if (is_numeric($num))
+        {
+            $class_info               = SharedData::$faculty_class_and_major_info[substr($class, 0,
+                                                                                         strlen($class) - 1)];
+            $name_academic_year       = substr_replace($academic_year, 'hóa ', 1, 0);
+            $class_info['class_name'] = $class_info['class_name'] . ' ' . $num . ' - ' . $name_academic_year;
+        }
+        else
+        {
+            $class_info               = SharedData::$faculty_class_and_major_info[$class];
+            $name_academic_year       = substr_replace($academic_year, 'hóa ', 1, 0);
+            $class_info['class_name'] = $class_info['class_name'] . ' - ' . $name_academic_year;
+        }
+
+        if ($class_info['id_faculty'] != $id_faculty)
+        {
+            throw new Exception('faculty register');
+        }
+        $class_info['id_class'] = $id_class;
+
+        return $class_info;
     }
 
     private function _createData (&$data)
     {
         $id_account = $this->accountDepository->insertGetId($data['account']);
-
         $this->classDepositoryContract->upsert($data['class']);
-
-        $data['student']['id_student'] = $id_account;
+        $data['student']['id_account'] = $id_account;
         $this->studentDepository->insert($data['student']);
+        $this->dataVersionStudentDepository->insert($data['data_version']);
     }
 }
 

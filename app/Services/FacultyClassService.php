@@ -18,7 +18,7 @@ class FacultyClassService implements FacultyClassServiceContract
         $this->classDepository = $classDepository;
     }
 
-    public function getFacultyClassesAndAcademicYears (): array
+    public function getFacultyClassesAndAcademicYears () : array
     {
         $academic_year_list = $this->classDepository->getAcademicYears();
         $faculty_class_list = $this->classDepository->getFacultyClass($academic_year_list);

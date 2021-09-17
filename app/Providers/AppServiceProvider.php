@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Services\AccountService;
 use App\Services\Contracts\DataVersionTeacherServiceContract;
+use App\Services\Contracts\FacultyServiceContract;
 use App\Services\Contracts\FixScheduleServiceContract;
 use App\Services\Contracts\Guest\AccountGuestServiceContract;
 use App\Services\Contracts\Guest\CrawlExamScheduleGuestServiceContract;
@@ -36,6 +37,7 @@ use App\Services\Contracts\ModuleClassServiceContract;
 use App\Services\Contracts\ModuleScoreServiceContract;
 use App\Services\Contracts\NotificationServiceContract;
 use App\Services\Contracts\NotifyServiceContract;
+use App\Services\FacultyService;
 use App\Services\FixScheduleService;
 use App\Services\Guest\AccountGuestService;
 use App\Services\Guest\CrawlExamScheduleGuestService;
@@ -81,6 +83,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(LoginAppServiceContract::class, LoginAppService::class);
         $this->app->bind(ScheduleServiceContract::class, ScheduleService::class);
         $this->app->bind(AccountServiceContract::class, AccountService::class);
+        $this->app->bind(FacultyServiceContract::class, FacultyService::class);
         $this->app->bind(DeviceServiceContract::class, DeviceService::class);
         $this->app->bind(NotifyServiceContract::class, NotifyService::class);
         $this->app->bind(DataServiceContract::class, DataService::class);

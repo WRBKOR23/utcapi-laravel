@@ -61,7 +61,7 @@ Route::middleware('cus.session')->group(function ()
     });
 });
 
-Route::middleware('cus.auth')->group(function ()
+Route::middleware(['cus.auth', 'cus.session'])->group(function ()
 {
     Route::group(['prefix' => 'web'], function ()
     {
@@ -76,7 +76,7 @@ Route::middleware('cus.auth')->group(function ()
                 Route::post('module-class', [NotificationController::class, 'pushNotificationBMC']);
             });
 
-            Route::post('set-delete', [NotificationController::class, 'deleteNotifications']);
+            Route::post('set-delete', [NotificationController::class, 'deleteNotification']);
 
         });
 
@@ -96,13 +96,9 @@ Route::middleware('cus.auth')->group(function ()
 
         Route::post('/account/change-password', [AccountController::class, 'changePassword']);
 
-        Route::post('/auth/logout', [LogoutController::class, 'logout']);
+        Route::post('/auth/logout', [LogoutController::class, 'logout'])->withoutMiddleware('cus.session');
 
     });
 });
 
-Route::get('/optimize', function () {
-    Artisan::call('optimize');
-});
-
-Route::get('test', [TestController::class, 'test'])->name('a');
+Route::get('test', [TestController::class, 'test']);

@@ -73,7 +73,7 @@ class DataService implements DataServiceContract
      */
     private function _getDataFromFile ($file): array
     {
-        $module_list = Cache::remember('module_list', 500, function ()
+        $module_list = Cache::remember('module_list', 10080, function ()
         {
             return $this->moduleDepository->getAll();
         });

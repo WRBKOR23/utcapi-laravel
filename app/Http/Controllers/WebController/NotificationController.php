@@ -63,7 +63,7 @@ class NotificationController extends Controller
         return response('');
     }
 
-    public function deleteNotifications (Request $request)
+    public function deleteNotification (Request $request)
     {
         $this->notificationService->setDelete($request->all());
     }

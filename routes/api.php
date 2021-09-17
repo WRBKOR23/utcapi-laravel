@@ -10,6 +10,7 @@ use App\Http\Controllers\ApiController\DataVersionStudentController;
 use App\Http\Controllers\ApiController\DataVersionTeacherController;
 use App\Http\Controllers\ApiController\DeviceController;
 use App\Http\Controllers\ApiController\ExamScheduleController;
+use App\Http\Controllers\ApiController\FacultyController;
 use App\Http\Controllers\ApiController\Guest\AccountGuestController;
 use App\Http\Controllers\ApiController\Guest\CrawlExamScheduleGuestController;
 use App\Http\Controllers\ApiController\Guest\CrawlModuleScoreGuestController;
@@ -36,9 +37,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/auth/authenticate', [LoginAppController::class, 'login']);
+Route::get('faculty', [FacultyController::class, 'getInfoFaculties']);
 
-Route::post('/auth/register', [RegisterController::class, 'register']);
+Route::group(['prefix' => 'auth'], function ()
+{
+    Route::post('authenticate', [LoginAppController::class, 'login']);
+
+    Route::group(['prefix' => 'register'], function ()
+    {
+        Route::post('process1', [RegisterController::class, 'process1']);
+
+        Route::post('process2', [RegisterController::class, 'process2']);
+    });
+});
 
 Route::get('/check-fixschedule', [FixScheduleController::class, 'checkFixSchedule']);
 
@@ -68,7 +79,6 @@ Route::middleware('cus.auth')->group(function ()
         Route::get('schedule/{id_student}', [ScheduleController::class, 'getStudentSchedules']);
 
         Route::get('data-version/{id_student}', [DataVersionStudentController::class, 'getDataVersion']);
-
 
         Route::get('notification/{id_account}/{id_notification?}', [NotificationController::class, 'getNotifications']);
 

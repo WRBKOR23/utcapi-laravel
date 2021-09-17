@@ -5,6 +5,7 @@ namespace App\Http\Controllers\ApiController\Auth;
 
 
 use App\BusinessClass\CrawlQLDTData;
+use App\Exceptions\InvalidFormRequestException;
 use App\Http\Controllers\Controller;
 use App\Http\RequestForm\RegisterForm;
 use App\Services\Contracts\RegisterServiceContract;
@@ -26,15 +27,13 @@ class RegisterController extends Controller
         $this->registerService = $registerService;
     }
 
-    public function register(Request $request)
+    public function process1 (Request $request)
     {
-        $this->form->validate($request);
+        return $this->registerService->process1($request->id_student, $request->qldt_password);
+    }
 
-        if (!$this->registerService->register($request->all()))
-        {
-            return response('Account available', 406);
-        }
-
-        return response('', 201);
+    public function process2 (Request $request)
+    {
+        return $this->registerService->process2($request->all());
     }
 }
