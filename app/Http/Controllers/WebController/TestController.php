@@ -116,9 +116,7 @@ class TestController extends Controller
         $b = [35, 36, 37];
 
 
-        var_dump(Notification::where('is_delete', '=', true)
-                             ->where('time_create', '>=', DB::raw('DATE_SUB(NOW(), INTERVAL 3 WEEK)'))
-                             ->pluck('id_notification')) ;
+        return Account::find(996)->dataVersionStudent()->pluck('notification')->first();
 
     }
 

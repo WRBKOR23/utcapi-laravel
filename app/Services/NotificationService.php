@@ -110,11 +110,11 @@ class NotificationService implements NotificationServiceContract
     }
 
 
-    public function getNotificationsApp ($id_student, $id_account, $id_notification = '0') : array
+    public function getNotificationsApp ($id_account, $id_notification = '0') : array
     {
         $data              = $this->notificationAccountDepository->getNotifications($id_account, $id_notification);
         $data              = SharedFunctions::formatGetNotificationResponse($data);
-        $data_version      = $this->dataVersionStudentDepository->getSingleColumn($id_student, 'notification');
+        $data_version      = $this->dataVersionStudentDepository->getSingleColumn($id_account, 'notification');
         $data['index_del'] = $this->_getDeletedNotifications($id_notification);
 
         return [

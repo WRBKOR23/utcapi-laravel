@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 class Account extends Model
 {
@@ -62,5 +63,17 @@ class Account extends Model
     {
         return $this->belongsToMany(Notification::class, 'notification_account',
                                     'id_account', 'id_notification');
+    }
+
+    public function dataVersionStudent() : HasOneThrough
+    {
+        return $this->hasOneThrough(
+            DataVersionStudent::class,
+            Student::class,
+            'id_account',
+            'id_student',
+            'id_account',
+            'id_student',
+        );
     }
 }

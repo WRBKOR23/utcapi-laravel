@@ -3,6 +3,7 @@
 namespace App\Depositories;
 
 use App\Depositories\Contracts\DataVersionStudentDepositoryContract;
+use App\Models\Account;
 use App\Models\DataVersionStudent;
 use Illuminate\Support\Facades\DB;
 
@@ -29,7 +30,7 @@ class DataVersionStudentDepository implements DataVersionStudentDepositoryContra
 
     public function getSingleColumn ($id_student, $column_name)
     {
-        return DataVersionStudent::where('id_student', '=', $id_student)->pluck($column_name)->first();
+        return Account::find($id_student)->dataVersionStudent()->pluck($column_name)->first();
     }
 
     public function updateDataVersion ($id_student, $column_name)
