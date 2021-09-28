@@ -1,0 +1,35 @@
+28/09/2021 17:02:21
+Code: 23000
+SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '191402747' for key 'account_username_uindex' (SQL: insert into `account` (`username`, `password`, `qldt_password`, `permission`) values (191402747, $2y$10$SOJPyti6k0jYToLz6f41J.6ZqwT.x6Pil9uEP1KjaQPSsk2TDUcW2, 2ce3600b60804de14b7a3725646121a6, 0))
+E:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Database\Connection.php  692
+=========================================================================================
+28/09/2021 17:03:02
+Code: 23000
+SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '191402747' for key 'account_username_uindex' (SQL: insert into `account` (`username`, `password`, `qldt_password`, `permission`) values (191402747, $2y$10$0JgZtGonW/0QPhZWBeQBuOxfbYNXhzD8g0Lqa3OtIP8/eeYyLwu3e, 2ce3600b60804de14b7a3725646121a6, 0))
+E:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Database\Connection.php  692
+=========================================================================================
+28/09/2021 17:04:28
+Code: 23000
+SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '191402747' for key 'account_username_uindex' (SQL: insert into `account` (`username`, `password`, `qldt_password`, `permission`) values (191402747, $2y$10$TyHdPNrJyYjYkFYnrmxSseLAjjdSq0uckoLnDk0QdX3am8EkNW0py, 2ce3600b60804de14b7a3725646121a6, 0))
+E:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Database\Connection.php  692
+=========================================================================================
+28/09/2021 17:04:57
+Code: 23000
+SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '191402747' for key 'account_username_uindex' (SQL: insert into `account` (`username`, `password`, `qldt_password`, `permission`) values (191402747, $2y$10$sWowJxKrIFHdsPoPLg/7YeAlzqKrx5eFBx7T.COoR/5aCUOhm91U., 2ce3600b60804de14b7a3725646121a6, 0))
+E:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Database\Connection.php  692
+=========================================================================================
+28/09/2021 17:06:09
+Code: 0
+Cannot access protected property Illuminate\Http\Response::$statusCode
+E:\xampp\htdocs\laravel-begin\app\Http\Controllers\ApiController\Auth\RegisterController.php  40
+=========================================================================================
+28/09/2021 17:06:27
+Code: 23000
+SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '191402747' for key 'account_username_uindex' (SQL: insert into `account` (`username`, `password`, `qldt_password`, `permission`) values (191402747, $2y$10$Khouo6B9XWdCDUFAKaLU.u21OJRFC.UhWYXI3RISu7zQRjDcecR1y, 2ce3600b60804de14b7a3725646121a6, 0))
+E:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Database\Connection.php  692
+=========================================================================================
+28/09/2021 17:07:10
+Code: 23000
+SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '191402747' for key 'account_username_uindex' (SQL: insert into `account` (`username`, `password`, `qldt_password`, `permission`) values (191402747, $2y$10$aBG2Pueh7I6mGgjmWieGK.NqYzTCOJ/IA9Z9a3SMRaQikM0og0L9q, 2ce3600b60804de14b7a3725646121a6, 0))
+E:\xampp\htdocs\laravel-begin\vendor\laravel\framework\src\Illuminate\Database\Connection.php  692
+=========================================================================================
