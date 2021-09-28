@@ -9,6 +9,7 @@ use App\Models\Department;
 use App\Models\Faculty;
 use App\Models\NotificationAccount;
 use App\Models\OtherDepartment;
+use App\Models\Student;
 use App\Models\Teacher;
 use Illuminate\Support\Collection;
 
@@ -25,6 +26,13 @@ class NotificationAccountDepository implements NotificationAccountDepositoryCont
     public function insertMultiple ($data)
     {
         NotificationAccount::insert($data);
+    }
+
+    public function getIDAccounts ($id_notification_list)
+    {
+        return NotificationAccount::whereIn('notification_account.id_notification', $id_notification_list)
+                                  ->join(Student::table_as, 'notification_account.id_account', '=', 'stu.id_account')
+                                  ->pluck('id_student');
     }
 
     public function getNotifications ($id_account, $id_notification = '0') : array

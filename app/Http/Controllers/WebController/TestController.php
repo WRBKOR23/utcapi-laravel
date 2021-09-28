@@ -113,8 +113,13 @@ class TestController extends Controller
 //        echo $d . '-----';
 //        echo $d - $c . '-----';
 //return $aa;
-        return DataVersionStudent::where('id_student', '191201402')->pluck('schedule')->first();
-//return a;
+        $b = [35, 36, 37];
+
+
+        var_dump(Notification::where('is_delete', '=', true)
+                             ->where('time_create', '>=', DB::raw('DATE_SUB(NOW(), INTERVAL 3 WEEK)'))
+                             ->pluck('id_notification')) ;
+
     }
 
     public function test2 ()

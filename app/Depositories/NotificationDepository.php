@@ -40,4 +40,12 @@ class NotificationDepository implements NotificationDepositoryContract
                                     'time_create', 'time_start', 'time_end')
                            ->get();
     }
+
+    public function getDeletedNotifications ()
+    {
+        return Notification::where('is_delete', '=', true)
+                           ->where('time_create', '>=', DB::raw('DATE_SUB(NOW(), INTERVAL 3 WEEK)'))
+                           ->pluck('id_notification')
+                           ->toArray();
+    }
 }

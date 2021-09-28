@@ -112,9 +112,10 @@ class NotificationService implements NotificationServiceContract
 
     public function getNotificationsApp ($id_student, $id_account, $id_notification = '0') : array
     {
-        $data = $this->notificationAccountDepository->getNotifications($id_account, $id_notification);
-        $data = SharedFunctions::formatGetNotificationResponse($data);
-        $data_version = $this->dataVersionStudentDepository->getSingleColumn($id_student, 'notification');
+        $data              = $this->notificationAccountDepository->getNotifications($id_account, $id_notification);
+        $data              = SharedFunctions::formatGetNotificationResponse($data);
+        $data_version      = $this->dataVersionStudentDepository->getSingleColumn($id_student, 'notification');
+        $data['index_del'] = $this->_getDeletedNotifications($id_notification);
 
         return [
             'data'         => $data,
@@ -122,14 +123,23 @@ class NotificationService implements NotificationServiceContract
         ];
     }
 
+    private function _getDeletedNotifications ($id_notification) : array
+    {
+        if ($id_notification != '0')
+        {
+            return $this->notificationDepository->getDeletedNotifications();
+        }
+        else
+        {
+            return [];
+        }
+    }
 
     public function setDelete ($id_notification_list)
     {
         $this->notificationDepository->setDelete($id_notification_list);
-        foreach ($id_notification_list as $id_notification)
-        {
-            $this->_updateNotificationVersion($id_notification);
-        }
+        $id_student_list = $this->notificationAccountDepository->getIDAccounts($id_notification_list);
+        $this->_updateNotificationVersion($id_student_list);
     }
 
     private function _updateNotificationVersion ($id_student_list)
