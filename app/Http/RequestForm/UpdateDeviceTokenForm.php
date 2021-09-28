@@ -10,7 +10,7 @@ class UpdateDeviceTokenForm extends BaseForm
     protected function getRules (): array
     {
         return [
-            'id_student'   => 'required',
+            'id_account'   => 'required',
             'device_token' => 'required|min:30'
         ];
     }

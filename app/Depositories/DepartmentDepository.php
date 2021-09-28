@@ -4,6 +4,7 @@
 namespace App\Depositories;
 
 
+use App\Models\Account;
 use App\Models\Department;
 
 class DepartmentDepository implements Contracts\DepartmentDepositoryContract
@@ -21,6 +22,6 @@ class DepartmentDepository implements Contracts\DepartmentDepositoryContract
 
     public function get ($id_account)
     {
-        return $this->model->get($id_account);
+        return Account::find($id_account)->department;
     }
 }

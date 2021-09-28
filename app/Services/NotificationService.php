@@ -32,11 +32,11 @@ class NotificationService implements NotificationServiceContract
      * @param StudentDepositoryContract $studentDepository
      */
     public function __construct (NotificationAccountDepositoryContract $notificationAccountDepository,
-                                 DataVersionStudentDepositoryContract $dataVersionStudentDepository,
-                                 NotificationDepositoryContract $notificationDepository,
-                                 ParticipateDepositoryContract $participateDepository,
-                                 AccountDepositoryContract $accountDepository,
-                                 StudentDepositoryContract $studentDepository)
+                                 DataVersionStudentDepositoryContract  $dataVersionStudentDepository,
+                                 NotificationDepositoryContract        $notificationDepository,
+                                 ParticipateDepositoryContract         $participateDepository,
+                                 AccountDepositoryContract             $accountDepository,
+                                 StudentDepositoryContract             $studentDepository)
     {
         $this->notificationAccountDepository = $notificationAccountDepository;
         $this->dataVersionStudentDepository  = $dataVersionStudentDepository;
@@ -46,10 +46,10 @@ class NotificationService implements NotificationServiceContract
         $this->studentDepository             = $studentDepository;
     }
 
-    public function pushNotificationBFC ($noti, $class_list): array
+    public function pushNotificationBFC ($notification, $class_list) : array
     {
         $id_student_list = $this->_getIDStudentsBFC($class_list);
-        $id_account_list = $this->_sharedFunctions($noti, $id_student_list);
+        $id_account_list = $this->_sharedFunctions($notification, $id_student_list);
 
         return $id_account_list;
     }
@@ -59,10 +59,10 @@ class NotificationService implements NotificationServiceContract
         return $this->studentDepository->getIDStudentsBFC($class_list);
     }
 
-    public function pushNotificationBMC ($noti, $class_list): array
+    public function pushNotificationBMC ($notification, $class_list) : array
     {
         $id_student_list = $this->_getIDStudentsBMC($class_list);
-        $id_account_list = $this->_sharedFunctions($noti, $id_student_list);
+        $id_account_list = $this->_sharedFunctions($notification, $id_student_list);
 
         return $id_account_list;
     }
@@ -72,33 +72,45 @@ class NotificationService implements NotificationServiceContract
         return $this->participateDepository->getIDStudentsBMC($class_list);
     }
 
-    private function _sharedFunctions ($noti, $id_student_list): array
+    private function _sharedFunctions ($notification, $id_student_list) : array
     {
-        $id_account_list = $this->_getIDAccounts($id_student_list);
-        $id_notification = $this->_insertNotification($noti);
+        $id_account_list = $this->_getIDAccounts(SharedFunctions::formatArray($id_student_list, 'id_student'));
+        $id_notification = $this->_insertNotification($notification);
         $this->_insertNotificationAccount($id_account_list, $id_notification);
-        $this->_updateNotificationVersion($id_notification);
+        $this->_updateNotificationVersion($id_student_list);
 
         return $id_account_list;
     }
 
-    private function _getIDAccounts ($id_student_list)
+    private function _getIDAccounts ($id_student_list) : array
     {
+        if (empty($id_student_list))
+        {
+            return [];
+        }
+
         return $this->accountDepository->getIDAccounts($id_student_list);
     }
 
-    private function _insertNotification ($noti)
+    private function _insertNotification ($notification)
     {
-        return $this->notificationDepository->insertGetID($noti);
+        $notification = SharedFunctions::setUpNotificationData($notification);
+        return $this->notificationDepository->insertGetID($notification);
     }
 
     private function _insertNotificationAccount ($id_account_list, $id_notification)
     {
-        $this->notificationAccountDepository->insertMultiple($id_account_list, $id_notification);
+        if (empty($id_account_list))
+        {
+            return;
+        }
+
+        $data = SharedFunctions::setUpNotificationAccountData($id_account_list, $id_notification);
+        $this->notificationAccountDepository->insertMultiple($data);
     }
 
 
-    public function getNotificationsApp ($id_account, $id_notification = '0'): array
+    public function getNotificationsApp ($id_account, $id_notification = '0') : array
     {
         $data = $this->notificationAccountDepository->getNotifications($id_account, $id_notification);
         return SharedFunctions::formatGetNotificationResponse($data);
@@ -114,9 +126,9 @@ class NotificationService implements NotificationServiceContract
         }
     }
 
-    private function _updateNotificationVersion ($id_notification)
+    private function _updateNotificationVersion ($id_student_list)
     {
-        $this->dataVersionStudentDepository->updateMultiple($id_notification);
+        $this->dataVersionStudentDepository->updateMultiple($id_student_list, 'notification');
     }
 
 

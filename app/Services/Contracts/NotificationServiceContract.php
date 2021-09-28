@@ -6,9 +6,9 @@
 
     interface NotificationServiceContract
     {
-        public function pushNotificationBFC($noti, $class_list);
+        public function pushNotificationBFC($notification, $class_list);
 
-        public function pushNotificationBMC($noti, $class_list);
+        public function pushNotificationBMC($notification, $class_list);
 
         public function getNotificationsApp($id_account, $id_notification = '0');
 

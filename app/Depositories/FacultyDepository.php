@@ -4,8 +4,10 @@
 namespace App\Depositories;
 
 
+use App\Models\Account;
 use App\Models\Faculty;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class FacultyDepository implements Contracts\FacultyDepositoryContract
 {
@@ -22,11 +24,13 @@ class FacultyDepository implements Contracts\FacultyDepositoryContract
 
     public function get ($id_account)
     {
-        return $this->model->get($id_account);
+        return Account::find($id_account)->faculty;
     }
 
     public function getAll ($data) : Collection
     {
-        return $this->model->getAll($data);
+        return Faculty::whereNotIn('id_faculty', $data)
+                 ->select('id_faculty', 'faculty_name')
+                 ->get();
     }
 }

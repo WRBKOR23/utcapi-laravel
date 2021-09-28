@@ -3,6 +3,7 @@
     namespace App\Depositories;
 
     use App\Depositories\Contracts\OtherDepartmentDepositoryContract;
+    use App\Models\Account;
     use App\Models\OtherDepartment;
 
     class OtherDepartmentDepository implements OtherDepartmentDepositoryContract
@@ -17,6 +18,6 @@
 
         public function get ($id_account)
         {
-            return $this->model->get($id_account);
+            return Account::find($id_account)->otherDepartment;
         }
     }

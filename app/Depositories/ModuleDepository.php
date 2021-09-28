@@ -21,6 +21,8 @@ class ModuleDepository implements Contracts\ModuleDepositoryContract
 
     public function getAll (): array
     {
-        return $this->model->getAll();
+        return Module::select('id_module', 'module_name')
+                     ->get()
+                     ->toArray();
     }
 }

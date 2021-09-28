@@ -8,7 +8,7 @@ interface ClassDepositoryContract
 
     public function getFacultyClass ($academic_year_list);
 
-    public function insertMultiple ($part_of_sql, $data);
+    public function insertMultiple ($data);
 
     public function upsert ($data);
 

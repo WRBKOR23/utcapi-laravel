@@ -10,76 +10,36 @@ class ExcelDataHandler
 {
     public function handleData ($formatted_data) : array
     {
-        $complete_data   = [];
-        $class_list      = [];
-        $student_list    = [];
-        $account_list    = [];
-        $id_student_list = [];
-
-        $part_of_sql_1 = '';
-        $part_of_sql_2 = '';
+        $complete_data             = [];
+        $class_list                = [];
+        $account_list              = [];
+        $data_version_student_list = [];
 
         foreach ($formatted_data['student'] as &$student)
         {
-            $id_student_list[] = $student['id_student'];
-
             $class_info   = $this->_getInfoOfFacultyClass($student['id_class']);
             $class_list[] = $class_info;
 
-            $student_list[] = $student['id_student'];
-            $student_list[] = $student['student_name'];
-            $student_list[] = $student['birth'];
-            $student_list[] = $student['id_class'];
-            $part_of_sql_1  .= '(?,?,?,?,null,null,null),';
+            $account_list[] = [
+                'username'   => $student['id_student'],
+                'password'   => $student['birth'],
+                'permission' => '0'
+            ];
 
-            $account_list[] = $student['id_student'];
-            $account_list[] = $student['birth'];
+            $data_version_student_list[] = ['id_student' => $student['id_student']];
 
-            $part_of_sql_2 .= '(?,0,0,0,0),';
         }
         $account_list = array_chunk($account_list, 200);
+        $class_list   = array_unique($class_list, SORT_REGULAR);;
 
-        $part_of_sql_1 = rtrim($part_of_sql_1, ',');
-        $part_of_sql_2 = rtrim($part_of_sql_2, ',');
 
-        $complete_data['student']['arr'] = $student_list;
-        $complete_data['student']['sql'] = $part_of_sql_1;
-
-        $complete_data['data_version']['arr'] = $id_student_list;
-        $complete_data['data_version']['sql'] = $part_of_sql_2;
-
-        $complete_data['id_student']['arr'] = $id_student_list;
-        $complete_data['account']['arr']    = $account_list;
-        $complete_data['class']['arr']      = array_unique($class_list, SORT_REGULAR);;
-
-        $participate_list = [];
-        $part_of_sql_3    = '';
-        foreach ($formatted_data['participate'] as &$participate)
-        {
-            $participate_list[] = $participate['id_module_class'];
-            $participate_list[] = $participate['id_student'];
-            $part_of_sql_3      .= '(?,?),';
-        }
-        $part_of_sql_3                       = rtrim($part_of_sql_3, ',');
-        $complete_data['participate']['arr'] = $participate_list;
-        $complete_data['participate']['sql'] = $part_of_sql_3;
-
-        $class_list    = [];
-        $part_of_sql_4 = '';
-        foreach ($complete_data['class']['arr'] as &$class)
-        {
-            $class_list[]  = $class['id_class'];
-            $class_list[]  = $class['academic_year'];
-            $class_list[]  = $class['class_name'];
-            $class_list[]  = $class['id_faculty'];
-            $part_of_sql_4 .= '(?,?,?,?),';
-        }
-        $part_of_sql_4                 = rtrim($part_of_sql_4, ',');
-        $complete_data['class']['arr'] = $class_list;
-        $complete_data['class']['sql'] = $part_of_sql_4;
-
-        $complete_data['exception1']   = $formatted_data['exception1'];
-        $complete_data['module_class'] = $formatted_data['module_class'];
+        $complete_data['class']                = $class_list;
+        $complete_data['account']              = $account_list;
+        $complete_data['data_version_student'] = $data_version_student_list;
+        $complete_data['student']              = $formatted_data['student'];
+        $complete_data['participate']          = $formatted_data['participate'];
+        $complete_data['exception1']           = $formatted_data['exception1'];
+        $complete_data['module_class']         = $formatted_data['module_class'];
 
         return $complete_data;
     }

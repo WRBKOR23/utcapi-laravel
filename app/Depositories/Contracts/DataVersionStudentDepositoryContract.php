@@ -8,11 +8,9 @@ interface DataVersionStudentDepositoryContract
 
     public function get ($id_student);
 
-    public function updateDataVersion ($id_student, $type);
+    public function updateDataVersion ($id_student, $column_name);
 
-    public function updateMultiple ($id_notification);
+    public function updateMultiple ($id_student_list, $column_name);
 
-    public function updateMultiple2 ($id_student_list, $column_name);
-
-    public function insertMultiple ($part_of_sql, $data);
+    public function upsertMultiple ($data);
 }

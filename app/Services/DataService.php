@@ -14,7 +14,6 @@ use App\Helpers\SharedData;
 use App\Helpers\SharedFunctions;
 use App\Services\Contracts\DataServiceContract;
 use Exception;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 
 class DataService implements DataServiceContract
@@ -39,7 +38,14 @@ class DataService implements DataServiceContract
      * @param ModuleDepositoryContract $moduleDepository
      * @param ClassDepositoryContract $classDepository
      */
-    public function __construct (FileUploadHandler $fileUploadHandle, DataVersionStudentDepositoryContract $dataVersionStudentDepository, ModuleClassDepositoryContract $moduleClassDepository, ParticipateDepositoryContract $participateDepository, StudentDepositoryContract $studentDepository, AccountDepositoryContract $accountDepository, ModuleDepositoryContract $moduleDepository, ClassDepositoryContract $classDepository)
+    public function __construct (FileUploadHandler                    $fileUploadHandle,
+                                 DataVersionStudentDepositoryContract $dataVersionStudentDepository,
+                                 ModuleClassDepositoryContract        $moduleClassDepository,
+                                 ParticipateDepositoryContract        $participateDepository,
+                                 StudentDepositoryContract            $studentDepository,
+                                 AccountDepositoryContract            $accountDepository,
+                                 ModuleDepositoryContract             $moduleDepository,
+                                 ClassDepositoryContract              $classDepository)
     {
         $this->fileUploadHandle             = $fileUploadHandle;
         $this->dataVersionStudentDepository = $dataVersionStudentDepository;
@@ -65,22 +71,23 @@ class DataService implements DataServiceContract
         }
         $this->_pushDataToDatabase($data);
 
-        return response($data['account']['arr']);
+        return response($data['account']);
     }
 
     /**
      * @throws Exception
      */
-    private function _getDataFromFile ($file): array
+    private function _getDataFromFile ($file) : array
     {
         $module_list = Cache::remember('module_list', 10080, function ()
         {
             return $this->moduleDepository->getAll();
         });
+
         return $this->fileUploadHandle->getData($file, $module_list);
     }
 
-    private function _checkModuleClassException ($module_classes): array
+    private function _checkModuleClassException ($module_classes) : array
     {
         $exception         = [];
         $module_class_list = $this->moduleClassDepository->getModuleClasses2($module_classes);
@@ -98,39 +105,33 @@ class DataService implements DataServiceContract
 
     private function _pushDataToDatabase ($data)
     {
-        $this->_insertFacultyClasses($data['class']['sql'], $data['class']['arr']);
-        $this->_insertStudents($data['student']['sql'], $data['student']['arr']);
-        $this->_insertDataVersionStudents($data['data_version']['sql'], $data['data_version']['arr']);
-        $this->_updateScheduleVersion($data['data_version']['arr']);
-        $this->_insertParticipates($data['participate']['sql'], $data['participate']['arr']);
+        $this->_insertFacultyClasses($data['class']);
+        $this->_insertStudents($data['student']);
+        $this->_upsertDataVersionStudents($data['data_version_student']);
+        $this->_insertParticipates($data['participate']);
     }
 
-    private function _insertFacultyClasses ($part_of_sql, $data)
+    private function _insertFacultyClasses ($data)
     {
-        $this->classDepository->insertMultiple($part_of_sql, $data);
+        $this->classDepository->insertMultiple($data);
     }
 
-    private function _insertStudents ($part_of_sql, $data)
+    private function _insertStudents ($data)
     {
-        $this->studentDepository->insertMultiple($part_of_sql, $data);
+        $this->studentDepository->insertMultiple($data);
     }
 
-    private function _insertParticipates ($part_of_sql, $data)
+    private function _insertParticipates ($data)
     {
-        $this->participateDepository->insertMultiple($part_of_sql, $data);
+        $this->participateDepository->insertMultiple($data);
     }
 
-    private function _insertDataVersionStudents ($part_of_sql, $data)
+    private function _upsertDataVersionStudents ($data)
     {
-        $this->dataVersionStudentDepository->insertMultiple($part_of_sql, $data);
+        $this->dataVersionStudentDepository->upsertMultiple($data);
     }
 
-    private function _updateScheduleVersion ($id_student_list)
-    {
-        $this->dataVersionStudentDepository->updateMultiple2($id_student_list, 'Schedule');
-    }
-
-    private function _checkException ($exception, $exception2): bool
+    private function _checkException ($exception, $exception2) : bool
     {
         $file_name = $this->fileUploadHandle->getOldFileName() . '.txt';
         $message   = '';
@@ -159,42 +160,32 @@ class DataService implements DataServiceContract
 
     public function process2 ($data)
     {
-        $data = $this->_prepareData($data);
-        $this->_createAccount($data['create'][1], $data['create'][0]);
-        $this->_bindAccountToStudent($data['bind'][1], $data['bind'][0]);
+        $id_student_list = $this->_prepareData($data);
+        $this->_createAccount($data);
+        $this->_bindAccountToStudent($id_student_list);
 
         return response('OK');
     }
 
-    private function _createAccount ($part_of_sql, $data)
+    private function _createAccount ($data)
     {
-        $this->accountDepository->insertMultiple($part_of_sql, $data);
+        $this->accountDepository->insertMultiple($data);
     }
 
-    private function _bindAccountToStudent ($part_of_sql, $data)
+    private function _bindAccountToStudent ($data)
     {
-        $this->studentDepository->updateMultiple($part_of_sql, $data);
+        $this->studentDepository->updateMultiple($data);
     }
 
-    private function _prepareData ($student_list): array
+    private function _prepareData (&$student_list) : array
     {
         $id_student_list = [];
-        $part_of_sql_1   = '';
-        $part_of_sql_2   = '';
-        for ($i = 0; $i < count($student_list); $i += 2)
+        foreach ($student_list as &$student)
         {
-            $student_list[$i + 1] = password_hash($student_list[$i + 1], PASSWORD_DEFAULT);
-            $part_of_sql_1        .= '(?,null,?,null,0),';
-
-            $id_student_list[] = $student_list[$i];
-            $part_of_sql_2     .= '?,';
+            $student['password'] = bcrypt($student['password']);
+            $id_student_list[]   = $student['username'];
         }
-        $part_of_sql_1 = rtrim($part_of_sql_1, ',');
-        $part_of_sql_2 = rtrim($part_of_sql_2, ',');
 
-        return [
-            'create' => [$student_list, $part_of_sql_1],
-            'bind'   => [$id_student_list, $part_of_sql_2]
-        ];
+        return $id_student_list;
     }
 }

@@ -10,8 +10,8 @@ interface StudentDepositoryContract
 
     public function insert ($data);
 
-    public function insertMultiple ($part_of_sql, $data);
+    public function insertMultiple ($data);
 
-    public function updateMultiple ($part_of_sql, $data);
+    public function updateMultiple ($id_student_list);
 
 }

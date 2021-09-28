@@ -4,45 +4,41 @@ namespace App\Depositories;
 
 use App\Depositories\Contracts\DataVersionStudentDepositoryContract;
 use App\Models\DataVersionStudent;
+use Illuminate\Support\Facades\DB;
 
 class DataVersionStudentDepository implements DataVersionStudentDepositoryContract
 {
     // DataVersionStudent Model
     private DataVersionStudent $model;
 
-    public function insert ($data)
-    {
-        $this->model->insert($data);
-    }
-
     public function __construct (DataVersionStudent $model)
     {
         $this->model = $model;
     }
 
+    public function insert ($data)
+    {
+        DataVersionStudent::create($data);
+    }
+
     public function get ($id_student)
     {
-        return $this->model->get($id_student);
+        return DataVersionStudent::select('schedule', 'notification', 'module_score', 'exam_schedule')
+                                 ->find($id_student);
     }
 
-    public function updateDataVersion ($id_student, $type)
+    public function updateDataVersion ($id_student, $column_name)
     {
-        $this->model->updateDataVersion($id_student, $type);
+        DataVersionStudent::find($id_student)->increment($column_name);
     }
 
-    public function updateMultiple ($id_notification)
+    public function updateMultiple ($id_student_list, $column_name)
     {
-        $this->model->updateMultiple($id_notification);
+        DataVersionStudent::whereIn('id_student', $id_student_list)->increment($column_name);
     }
 
-    public function updateMultiple2 ($id_student_list, $column_name)
+    public function upsertMultiple ($data)
     {
-        $this->model->updateMultiple2($id_student_list, $column_name);
+        DataVersionStudent::upsert($data, ['id_student'], ['schedule' => DB::raw('schedule+1')]);
     }
-
-    public function insertMultiple ($part_of_sql, $data)
-    {
-        $this->model->insertMultiple($part_of_sql, $data);
-    }
-
 }

@@ -2,7 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\DB;
 
 class Student extends Model
@@ -10,81 +15,51 @@ class Student extends Model
     public const table = 'student';
     public const table_as = 'student as stu';
 
-    public function get ($id_account)
+    use HasFactory;
+
+    protected $table = 'student';
+    protected $primaryKey = 'id_student';
+    protected $keyType = 'string';
+    public $timestamps = false;
+
+    protected $fillable = [
+        'id_student',
+        'student_name',
+        'birth',
+        'id_class',
+        'id_card_number',
+        'phone_number',
+        'address',
+        'id_account'
+    ];
+
+    public function account () : HasOne
     {
-        return DB::table(self::table)
-                 ->where('id_account', '=', $id_account)
-                 ->get()
-                 ->first();
+        return $this->hasOne(Account::class, 'id_account', 'id_account');
     }
 
-    public function getIDStudentsByFacultyClass ($class_list) : array
+    public function class_ () : BelongsTo
     {
-        $this->_createTemporaryTable($class_list);
-
-        return DB::table(self::table_as)
-                 ->join('temp', 'stu.id_class', 'temp.id_class')
-                 ->pluck('id_student')
-                 ->toArray();
+        return $this->belongsTo(Class_::class, 'id_faculty', 'id_faculty');
     }
 
-    public function _createTemporaryTable ($class_list)
+    public function moduleClasses () : BelongsToMany
     {
-        $sql_query_1 =
-                'CREATE TEMPORARY TABLE temp (
-                  id_class varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
-                ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci';
-
-        $sql_of_list =
-                implode(',', array_fill(0, count($class_list), '(?)'));
-
-        $sql_query_2 =
-                'INSERT INTO temp
-                    (id_class)
-                VALUES
-                    ' . $sql_of_list;
-
-        DB::unprepared($sql_query_1);
-
-        DB::statement($sql_query_2, $class_list);
+        return $this->belongsToMany(ModuleClass::class, 'participate', 'id_student', 'id_module_class');
     }
 
-    public function insert ($data)
+    public function dataVersionStudent () : HasOne
     {
-        DB::table(self::table)
-          ->insert($data);
+        return $this->hasOne(DataVersionStudent::class, 'id_student', 'id_student');
     }
 
-    public function insertMultiple ($part_of_sql, $data)
+    public function moduleScores () : HasMany
     {
-        $sql_query =
-                'INSERT INTO
-                ' . self::table . '
-            (
-                id_student, student_name, birth, id_class,
-                id_card_number, phone_number, address
-            )
-            VALUES
-                ' . $part_of_sql . '
-            ON DUPLICATE KEY UPDATE id_student = id_student';
-
-        DB::insert($sql_query, $data);
+        return $this->hasMany(ModuleScore::class, 'id_student', 'id_student');
     }
 
-    public function updateMultiple ($part_of_sql, $data)
+    public function examSchedules () : HasMany
     {
-        $sql_query =
-                'UPDATE
-                student as stu
-            INNER JOIN
-                account as acc
-            ON
-                id_student = username
-            SET
-                stu.id_account = acc.id_account
-            WHERE
-                id_student IN (' . $part_of_sql . ')';
-
-        DB::update($sql_query, $data);
+        return $this->hasMany(ExamSchedule::class, 'id_student', 'id_student');
     }
 }

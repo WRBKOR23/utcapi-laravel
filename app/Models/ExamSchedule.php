@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
@@ -14,29 +15,26 @@ class ExamSchedule extends Model
     public const table = 'exam_schedule';
     public const table_as = 'exam_schedule as es';
 
-    public function get ($id_student) : Collection
-    {
-        return DB::connection('mysql2')->table(self::table)
-            ->where('id_student', '=', $id_student)
-            ->orderBy('date_start')
-            ->select('id_exam_schedule', 'school_year', 'module_name', 'credit', 'date_start',
-                'time_start', 'method', 'identification_number', 'room')
-            ->get();
-    }
+    protected $table = 'exam_schedule';
+    protected $primaryKey = 'id_exam_schedule';
+    public $timestamps = false;
 
-    public function insertMultiple ($data)
-    {
-        DB::connection('mysql2')->table(self::table)
-            ->insert($data);
-    }
+    protected $fillable = [
+        'id_exam_schedule',
+        'school_year',
+        'id_student',
+        'id_module',
+        'module_name',
+        'credit',
+        'date_start',
+        'time_start',
+        'method',
+        'identification_number',
+        'room'
+    ];
 
-    public function upsert ($data)
+    public function student () : BelongsTo
     {
-        DB::connection('mysql2')->table(self::table)
-            ->updateOrInsert([
-                'school_year' => $data['school_year'],
-                'id_module' => $data['id_module'],
-                'id_student' => $data['id_student']
-            ], $data);
+        return $this->belongsTo(Student::class, 'id_student', 'id_student');
     }
 }

@@ -2,6 +2,7 @@
 
     namespace App\Depositories;
 
+    use App\Models\Account;
     use App\Models\Teacher;
 
     class TeacherDepository implements Contracts\TeacherDepositoryContract
@@ -19,6 +20,6 @@
 
         public function get ($id_account)
         {
-            return $this->model->get($id_account);
+            return Account::find($id_account)->teacher;
         }
     }

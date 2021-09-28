@@ -20,16 +20,21 @@ class ModuleClassDepository implements Contracts\ModuleClassDepositoryContract
 
     public function getLatestSchoolYear ()
     {
-        return $this->model->getLatestSchoolYear();
+        return ModuleClass::max('school_year');
     }
 
-    public function getModuleClasses1 ($first_school_year, $second_school_year): Collection
+    public function getModuleClasses1 ($first_school_year, $second_school_year) : Collection
     {
-        return $this->model->getModuleClasses1($first_school_year, $second_school_year);
+        return ModuleClass::whereIn('school_year', [$first_school_year, $second_school_year])
+                          ->orderBy('id_module_class')
+                          ->select('id_module_class', 'module_class_name')
+                          ->get();
     }
 
-    public function getModuleClasses2 ($module_class_list): array
+    public function getModuleClasses2 ($module_class_list) : array
     {
-        return $this->model->getModuleClasses2($module_class_list);
+        return ModuleClass::whereIn('id_module_class', $module_class_list)
+                          ->pluck('id_module_class')
+                          ->toArray();
     }
 }

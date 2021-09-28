@@ -36,6 +36,7 @@ class CrawlModuleScoreService extends ACrawlService
     {
         parent::crawl($id_student);
         $data = $this->crawl->getStudentModuleScore(true);
+        var_dump($data);
         $this->_insertMultiple($data);
         $this->_updateDataVersion($id_student);
     }

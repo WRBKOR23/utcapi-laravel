@@ -6,6 +6,6 @@
     {
         public function getIDStudentsBMC ($class_list);
 
-        public function insertMultiple ($part_of_sql, $data);
+        public function insertMultiple ($data);
 
     }

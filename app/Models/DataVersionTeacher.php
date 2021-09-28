@@ -4,20 +4,28 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\DB;
 
 class DataVersionTeacher extends Model
 {
     use HasFactory;
+
     public const table = 'data_version_teacher';
     public const table_as = 'data_version_teacher as dvt';
 
-    public function get ($id_teacher)
+    protected $table = 'data_version_teacher';
+    protected $primaryKey = 'id_teacher';
+    protected $keyType = 'string';
+    public $timestamps = false;
+
+    protected $fillable = [
+        'id_teacher',
+        'schedule'
+    ];
+
+    public function teacher () : BelongsTo
     {
-        return DB::table(self::table)
-            ->where('id_teacher', '=', $id_teacher)
-            ->select('schedule')
-            ->get()
-            ->first();
+        return $this->belongsTo(Teacher::class, 'id_teacher', 'id_teacher');
     }
 }

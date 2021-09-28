@@ -4,6 +4,7 @@
 namespace App\Depositories;
 
 
+use App\Models\DataVersionStudent;
 use App\Models\DataVersionTeacher;
 
 class DataVersionTeacherDepository implements Contracts\DataVersionTeacherDepositoryContract
@@ -21,6 +22,6 @@ class DataVersionTeacherDepository implements Contracts\DataVersionTeacherDeposi
 
     public function get ($id_teacher)
     {
-        return $this->model->get($id_teacher);
+        return DataVersionStudent::select('schedule')->find($id_teacher);
     }
 }

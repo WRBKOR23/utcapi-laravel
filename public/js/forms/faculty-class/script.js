@@ -277,9 +277,9 @@ function getClass ()
 {
     let data = {}
 
-    for (let _class of allClass)
+    for (let class_ of allClass)
     {
-        let {academic_year: academicYearOfClass, id_faculty: facultyOfClass, id_class: idOfClass} = _class
+        let {academic_year: academicYearOfClass, id_faculty: facultyOfClass, id_class: idOfClass} = class_
 
         if (academicYears.lastIndexOf(academicYearOfClass) !== -1 &&
             faculties.lastIndexOf(facultyOfClass) !== -1)
@@ -332,7 +332,7 @@ function createTable (data)
             let counter = 2
             for (const _singleClass of _class)
             {
-                selectedClass.push(_singleClass)
+                selectedClass.push({id_class: _singleClass})
 
                 let classTag = createClassTag(_singleClass, _academicYear, facultyElement)
                 let columnClassTag = createColumn()
@@ -466,11 +466,11 @@ function tickAllForClass ()
             checkBoxes[i].checked = this.checked
             if (this.checked)
             {
-                selectedClass.push(checkBoxes[i].value)
+                selectedClass.push({id_class: checkBoxes[i].value})
             }
             else
             {
-                selectedClass.splice(selectedClass.lastIndexOf(checkBoxes[i].value), 1)
+                selectedClass.splice(selectedClass.lastIndexOf({id_class: checkBoxes[i].value}), 1)
             }
         }
     }
@@ -486,13 +486,13 @@ function addEventToClass ()
         {
             if (!this.checked && this.value !== 'all')
             {
-                selectedClass.splice(selectedClass.lastIndexOf(this.value), 1)
+                selectedClass.splice(selectedClass.lastIndexOf({id_class: this.value}), 1)
 
                 document.getElementsByClassName(this.name)[0].checked = false
             }
             else if (this.checked && this.value !== 'all')
             {
-                selectedClass.push(this.value)
+                selectedClass.push({id_class: this.value})
 
                 let checkBoxes = document.getElementsByName(this.name)
                 let flag = true

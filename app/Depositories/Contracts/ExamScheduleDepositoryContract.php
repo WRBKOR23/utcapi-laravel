@@ -1,12 +1,16 @@
 <?php
 
-    namespace App\Depositories\Contracts;
+namespace App\Depositories\Contracts;
 
-    interface ExamScheduleDepositoryContract
-    {
-        public function get ($id_student);
+interface ExamScheduleDepositoryContract
+{
+    public function get ($id_student);
 
-        public function insertMultiple ($data);
+    public function getLatestSchoolYear ($id_student);
 
-        public function upsert ($data);
-    }
+    public function insertMultiple ($data);
+
+    public function upsert ($data);
+
+    public function delete ($id_student, $school_year);
+}

@@ -7,11 +7,5 @@
 
     class StudentController extends Controller
     {
-        public function getInfo ($id_account) : array
-        {
-            $student = new Student();
-            $data    = $student->get($id_account);
 
-            return $data;
-        }
     }

@@ -13,7 +13,7 @@ class ExcelFileReader
     /**
      * @throws Exception
      */
-    public function readData ($file_name, $module_list): array
+    public function readData ($file_name, $module_list) : array
     {
         $raw_data       = $this->_getData($file_name);
         $formatted_data = $this->_formatData($raw_data, $module_list);
@@ -21,7 +21,7 @@ class ExcelFileReader
         return $formatted_data;
     }
 
-    private function _getData ($file_name): array
+    private function _getData ($file_name) : array
     {
         $raw_data = (new FileImport())->toArray(storage_path('app/public/excels/') . $file_name);
         return $raw_data;
@@ -30,7 +30,7 @@ class ExcelFileReader
     /**
      * @throws Exception
      */
-    private function _formatData ($raw_data, $module_list): array
+    private function _formatData ($raw_data, $module_list) : array
     {
         $curr_mc      = '';
         $student      = [];
@@ -59,9 +59,9 @@ class ExcelFileReader
                             $flag2 = false;
                             foreach ($module_list as $module)
                             {
-                                if (strpos($curr_mc, $module->module_name) !== false)
+                                if (strpos($curr_mc, $module['module_name']) !== false)
                                 {
-                                    $curr_mc = str_replace($module->module_name, $module->id_module, $curr_mc);
+                                    $curr_mc = str_replace($module['module_name'], $module['id_module'], $curr_mc);
                                     $flag2   = true;
                                     break;
                                 }
@@ -98,10 +98,10 @@ class ExcelFileReader
                 {
                     $arr['id_student']   = $row[2];
                     $arr['student_name'] = $row[3] . ' ' . $row[4];
-                    $arr['id_class']     = $row[1];
                     $arr['birth']        = SharedFunctions::formatDate($row[5]);
+                    $arr['id_class']     = $row[1];
                     $student[]           = $arr;
-                    $temp_arr[]          = $arr;
+                    $temp_arr[]          = ['id_student' => $arr['id_student']];
                 }
             }
         }
@@ -112,9 +112,9 @@ class ExcelFileReader
             $flag2 = false;
             foreach ($module_list as $module)
             {
-                if (strpos($curr_mc, $module->module_name) !== false)
+                if (strpos($curr_mc, $module['module_name']) !== false)
                 {
-                    $curr_mc = str_replace($module->module_name, $module->id_module, $curr_mc);
+                    $curr_mc = str_replace($module['module_name'], $module['id_module'], $curr_mc);
                     $flag2   = true;
                     break;
                 }
@@ -140,7 +140,7 @@ class ExcelFileReader
             $exception[] = $curr_mc;
         }
 
-        $student = array_unique($student, SORT_REGULAR);
+        $student      = array_unique($student, SORT_REGULAR);
         $module_class = array_unique($module_class, SORT_REGULAR);
 
         return [

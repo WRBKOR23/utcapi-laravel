@@ -27,10 +27,10 @@ class LoginWebService extends ALoginService
      * @param AccountDepositoryContract $accountDepository
      */
     public function __construct (OtherDepartmentDepositoryContract $otherDepartmentDepository,
-                                 DepartmentDepositoryContract $departmentDepository,
-                                 TeacherDepositoryContract $teacherDepository,
-                                 FacultyDepositoryContract $facultyDepository,
-                                 AccountDepositoryContract $accountDepository)
+                                 DepartmentDepositoryContract      $departmentDepository,
+                                 TeacherDepositoryContract         $teacherDepository,
+                                 FacultyDepositoryContract         $facultyDepository,
+                                 AccountDepositoryContract         $accountDepository)
     {
         parent::__construct($accountDepository);
         $this->otherDepartmentDepository = $otherDepartmentDepository;
@@ -39,17 +39,10 @@ class LoginWebService extends ALoginService
         $this->teacherDepository         = $teacherDepository;
     }
 
-    public
-    function login ($username, $password): array
-    {
-        return parent::login($username, $password);
-    }
-
     /**
      * @throws InvalidAccountException
      */
-    protected
-    function _customGetAccountOwnerInfo ($id_account, $permission)
+    protected function _customGetAccountOwnerInfo ($id_account, $permission)
     {
         switch ($permission)
         {

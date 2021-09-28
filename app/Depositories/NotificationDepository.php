@@ -6,6 +6,7 @@ use App\Depositories\Contracts\NotificationDepositoryContract;
 use App\Helpers\SharedFunctions;
 use App\Models\Notification;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class NotificationDepository implements NotificationDepositoryContract
 {
@@ -17,18 +18,26 @@ class NotificationDepository implements NotificationDepositoryContract
         $this->model = $model;
     }
 
-    public function insertGetID ($data): int
+    public function insertGetID ($data) : int
     {
-        return $this->model->insertGetID(SharedFunctions::setUpNotificationData($data));
+        return Notification::create($data)->id_notification;
     }
 
     public function setDelete ($id_notification_list)
     {
-        $this->model->setDelete($id_notification_list);
+        Notification::whereIn('id_notification', $id_notification_list)
+                    ->update(['is_delete' => 1]);
     }
 
-    public function getNotifications ($id_sender, $num): Collection
+    public function getNotifications ($id_sender, $num) : Collection
     {
-        return $this->model->getNotifications($id_sender, $num);
+        return Notification::where('id_sender', '=', $id_sender)
+                           ->where('is_delete', '=', 0)
+                           ->orderBy('id_notification', 'desc')
+                           ->offset($num)
+                           ->limit(15)
+                           ->select('id_notification', 'title', 'content',
+                                    'time_create', 'time_start', 'time_end')
+                           ->get();
     }
 }

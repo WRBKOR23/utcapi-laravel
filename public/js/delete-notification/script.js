@@ -160,7 +160,14 @@ function extractContent (content)
 
 function attachLink (tdTag, link)
 {
-    let arrLink = link.match(/<a>.+<\/a>/)
+    let arrLink = []
+    const regex1 = RegExp('<a>.+<\\/a>', 'g');
+    let array1;
+
+    while ((array1 = regex1.exec(link)) !== null) {
+        arrLink.push(array1[0])
+    }
+
     for (let singleLink of arrLink)
     {
         singleLink = singleLink.replace('<a>', '')
@@ -169,6 +176,7 @@ function attachLink (tdTag, link)
         aTag.href = singleLink
         aTag.innerHTML = getFileName(singleLink)
         tdTag.append(aTag)
+        tdTag.append(document.createElement('br'))
     }
 }
 

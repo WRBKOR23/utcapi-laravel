@@ -28,11 +28,6 @@ class LoginAppService extends ALoginService
         $this->teacherDepository = $teacherDepository;
     }
 
-    public function login ($username, $password): array
-    {
-        return parent::login($username, $password);
-    }
-
     /**
      * @throws InvalidAccountException
      */

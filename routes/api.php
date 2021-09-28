@@ -22,7 +22,6 @@ use App\Http\Controllers\ApiController\Guest\NotificationGuestController;
 use App\Http\Controllers\ApiController\ModuleScoreController;
 use App\Http\Controllers\ApiController\NotificationController;
 use App\Http\Controllers\ApiController\ScheduleController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 

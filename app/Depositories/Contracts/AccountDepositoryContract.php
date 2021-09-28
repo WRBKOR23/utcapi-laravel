@@ -16,6 +16,6 @@ interface AccountDepositoryContract
 
     public function insertGetId ($data);
 
-    public function insertMultiple ($part_of_sql, $data);
+    public function insertMultiple ($data);
 
 }

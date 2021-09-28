@@ -75,7 +75,7 @@ class CrawlQLDTData
         }
     }
 
-    public function getStudentInfo (): array
+    public function getStudentInfo () : array
     {
         $response1 = $this->_getRequest($this->url_student_mark);
         $response2 = $this->_getRequest($this->url_student_info);
@@ -115,12 +115,9 @@ class CrawlQLDTData
         return $data;
     }
 
-    public function getStudentModuleScore ($flag): array
+    public function getStudentModuleScore ($is_all) : array
     {
-        if ($flag == true)
-        {
-            $this->is_all = true;
-        }
+        $this->is_all = $is_all;
 
         $this->_getFormRequireDataOfStudentModuleScore();
         $data = $this->_getDataModuleScore();
@@ -133,9 +130,11 @@ class CrawlQLDTData
 
     private function _getFormRequireDataOfStudentModuleScore ()
     {
-        $response = $this->_getRequest($this->url_student_mark);
+        $this->_getSchoolYear();
 
         $html = new simple_html_dom();
+
+        $response = $this->_getRequest($this->url_student_mark);
         $html->load($response);
 
         $this->form_crawl_request                      = SharedData::$form_get_mark_request;
@@ -145,36 +144,60 @@ class CrawlQLDTData
         $this->form_crawl_request['drpField']          = $html->find('select[name=drpField] option', 0)->value;
         $this->form_crawl_request['hidFieldId']        = $html->find('input[id=hidFieldId]', 0)->value;
         $this->form_crawl_request['hidFieldName']      = $this->major;
+    }
+
+    private function _getSchoolYear ()
+    {
+        $html = new simple_html_dom();
+
+        $response = $this->_getRequest($this->url_student_mark);
+        $html->load($response);
 
         $elements = $html->find('select[name=drpHK] option');
         unset($elements[0]);
+//        unset($elements[1]);
+//        unset($elements[2]);
+//        unset($elements[3]);
+//        unset($elements[4]);
 
-        if (!$this->is_all)
+        if ($this->is_all)
         {
-            foreach (array_reverse($elements) as $e)
-            {
-                if (strlen(trim($e->innertext, ' ')) != 7)
-                {
-                    $this->school_year_arr[] = $e->innertext;
-                    return;
-                }
-            }
+            $this->_getAllSchoolYears($elements);
         }
+        else
+        {
+            $this->_getLatestSchoolYear($elements);
+        }
+    }
 
+    private function _getAllSchoolYears ($elements)
+    {
         foreach ($elements as $e)
         {
             $this->school_year_arr[] = $e->innertext;
         }
     }
 
-    private function _getDataModuleScore ()
+    private function _getLatestSchoolYear ($elements)
     {
-        $data = null;
+        foreach (array_reverse($elements) as $e)
+        {
+            if (strlen(trim($e->innertext, ' ')) != 7)
+            {
+                $this->school_year_arr[] = $e->innertext;
+                break;
+            }
+        }
+    }
 
+    private function _getDataModuleScore () : array
+    {
+        $data = [];
         foreach ($this->school_year_arr as $school_year)
         {
             $this->form_crawl_request['drpHK'] = $school_year;
-            $response                          = $this->_postRequest($this->url_student_mark, $this->form_crawl_request);
+            $response                          = $this->_postRequest($this->url_student_mark,
+                                                                     $this->form_crawl_request);
 
             $html = new simple_html_dom();
             $html->load($response);
@@ -308,31 +331,25 @@ class CrawlQLDTData
         return $response;
     }
 
-    public function getStudentExamSchedule ($school_year_list): array
+    public function getStudentExamSchedule ($is_all) : array
     {
-        $this->school_year_arr = SharedFunctions::formatToUnOfficialSchoolYear($school_year_list);
+        $this->is_all = $is_all;
+
         $this->_getFormRequireDataOfStudentExamSchedule();
         $data = $this->_getDataExamSchedule();
 
         curl_close($this->ch);
-
-        if (empty($data))
-        {
-            foreach ($this->school_year_arr as $key => $value)
-            {
-                $data[$key] = [];
-                break;
-            }
-        }
 
         return $data;
     }
 
     private function _getFormRequireDataOfStudentExamSchedule ()
     {
-        $response = $this->_getRequest($this->url_student_exam_schedule);
+        $this->_getSchoolYear();
 
         $html = new simple_html_dom();
+
+        $response = $this->_getRequest($this->url_student_exam_schedule);
         $html->load($response);
 
         $this->form_crawl_request                      = SharedData::$form_get_exam_schedule_request;
@@ -340,29 +357,50 @@ class CrawlQLDTData
         $this->form_crawl_request['__EVENTVALIDATION'] = $html->find('input[name=__EVENTVALIDATION]', 0)->value;
         $this->form_crawl_request['hidStudentId']      = $html->find('input[id=hidStudentId]', 0)->value;
 
-        $elements = array_reverse($html->find('select[name=drpSemester] option'));
-        $data     = [];
-        $flag     = false;
-        for ($i = 0; $i < count($elements); $i++)
+        $this->_formatToUnOfficialSchoolYear();
+        $elements = $html->find('select[name=drpSemester] option');
+
+        $data = [];
+        $flag = false;
+        for ($i = count($elements) - 1; $i >= 0; $i--)
         {
             if (in_array($elements[$i]->innertext, $this->school_year_arr))
             {
                 $data[$elements[$i]->innertext] = $elements[$i]->value;
-                if (!$flag)
-                {
-                    $data[$elements[$i - 1]->innertext] = $elements[$i - 1]->value;
-                    $flag                               = true;
-                }
+                $flag                           = true;
             }
+            else if ($flag)
+            {
+                $data[$elements[$i]->innertext] = $elements[$i]->value;
+                break;
+            }
+        }
+
+        if (empty($data))
+        {
+            $data = [
+                $elements[2]->innertext => $elements[2]->value,
+                $elements[1]->innertext => $elements[1]->value
+            ];
         }
 
         $this->school_year_arr = $data;
     }
 
-    private function _getDataExamSchedule ()
+    private function _formatToUnOfficialSchoolYear ()
     {
-        $data = null;
+        $arr = [];
+        foreach ($this->school_year_arr as $school_year)
+        {
+            $arr[] = SharedFunctions::formatToUnOfficialSchoolYear($school_year);
+        }
 
+        $this->school_year_arr = $arr;
+    }
+
+    private function _getDataExamSchedule () : array
+    {
+        $data = [];
         foreach ($this->school_year_arr as $school_year_key => $school_year_value)
         {
             $this->form_crawl_request['drpSemester'] = $school_year_value;
@@ -394,7 +432,8 @@ class CrawlQLDTData
                     $this->form_crawl_request['drpDotThi']         = $exam_type[$i][1];
                     $this->form_crawl_request['__EVENTTARGET']     = 'drpDotThi';
                     $this->form_crawl_request['__VIEWSTATE']       = $html->find('input[name=__VIEWSTATE]', 0)->value;
-                    $this->form_crawl_request['__EVENTVALIDATION'] = $html->find('input[name=__EVENTVALIDATION]', 0)->value;
+                    $this->form_crawl_request['__EVENTVALIDATION'] = $html->find('input[name=__EVENTVALIDATION]',
+                                                                                 0)->value;
 
                     $response = $this->_postRequest($this->url_student_exam_schedule, $this->form_crawl_request);
                     $html->load($response);
@@ -439,16 +478,24 @@ class CrawlQLDTData
                     $temp_room   = SharedFunctions::formatWrongWord($tr[$j]->children(8)->innertext);
                     $arr['room'] = SharedFunctions::formatStringDataCrawled($temp_room);
 
-                    $data[$school_year_key][] = $arr;
+                    $data[SharedFunctions::formatToOfficialSchoolYear($school_year_key)][] = $arr;
                 }
             }
+        }
 
+        if (empty($data))
+        {
+            foreach ($this->school_year_arr as $school_year_key => $school_year_value)
+            {
+                $data[SharedFunctions::formatToOfficialSchoolYear($school_year_key)] = [];
+                break;
+            }
         }
 
         return $data;
     }
 
-    private function _formatModuleScoreData ($data): array
+    private function _formatModuleScoreData ($data) : array
     {
         $temp = [];
         foreach ($this->school_year_arr as $school_year)

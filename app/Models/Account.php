@@ -2,94 +2,65 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Account extends Model
 {
+    use HasFactory;
+
     public const table = 'account';
     public const table_as = 'account as acc';
 
-    public function get ($username): array
+    protected $table = 'account';
+    protected $primaryKey = 'id_account';
+    public $timestamps = false;
+
+    protected $fillable = [
+        'id_account',
+        'username',
+        'email',
+        'password',
+        'qldt_password',
+        'permission'
+    ];
+
+    public function student () : BelongsTo
     {
-        return DB::table(self::table)
-            ->where('username', '=', $username)
-            ->select('id_account', 'username', 'password', 'permission')
-            ->get()
-            ->toArray();
+        return $this->belongsTo(Student::class, 'id_account', 'id_account');
     }
 
-    public function getQLDTPassword ($username)
+    public function teacher () : BelongsTo
     {
-        return DB::table(self::table)
-            ->where('username', '=', $username)
-            ->pluck('qldt_password')
-            ->first();
+        return $this->belongsTo(Teacher::class, 'id_account', 'id_account');
     }
 
-    public function getIDAccounts ($id_student_list): array
+    public function otherDepartment () : BelongsTo
     {
-        $this->_createTemporaryTable($id_student_list);
-
-        return DB::table(self::table_as)
-            ->join('temp1', 'acc.username', '=', 'temp1.id_student')
-            ->pluck('id_account')
-            ->toArray();
+        return $this->belongsTo(OtherDepartment::class, 'id_account', 'id_account');
     }
 
-    public function updateQLDTPassword ($username, $qldt_password)
+    public function department () : BelongsTo
     {
-        DB::table(self::table)
-            ->where('username', '=', $username)
-            ->update(['qldt_password' => $qldt_password]);
+        return $this->belongsTo(Department::class, 'id_account', 'id_account');
     }
 
-    public function updatePassword ($username, $password)
+    public function faculty () : BelongsTo
     {
-        DB::table(self::table)
-            ->where('username', '=', $username)
-            ->update(['password' => $password]);
+        return $this->belongsTo(Faculty::class, 'id_account', 'id_account');
     }
 
-    public function _createTemporaryTable ($id_student_list)
+    public function devices() : HasMany
     {
-        $sql_query_1 =
-            'CREATE TEMPORARY TABLE temp1 (
-                  id_student varchar(15) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
-                ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci';
-
-        $sql_of_list =
-            implode(',', array_fill(0, count($id_student_list), '(?)'));
-
-        $sql_query_2 =
-            'INSERT INTO temp1
-                    (id_student)
-                VALUES
-                    ' . $sql_of_list;
-
-        DB::unprepared($sql_query_1);
-
-        DB::statement($sql_query_2, $id_student_list);
+        return $this->hasMany(Device::class, 'id_account', 'id_account');
     }
 
-    public function insertGetId($data): int
+    public function notifications () : BelongsToMany
     {
-        return DB::table(self::table)
-            ->insertGetId($data);
-    }
-
-    public function insertMultiple ($part_of_sql, $data)
-    {
-        $sql_query =
-            'INSERT INTO
-                ' . self::table . '
-            (
-                 username, email, password, qldt_password, permission
-            )
-            VALUES
-                ' . $part_of_sql . '
-            ON DUPLICATE KEY UPDATE username = username';
-
-        DB::insert($sql_query, $data);
+        return $this->belongsToMany(Notification::class, 'notification_account',
+                                    'id_account', 'id_notification');
     }
 }

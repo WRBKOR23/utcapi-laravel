@@ -2,52 +2,52 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class ModuleClass extends Model
 {
+    use HasFactory;
+
     public const table = 'module_class';
     public const table_as = 'module_class as mc';
 
-    public function getModuleClasses1 ($first_school_year, $second_school_year): Collection
-    {
-        $this->_createTemporaryTable($first_school_year, $second_school_year);
+    protected $table = 'module_class';
+    protected $primaryKey = 'id_module_class';
+    protected $keyType = 'string';
+    public $timestamps = false;
 
-        return DB::table(self::table_as)
-            ->join('temp as t', 'mc.school_year', '=', 't.school_year')
-            ->orderBy('id_module_class')
-            ->select('id_module_class', 'module_class_name')
-            ->get();
+    protected $fillable = [
+        'id_module_class',
+        'module_class_name',
+        'number_plan',
+        'number_reality',
+        'school_year',
+        'id_teacher',
+        'id_module'
+    ];
+
+    protected $hidden = [
+        'pivot'
+    ];
+
+    public function department () : BelongsTo
+    {
+        return $this->belongsTo(Module::class, 'id_module', 'id_module');
     }
 
-    public function getModuleClasses2 ($module_class_list): array
+    public function schedules () : HasMany
     {
-        return DB::table(self::table_as)
-            ->whereIn('id_module_class',$module_class_list)
-            ->pluck('id_module_class')
-            ->toArray();
+        return $this->hasMany(Schedule::class, 'id_module_class', 'id_module_class');
     }
 
-    private function _createTemporaryTable ($first_school_year, $second_school_year)
+    public function students () : BelongsToMany
     {
-        $sql_query =
-            'CREATE TEMPORARY TABLE temp(
-                     school_year varchar(4) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
-                ) ENGINE = InnoDB default CHARSET = utf8 COLLATE = utf8_unicode_ci';
-
-        DB::unprepared($sql_query);
-
-        DB::table('temp')
-            ->insert([
-                ['school_year' => $first_school_year],
-                ['school_year' => $second_school_year]
-            ]);
-    }
-
-    public function getLatestSchoolYear ()
-    {
-        return DB::table(self::table)->max('school_year');
+        return $this->belongsToMany(Student::class, 'participate', 'id_module_class', 'id_student');
     }
 }

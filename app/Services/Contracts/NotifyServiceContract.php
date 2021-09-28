@@ -6,6 +6,6 @@
 
     interface NotifyServiceContract
     {
-        public function sendNotification ($noti, $id_account_list);
+        public function sendNotification ($notification, $id_account_list);
 
     }

@@ -17,12 +17,12 @@ class SharedFunctions
         file_put_contents(config('filesystems.disks.errors.file_path'), $message, FILE_APPEND);
     }
 
-    public static function printFileImportException ($file_name,$message)
+    public static function printFileImportException ($file_name, $message)
     {
         file_put_contents(storage_path('app/public/excels/errors/') . $file_name, $message);
     }
 
-    public static function getDateTimeNow (): string
+    public static function getDateTimeNow () : string
     {
         date_default_timezone_set('Asia/Ho_Chi_Minh');
 
@@ -34,7 +34,7 @@ class SharedFunctions
         return $date_time;
     }
 
-    public static function formatString ($str): string
+    public static function formatString ($str) : string
     {
         $str = preg_replace('/[ ]+/', ' ', $str);
         $str = trim($str, ' ');
@@ -43,7 +43,7 @@ class SharedFunctions
     }
 
 
-    public static function formatDate ($date): string
+    public static function formatDate ($date) : string
     {
         $date_split = explode('/', $date);
         $date       = $date_split[2] . '-' . $date_split[1] . '-' . $date_split[0];
@@ -51,33 +51,44 @@ class SharedFunctions
         return $date;
     }
 
+    public static function formatArray ($arr, $key) : array
+    {
+        $formatted_array = [];
+        foreach ($arr as $a)
+        {
+            $formatted_array[] = [$key => $a];
+        }
+
+        return $formatted_array;
+    }
+
     /*
      *  For Notification table_as only
      */
-    public static function setUpNotificationData ($notification): array
+    public static function setUpNotificationData ($notification) : array
     {
         return [
-            'title' => SharedFunctions::formatString($notification['title']),
-            'content' => SharedFunctions::formatString($notification['content']),
-            'type' => $notification['type'],
-            'id_sender' => $notification['id_sender'],
+            'title'       => SharedFunctions::formatString($notification['title']),
+            'content'     => SharedFunctions::formatString($notification['content']),
+            'type'        => $notification['type'],
+            'id_sender'   => $notification['id_sender'],
             'time_create' => SharedFunctions::getDateTimeNow(),
-            'time_start' => $notification['time_start'],
-            'time_end' => $notification['time_end']
+            'time_start'  => $notification['time_start'],
+            'time_end'    => $notification['time_end']
         ];
     }
 
     /*
      *  For Notification_Account table_as only
      */
-    public static function setUpNotificationAccountData ($id_account_list, $id_notification): array
+    public static function setUpNotificationAccountData ($id_account_list, $id_notification) : array
     {
         $arr = [];
         foreach ($id_account_list as $id_account)
         {
             $arr[] = [
                 'id_notification' => $id_notification,
-                'id_account' => $id_account
+                'id_account'      => $id_account
             ];
         }
 
@@ -97,7 +108,7 @@ class SharedFunctions
         return $str;
     }
 
-    public static function formatStringDataCrawled ($str): string
+    public static function formatStringDataCrawled ($str) : string
     {
         $str = preg_replace('/\s+/', ' ', $str);
         $str = str_replace('- ', '-', $str);
@@ -107,14 +118,14 @@ class SharedFunctions
         return $str;
     }
 
-    public static function convertToOfficialSchoolYear ($shor_school_year): string
+    public static function convertToOfficialSchoolYear ($shor_school_year) : string
     {
         $arr = explode('_', $shor_school_year);
 
         return '20' . $arr[0] . '_20' . $arr[1] . '_' . $arr[2];
     }
 
-    public static function formatToOfficialSchoolYear ($school_year): string
+    public static function formatToOfficialSchoolYear ($school_year) : string
     {
         $semester_split = explode('_', $school_year);
         $school_year    = $semester_split[1] . '_' . $semester_split[2] . '_' . $semester_split[0];
@@ -122,39 +133,42 @@ class SharedFunctions
         return $school_year;
     }
 
-    public static function formatToUnOfficialSchoolYear ($school_year_list): array
+    public static function formatToUnOfficialSchoolYear ($school_year) : string
     {
-        $formatted_data = [];
-        foreach ($school_year_list as $item)
-        {
-            $semester_split   = explode('_', $item);
-            $formatted_data[] = $semester_split[2] . '_' . $semester_split[0] . '_' . $semester_split[1];
-        }
+        $semester_split = explode('_', $school_year);
+        $school_year    = $semester_split[2] . '_' . $semester_split[0] . '_' . $semester_split[1];
 
-        return $formatted_data;
+        return $school_year;
     }
 
     /*
      *
      */
 
-    public static function formatGetNotificationResponse ($data): array
+    public static function formatGetNotificationResponse ($data) : array
     {
         $response = [];
-
-        for ($i = 0; $i < count($data); $i++)
+        foreach ($data as $part)
         {
-            $response['notification'][$i] = $data[$i];
+            foreach ($part as $notification)
+            {
+                $response['sender'][] = [
+                    'id_sender'   => $notification['id_sender'],
+                    'sender_name' => $notification['sender_name'],
+                    'permission'  => $notification['permission']
+                ];
 
-            $response['sender'][$i]['id_sender']   = $data[$i]->id_sender;
-            $response['sender'][$i]['sender_name'] = $data[$i]->sender_name;
-            $response['sender'][$i]['permission']  = $data[$i]->permission;
+                unset($notification['sender_name']);
+                unset($notification['permission']);
 
-            unset($response['notification'][$i]->sender_name);
-            unset($response['notification'][$i]->permission);
+                $response['notification'][] = $notification;
+            }
         }
 
-        $response['sender'] = array_values(array_unique($response['sender'], SORT_REGULAR));
+        if (isset($response['sender']))
+        {
+            $response['sender'] = array_values(array_unique($response['sender'], SORT_REGULAR));
+        }
 
         return $response;
     }
@@ -163,7 +177,7 @@ class SharedFunctions
      *
      */
 
-    public static function setUpNotificationGuestData ($id_notification, $id_guest_list): array
+    public static function setUpNotificationGuestData ($id_notification, $id_guest_list) : array
     {
         $data = [];
         foreach ($id_guest_list as $id_guest)
