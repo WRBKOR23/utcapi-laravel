@@ -15,12 +15,12 @@
             $this->scheduleService = $scheduleService;
         }
 
-        public function getStudentSchedules ($id) : Collection
+        public function getStudentSchedules ($id)
         {
             return $this->scheduleService->getStudentSchedules($id);
         }
 
-        public function getTeacherSchedules ($id) : Collection
+        public function getTeacherSchedules ($id)
         {
             return $this->scheduleService->getTeacherSchedules($id);
         }

@@ -31,7 +31,7 @@ class NotificationAccountDepository implements NotificationAccountDepositoryCont
     {
         $result = [];
 
-        $result[] = Account::find(7994)->notifications()
+        $result[] = Account::find($id_account)->notifications()
                            ->where('notification.id_notification', '>', $id_notification)
                            ->join(Account::table_as, 'id_sender', '=', 'acc.id_account')
                            ->join(OtherDepartment::table_as, 'id_sender', '=', 'od.id_account')
@@ -41,7 +41,7 @@ class NotificationAccountDepository implements NotificationAccountDepositoryCont
                            ->get()
                            ->toArray();
 
-        $result[] = Account::find(7994)->notifications()
+        $result[] = Account::find($id_account)->notifications()
                            ->where('notification.id_notification', '>', $id_notification)
                            ->join(Account::table_as, 'id_sender', '=', 'acc.id_account')
                            ->join(Department::table_as, 'id_sender', '=', 'dep.id_account')
@@ -51,7 +51,7 @@ class NotificationAccountDepository implements NotificationAccountDepositoryCont
                            ->get()
                            ->toArray();
 
-        $result[] = Account::find(7994)->notifications()
+        $result[] = Account::find($id_account)->notifications()
                            ->where('notification.id_notification', '>', $id_notification)
                            ->join(Account::table_as, 'id_sender', '=', 'acc.id_account')
                            ->join(Teacher::table_as, 'id_sender', '=', 'tea.id_account')
@@ -61,7 +61,7 @@ class NotificationAccountDepository implements NotificationAccountDepositoryCont
                            ->get()
                            ->toArray();
 
-        $result[] = Account::find(7994)->notifications()
+        $result[] = Account::find($id_account)->notifications()
                            ->where('notification.id_notification', '>', $id_notification)
                            ->join(Account::table_as, 'id_sender', '=', 'acc.id_account')
                            ->join(Faculty::table_as, 'id_sender', '=', 'fac.id_account')

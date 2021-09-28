@@ -27,6 +27,11 @@ class DataVersionStudentDepository implements DataVersionStudentDepositoryContra
                                  ->find($id_student);
     }
 
+    public function getSingleColumn ($id_student, $column_name)
+    {
+        return DataVersionStudent::where('id_student', '=', $id_student)->pluck($column_name)->first();
+    }
+
     public function updateDataVersion ($id_student, $column_name)
     {
         DataVersionStudent::find($id_student)->increment($column_name);

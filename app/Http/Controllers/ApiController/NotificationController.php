@@ -21,9 +21,9 @@ class NotificationController extends Controller
         $this->notificationService = $notificationService;
     }
 
-    public function getNotifications ($id_account, $id_notification = '')
+    public function getNotifications ($id_student, $id_account, $id_notification = '')
     {
-        return $this->notificationService->getNotificationsApp($id_account, $id_notification);
+        return $this->notificationService->getNotificationsApp($id_student, $id_account, $id_notification);
     }
 
     public function setDelete (Request $request)

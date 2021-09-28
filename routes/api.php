@@ -79,7 +79,7 @@ Route::middleware('cus.auth')->group(function ()
 
         Route::get('data-version/{id_student}', [DataVersionStudentController::class, 'getDataVersion']);
 
-        Route::get('notification/{id_account}/{id_notification?}', [NotificationController::class, 'getNotifications']);
+        Route::get('notification/{id_student}/{id_account}/{id_notification?}', [NotificationController::class, 'getNotifications']);
 
         Route::get('module-score/{id_student}', [ModuleScoreController::class, 'get']);
 

@@ -22,6 +22,11 @@ class DataVersionTeacherDepository implements Contracts\DataVersionTeacherDeposi
 
     public function get ($id_teacher)
     {
-        return DataVersionStudent::select('schedule')->find($id_teacher);
+        return DataVersionTeacher::select('schedule')->find($id_teacher);
+    }
+
+    public function getSingleColumn ($id_teacher, $column_name)
+    {
+        return DataVersionTeacher::where('id_teacher', '=', $id_teacher)->pluck($column_name)->first();
     }
 }

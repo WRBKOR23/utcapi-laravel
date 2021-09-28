@@ -8,6 +8,8 @@ interface DataVersionStudentDepositoryContract
 
     public function get ($id_student);
 
+    public function getSingleColumn ($id_student, $column_name);
+
     public function updateDataVersion ($id_student, $column_name);
 
     public function updateMultiple ($id_student_list, $column_name);

@@ -113,7 +113,7 @@ class TestController extends Controller
 //        echo $d . '-----';
 //        echo $d - $c . '-----';
 //return $aa;
-
+        return DataVersionStudent::where('id_student', '191201402')->pluck('schedule')->first();
 //return a;
     }
 
