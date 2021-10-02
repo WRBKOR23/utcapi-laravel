@@ -4,7 +4,7 @@
 namespace App\Services\Guest;
 
 
-use App\Depositories\Contracts\ExamScheduleGuestDepositoryContract;
+use App\Repositories\Contracts\ExamScheduleGuestDepositoryContract;
 use App\Services\Contracts\Guest\ExamScheduleGuestServiceContract;
 
 class ExamScheduleGuestService implements ExamScheduleGuestServiceContract

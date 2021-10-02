@@ -5,8 +5,8 @@ namespace App\Services\Guest;
 
 
 use App\BusinessClass\CrawlQLDTData;
-use App\Depositories\Contracts\GuestInfoDepositoryContract;
-use App\Depositories\Contracts\ModuleScoreGuestDepositoryContract;
+use App\Repositories\Contracts\GuestInfoDepositoryContract;
+use App\Repositories\Contracts\ModuleScoreGuestDepositoryContract;
 use App\Services\AbstractClasses\ACrawlService;
 
 class CrawlModuleScoreGuestService extends ACrawlService

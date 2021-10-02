@@ -2,19 +2,19 @@
 
 namespace App\Services;
 
-use App\Depositories\Contracts\ClassDepositoryContract;
+use App\Repositories\Contracts\ClassRepositoryContract;
 use App\Helpers\SharedFunctions;
 use App\Services\Contracts\FacultyClassServiceContract;
 
 class FacultyClassService implements FacultyClassServiceContract
 {
-    private ClassDepositoryContract $classDepository;
+    private ClassRepositoryContract $classDepository;
 
     /**
      * FacultyClassService constructor.
-     * @param ClassDepositoryContract $classDepository
+     * @param ClassRepositoryContract $classDepository
      */
-    public function __construct (ClassDepositoryContract $classDepository)
+    public function __construct (ClassRepositoryContract $classDepository)
     {
         $this->classDepository = $classDepository;
     }

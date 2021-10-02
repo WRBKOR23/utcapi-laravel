@@ -5,32 +5,32 @@ namespace App\Services;
 
 
 use App\BusinessClass\CrawlQLDTData;
-use App\Depositories\Contracts\AccountDepositoryContract;
-use App\Depositories\Contracts\DataVersionStudentDepositoryContract;
-use App\Depositories\Contracts\ExamScheduleDepositoryContract;
-use App\Depositories\Contracts\ModuleScoreDepositoryContract;
+use App\Repositories\Contracts\AccountRepositoryContract;
+use App\Repositories\Contracts\DataVersionStudentRepositoryContract;
+use App\Repositories\Contracts\ExamScheduleRepositoryContract;
+use App\Repositories\Contracts\ModuleScoreDepositoryContract;
 use App\Services\AbstractClasses\ACrawlService;
 
 class CrawlExamScheduleService extends ACrawlService
 {
-    private AccountDepositoryContract $accountDepository;
+    private AccountRepositoryContract $accountDepository;
     private ModuleScoreDepositoryContract $moduleScoreDepository;
-    private ExamScheduleDepositoryContract $examScheduleDepository;
-    private DataVersionStudentDepositoryContract $dataVersionStudentDepository;
+    private ExamScheduleRepositoryContract $examScheduleDepository;
+    private DataVersionStudentRepositoryContract $dataVersionStudentDepository;
 
     /**
      * CrawlExamScheduleService constructor.
      * @param CrawlQLDTData $crawl
-     * @param AccountDepositoryContract $accountDepository
+     * @param AccountRepositoryContract $accountDepository
      * @param ModuleScoreDepositoryContract $moduleScoreDepository
-     * @param ExamScheduleDepositoryContract $examScheduleDepository
-     * @param DataVersionStudentDepositoryContract $dataVersionStudentDepository
+     * @param ExamScheduleRepositoryContract $examScheduleDepository
+     * @param DataVersionStudentRepositoryContract $dataVersionStudentDepository
      */
     public function __construct (CrawlQLDTData                        $crawl,
-                                 AccountDepositoryContract            $accountDepository,
+                                 AccountRepositoryContract            $accountDepository,
                                  ModuleScoreDepositoryContract        $moduleScoreDepository,
-                                 ExamScheduleDepositoryContract       $examScheduleDepository,
-                                 DataVersionStudentDepositoryContract $dataVersionStudentDepository)
+                                 ExamScheduleRepositoryContract       $examScheduleDepository,
+                                 DataVersionStudentRepositoryContract $dataVersionStudentDepository)
     {
         parent::__construct($crawl);
         $this->accountDepository            = $accountDepository;

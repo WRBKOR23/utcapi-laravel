@@ -4,7 +4,7 @@
 namespace App\Services;
 
 
-use App\Depositories\Contracts\ModuleScoreDepositoryContract;
+use App\Repositories\Contracts\ModuleScoreDepositoryContract;
 use App\Services\Contracts\ModuleScoreServiceContract;
 
 class ModuleScoreService implements ModuleScoreServiceContract

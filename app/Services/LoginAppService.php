@@ -2,26 +2,26 @@
 
 namespace App\Services;
 
-use App\Depositories\Contracts\AccountDepositoryContract;
-use App\Depositories\Contracts\StudentDepositoryContract;
-use App\Depositories\Contracts\TeacherDepositoryContract;
+use App\Repositories\Contracts\AccountRepositoryContract;
+use App\Repositories\Contracts\StudentRepositoryContract;
+use App\Repositories\Contracts\TeacherRepositoryContract;
 use App\Exceptions\InvalidAccountException;
 use App\Services\AbstractClasses\ALoginService;
 
 class LoginAppService extends ALoginService
 {
-    private StudentDepositoryContract $studentDepository;
-    private TeacherDepositoryContract $teacherDepository;
+    private StudentRepositoryContract $studentDepository;
+    private TeacherRepositoryContract $teacherDepository;
 
     /**
      * LoginAppService constructor.
-     * @param AccountDepositoryContract $accountDepository
-     * @param StudentDepositoryContract $studentDepository
-     * @param TeacherDepositoryContract $teacherDepository
+     * @param AccountRepositoryContract $accountDepository
+     * @param StudentRepositoryContract $studentDepository
+     * @param TeacherRepositoryContract $teacherDepository
      */
-    public function __construct (AccountDepositoryContract $accountDepository,
-                                 StudentDepositoryContract $studentDepository,
-                                 TeacherDepositoryContract $teacherDepository)
+    public function __construct (AccountRepositoryContract $accountDepository,
+                                 StudentRepositoryContract $studentDepository,
+                                 TeacherRepositoryContract $teacherDepository)
     {
         parent::__construct($accountDepository);
         $this->studentDepository = $studentDepository;

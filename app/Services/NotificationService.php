@@ -4,39 +4,39 @@
 namespace App\Services;
 
 
-use App\Depositories\Contracts\AccountDepositoryContract;
-use App\Depositories\Contracts\DataVersionStudentDepositoryContract;
-use App\Depositories\Contracts\NotificationAccountDepositoryContract;
-use App\Depositories\Contracts\NotificationDepositoryContract;
-use App\Depositories\Contracts\ParticipateDepositoryContract;
-use App\Depositories\Contracts\StudentDepositoryContract;
+use App\Repositories\Contracts\AccountRepositoryContract;
+use App\Repositories\Contracts\DataVersionStudentRepositoryContract;
+use App\Repositories\Contracts\NotificationAccountRepositoryContract;
+use App\Repositories\Contracts\NotificationRepositoryContract;
+use App\Repositories\Contracts\ParticipateRepositoryContract;
+use App\Repositories\Contracts\StudentRepositoryContract;
 use App\Helpers\SharedFunctions;
 use App\Services\Contracts\NotificationServiceContract;
 
 class NotificationService implements NotificationServiceContract
 {
-    private NotificationAccountDepositoryContract $notificationAccountDepository;
-    private DataVersionStudentDepositoryContract $dataVersionStudentDepository;
-    private NotificationDepositoryContract $notificationDepository;
-    private ParticipateDepositoryContract $participateDepository;
-    private AccountDepositoryContract $accountDepository;
-    private StudentDepositoryContract $studentDepository;
+    private NotificationAccountRepositoryContract $notificationAccountDepository;
+    private DataVersionStudentRepositoryContract $dataVersionStudentDepository;
+    private NotificationRepositoryContract $notificationDepository;
+    private ParticipateRepositoryContract $participateDepository;
+    private AccountRepositoryContract $accountDepository;
+    private StudentRepositoryContract $studentDepository;
 
     /**
      * NotificationService constructor.
-     * @param NotificationAccountDepositoryContract $notificationAccountDepository
-     * @param DataVersionStudentDepositoryContract $dataVersionStudentDepository
-     * @param NotificationDepositoryContract $notificationDepository
-     * @param ParticipateDepositoryContract $participateDepository
-     * @param AccountDepositoryContract $accountDepository
-     * @param StudentDepositoryContract $studentDepository
+     * @param NotificationAccountRepositoryContract $notificationAccountDepository
+     * @param DataVersionStudentRepositoryContract $dataVersionStudentDepository
+     * @param NotificationRepositoryContract $notificationDepository
+     * @param ParticipateRepositoryContract $participateDepository
+     * @param AccountRepositoryContract $accountDepository
+     * @param StudentRepositoryContract $studentDepository
      */
-    public function __construct (NotificationAccountDepositoryContract $notificationAccountDepository,
-                                 DataVersionStudentDepositoryContract  $dataVersionStudentDepository,
-                                 NotificationDepositoryContract        $notificationDepository,
-                                 ParticipateDepositoryContract         $participateDepository,
-                                 AccountDepositoryContract             $accountDepository,
-                                 StudentDepositoryContract             $studentDepository)
+    public function __construct (NotificationAccountRepositoryContract $notificationAccountDepository,
+                                 DataVersionStudentRepositoryContract  $dataVersionStudentDepository,
+                                 NotificationRepositoryContract        $notificationDepository,
+                                 ParticipateRepositoryContract         $participateDepository,
+                                 AccountRepositoryContract             $accountDepository,
+                                 StudentRepositoryContract             $studentDepository)
     {
         $this->notificationAccountDepository = $notificationAccountDepository;
         $this->dataVersionStudentDepository  = $dataVersionStudentDepository;
@@ -114,7 +114,7 @@ class NotificationService implements NotificationServiceContract
     {
         $data              = $this->notificationAccountDepository->getNotifications($id_account, $id_notification);
         $data              = SharedFunctions::formatGetNotificationResponse($data);
-        $data_version      = $this->dataVersionStudentDepository->getSingleColumn($id_account, 'notification');
+        $data_version      = $this->dataVersionStudentDepository->getSingleColumn1($id_account, 'notification');
         $data['index_del'] = $this->_getDeletedNotifications($id_notification);
 
         return [

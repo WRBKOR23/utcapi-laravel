@@ -2,18 +2,18 @@
 
 namespace App\Services;
 
-use App\Depositories\Contracts\ModuleClassDepositoryContract;
+use App\Repositories\Contracts\ModuleClassRepositoryContract;
 use App\Services\Contracts\ModuleClassServiceContract;
 
 class ModuleClassService implements ModuleClassServiceContract
 {
-    private ModuleClassDepositoryContract $moduleClassDepository;
+    private ModuleClassRepositoryContract $moduleClassDepository;
 
     /**
      * ModuleClassService constructor.
-     * @param ModuleClassDepositoryContract $moduleClassDepository
+     * @param ModuleClassRepositoryContract $moduleClassDepository
      */
-    public function __construct (ModuleClassDepositoryContract $moduleClassDepository)
+    public function __construct (ModuleClassRepositoryContract $moduleClassDepository)
     {
         $this->moduleClassDepository = $moduleClassDepository;
     }

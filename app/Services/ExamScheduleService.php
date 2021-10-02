@@ -2,18 +2,18 @@
 
 namespace App\Services;
 
-use App\Depositories\Contracts\ExamScheduleDepositoryContract;
+use App\Repositories\Contracts\ExamScheduleRepositoryContract;
 use App\Services\Contracts\ExamScheduleServiceContract;
 
 class ExamScheduleService implements ExamScheduleServiceContract
 {
-    private ExamScheduleDepositoryContract $examScheduleDepository;
+    private ExamScheduleRepositoryContract $examScheduleDepository;
 
     /**
      * ExamScheduleService constructor.
-     * @param ExamScheduleDepositoryContract $examScheduleDepository
+     * @param ExamScheduleRepositoryContract $examScheduleDepository
      */
-    public function __construct (ExamScheduleDepositoryContract $examScheduleDepository)
+    public function __construct (ExamScheduleRepositoryContract $examScheduleDepository)
     {
         $this->examScheduleDepository = $examScheduleDepository;
     }

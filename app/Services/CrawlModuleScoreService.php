@@ -3,28 +3,28 @@
 namespace App\Services;
 
 use App\BusinessClass\CrawlQLDTData;
-use App\Depositories\Contracts\AccountDepositoryContract;
-use App\Depositories\Contracts\DataVersionStudentDepositoryContract;
-use App\Depositories\Contracts\ModuleScoreDepositoryContract;
+use App\Repositories\Contracts\AccountRepositoryContract;
+use App\Repositories\Contracts\DataVersionStudentRepositoryContract;
+use App\Repositories\Contracts\ModuleScoreDepositoryContract;
 use App\Services\AbstractClasses\ACrawlService;
 
 class CrawlModuleScoreService extends ACrawlService
 {
-    private AccountDepositoryContract $accountDepository;
+    private AccountRepositoryContract $accountDepository;
     private ModuleScoreDepositoryContract $moduleScoreDepository;
-    private DataVersionStudentDepositoryContract $dataVersionStudentDepository;
+    private DataVersionStudentRepositoryContract $dataVersionStudentDepository;
 
     /**
      * CrawlModuleScoreService constructor.
      * @param CrawlQLDTData $crawl
-     * @param AccountDepositoryContract $accountDepository
+     * @param AccountRepositoryContract $accountDepository
      * @param ModuleScoreDepositoryContract $moduleScoreDepository
-     * @param DataVersionStudentDepositoryContract $dataVersionStudentDepository
+     * @param DataVersionStudentRepositoryContract $dataVersionStudentDepository
      */
-    public function __construct (CrawlQLDTData $crawl,
-                                 AccountDepositoryContract $accountDepository,
-                                 ModuleScoreDepositoryContract $moduleScoreDepository,
-                                 DataVersionStudentDepositoryContract $dataVersionStudentDepository)
+    public function __construct (CrawlQLDTData                        $crawl,
+                                 AccountRepositoryContract            $accountDepository,
+                                 ModuleScoreDepositoryContract        $moduleScoreDepository,
+                                 DataVersionStudentRepositoryContract $dataVersionStudentDepository)
     {
         parent::__construct($crawl);
         $this->accountDepository            = $accountDepository;

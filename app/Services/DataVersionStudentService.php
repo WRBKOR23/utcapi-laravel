@@ -3,18 +3,18 @@
 namespace App\Services;
 
 
-use App\Depositories\Contracts\DataVersionStudentDepositoryContract;
+use App\Repositories\Contracts\DataVersionStudentRepositoryContract;
 use App\Services\Contracts\DataVersionStudentServiceContract;
 
 class DataVersionStudentService implements DataVersionStudentServiceContract
 {
-    private DataVersionStudentDepositoryContract $dataVersionStudentDepository;
+    private DataVersionStudentRepositoryContract $dataVersionStudentDepository;
 
     /**
      * DataVersionStudentService constructor.
-     * @param DataVersionStudentDepositoryContract $dataVersionStudentDepository
+     * @param DataVersionStudentRepositoryContract $dataVersionStudentDepository
      */
-    public function __construct (DataVersionStudentDepositoryContract $dataVersionStudentDepository)
+    public function __construct (DataVersionStudentRepositoryContract $dataVersionStudentDepository)
     {
         $this->dataVersionStudentDepository = $dataVersionStudentDepository;
     }

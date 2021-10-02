@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\BusinessClass\CrawlQLDTData;
-use App\Depositories\Contracts\AccountDepositoryContract;
+use App\Repositories\Contracts\AccountRepositoryContract;
 use App\Exceptions\InvalidAccountException;
 use App\Services\Contracts\AccountServiceContract;
 use Exception;
@@ -11,14 +11,14 @@ use Exception;
 class AccountService implements AccountServiceContract
 {
     private CrawlQLDTData $crawl;
-    private AccountDepositoryContract $accountDepository;
+    private AccountRepositoryContract $accountDepository;
 
     /**
      * AccountService constructor.
      * @param CrawlQLDTData $crawl
-     * @param AccountDepositoryContract $accountDepository
+     * @param AccountRepositoryContract $accountDepository
      */
-    public function __construct (CrawlQLDTData $crawl, AccountDepositoryContract $accountDepository)
+    public function __construct (CrawlQLDTData $crawl, AccountRepositoryContract $accountDepository)
     {
         $this->crawl             = $crawl;
         $this->accountDepository = $accountDepository;

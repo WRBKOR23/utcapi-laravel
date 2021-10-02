@@ -5,10 +5,10 @@ namespace App\Services\Guest;
 
 
 use App\BusinessClass\CrawlQLDTData;
-use App\Depositories\Contracts\AccountDepositoryContract;
-use App\Depositories\Contracts\ExamScheduleGuestDepositoryContract;
-use App\Depositories\Contracts\GuestInfoDepositoryContract;
-use App\Depositories\Contracts\ModuleScoreGuestDepositoryContract;
+use App\Repositories\Contracts\AccountRepositoryContract;
+use App\Repositories\Contracts\ExamScheduleGuestDepositoryContract;
+use App\Repositories\Contracts\GuestInfoDepositoryContract;
+use App\Repositories\Contracts\ModuleScoreGuestDepositoryContract;
 use App\Services\AbstractClasses\ACrawlService;
 
 class CrawlExamScheduleGuestService extends ACrawlService

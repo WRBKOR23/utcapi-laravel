@@ -3,13 +3,13 @@
 namespace App\Services;
 
 use App\BusinessClass\FileUploadHandler;
-use App\Depositories\Contracts\AccountDepositoryContract;
-use App\Depositories\Contracts\ClassDepositoryContract;
-use App\Depositories\Contracts\DataVersionStudentDepositoryContract;
-use App\Depositories\Contracts\ModuleClassDepositoryContract;
-use App\Depositories\Contracts\ModuleDepositoryContract;
-use App\Depositories\Contracts\ParticipateDepositoryContract;
-use App\Depositories\Contracts\StudentDepositoryContract;
+use App\Repositories\Contracts\AccountRepositoryContract;
+use App\Repositories\Contracts\ClassRepositoryContract;
+use App\Repositories\Contracts\DataVersionStudentRepositoryContract;
+use App\Repositories\Contracts\ModuleClassRepositoryContract;
+use App\Repositories\Contracts\ModuleRepositoryContract;
+use App\Repositories\Contracts\ParticipateRepositoryContract;
+use App\Repositories\Contracts\StudentRepositoryContract;
 use App\Helpers\SharedData;
 use App\Helpers\SharedFunctions;
 use App\Services\Contracts\DataServiceContract;
@@ -19,33 +19,33 @@ use Illuminate\Support\Facades\Cache;
 class DataService implements DataServiceContract
 {
     private FileUploadHandler $fileUploadHandle;
-    private DataVersionStudentDepositoryContract $dataVersionStudentDepository;
-    private ModuleClassDepositoryContract $moduleClassDepository;
-    private ParticipateDepositoryContract $participateDepository;
-    private StudentDepositoryContract $studentDepository;
-    private AccountDepositoryContract $accountDepository;
-    private ModuleDepositoryContract $moduleDepository;
-    private ClassDepositoryContract $classDepository;
+    private DataVersionStudentRepositoryContract $dataVersionStudentDepository;
+    private ModuleClassRepositoryContract $moduleClassDepository;
+    private ParticipateRepositoryContract $participateDepository;
+    private StudentRepositoryContract $studentDepository;
+    private AccountRepositoryContract $accountDepository;
+    private ModuleRepositoryContract $moduleDepository;
+    private ClassRepositoryContract $classDepository;
 
     /**
      * DataService constructor.
      * @param FileUploadHandler $fileUploadHandle
-     * @param DataVersionStudentDepositoryContract $dataVersionStudentDepository
-     * @param ModuleClassDepositoryContract $moduleClassDepository
-     * @param ParticipateDepositoryContract $participateDepository
-     * @param StudentDepositoryContract $studentDepository
-     * @param AccountDepositoryContract $accountDepository
-     * @param ModuleDepositoryContract $moduleDepository
-     * @param ClassDepositoryContract $classDepository
+     * @param DataVersionStudentRepositoryContract $dataVersionStudentDepository
+     * @param ModuleClassRepositoryContract $moduleClassDepository
+     * @param ParticipateRepositoryContract $participateDepository
+     * @param StudentRepositoryContract $studentDepository
+     * @param AccountRepositoryContract $accountDepository
+     * @param ModuleRepositoryContract $moduleDepository
+     * @param ClassRepositoryContract $classDepository
      */
     public function __construct (FileUploadHandler                    $fileUploadHandle,
-                                 DataVersionStudentDepositoryContract $dataVersionStudentDepository,
-                                 ModuleClassDepositoryContract        $moduleClassDepository,
-                                 ParticipateDepositoryContract        $participateDepository,
-                                 StudentDepositoryContract            $studentDepository,
-                                 AccountDepositoryContract            $accountDepository,
-                                 ModuleDepositoryContract             $moduleDepository,
-                                 ClassDepositoryContract              $classDepository)
+                                 DataVersionStudentRepositoryContract $dataVersionStudentDepository,
+                                 ModuleClassRepositoryContract        $moduleClassDepository,
+                                 ParticipateRepositoryContract        $participateDepository,
+                                 StudentRepositoryContract            $studentDepository,
+                                 AccountRepositoryContract            $accountDepository,
+                                 ModuleRepositoryContract             $moduleDepository,
+                                 ClassRepositoryContract              $classDepository)
     {
         $this->fileUploadHandle             = $fileUploadHandle;
         $this->dataVersionStudentDepository = $dataVersionStudentDepository;

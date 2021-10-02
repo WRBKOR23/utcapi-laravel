@@ -4,7 +4,7 @@
 namespace App\Services\Guest;
 
 
-use App\Depositories\Contracts\ModuleScoreGuestDepositoryContract;
+use App\Repositories\Contracts\ModuleScoreGuestDepositoryContract;
 use App\Services\Contracts\Guest\ModuleScoreGuestServiceContract;
 
 class ModuleScoreGuestService implements ModuleScoreGuestServiceContract

@@ -5,11 +5,11 @@ namespace App\Services;
 
 
 use App\BusinessClass\CrawlQLDTData;
-use App\Depositories\Contracts\AccountDepositoryContract;
-use App\Depositories\Contracts\ClassDepositoryContract;
-use App\Depositories\Contracts\DataVersionStudentDepositoryContract;
-use App\Depositories\Contracts\FacultyDepositoryContract;
-use App\Depositories\Contracts\StudentDepositoryContract;
+use App\Repositories\Contracts\AccountRepositoryContract;
+use App\Repositories\Contracts\ClassRepositoryContract;
+use App\Repositories\Contracts\DataVersionStudentRepositoryContract;
+use App\Repositories\Contracts\FacultyRepositoryContract;
+use App\Repositories\Contracts\StudentRepositoryContract;
 use App\Helpers\SharedData;
 use App\Services\Contracts\FacultyClassServiceContract;
 use Exception;
@@ -17,23 +17,23 @@ use Exception;
 class RegisterService implements Contracts\RegisterServiceContract
 {
     private CrawlQLDTData $crawl;
-    private ClassDepositoryContract $classDepositoryContract;
-    private AccountDepositoryContract $accountDepository;
-    private StudentDepositoryContract $studentDepository;
-    private DataVersionStudentDepositoryContract $dataVersionStudentDepository;
+    private ClassRepositoryContract $classDepositoryContract;
+    private AccountRepositoryContract $accountDepository;
+    private StudentRepositoryContract $studentDepository;
+    private DataVersionStudentRepositoryContract $dataVersionStudentDepository;
 
     /**
      * @param CrawlQLDTData $crawl
-     * @param ClassDepositoryContract $classDepositoryContract
-     * @param AccountDepositoryContract $accountDepository
-     * @param StudentDepositoryContract $studentDepository
-     * @param DataVersionStudentDepositoryContract $dataVersionStudentDepository
+     * @param ClassRepositoryContract $classDepositoryContract
+     * @param AccountRepositoryContract $accountDepository
+     * @param StudentRepositoryContract $studentDepository
+     * @param DataVersionStudentRepositoryContract $dataVersionStudentDepository
      */
     public function __construct (CrawlQLDTData                        $crawl,
-                                 ClassDepositoryContract              $classDepositoryContract,
-                                 AccountDepositoryContract            $accountDepository,
-                                 StudentDepositoryContract            $studentDepository,
-                                 DataVersionStudentDepositoryContract $dataVersionStudentDepository)
+                                 ClassRepositoryContract              $classDepositoryContract,
+                                 AccountRepositoryContract            $accountDepository,
+                                 StudentRepositoryContract            $studentDepository,
+                                 DataVersionStudentRepositoryContract $dataVersionStudentDepository)
     {
         $this->crawl                        = $crawl;
         $this->classDepositoryContract      = $classDepositoryContract;

@@ -2,35 +2,35 @@
 
 namespace App\Services;
 
-use App\Depositories\Contracts\AccountDepositoryContract;
-use App\Depositories\Contracts\DepartmentDepositoryContract;
-use App\Depositories\Contracts\FacultyDepositoryContract;
-use App\Depositories\Contracts\OtherDepartmentDepositoryContract;
-use App\Depositories\Contracts\TeacherDepositoryContract;
+use App\Repositories\Contracts\AccountRepositoryContract;
+use App\Repositories\Contracts\DepartmentRepositoryContract;
+use App\Repositories\Contracts\FacultyRepositoryContract;
+use App\Repositories\Contracts\OtherDepartmentRepositoryContract;
+use App\Repositories\Contracts\TeacherRepositoryContract;
 use App\Exceptions\InvalidAccountException;
 use App\Services\AbstractClasses\ALoginService;
 use Illuminate\Support\Facades\Storage;
 
 class LoginWebService extends ALoginService
 {
-    private OtherDepartmentDepositoryContract $otherDepartmentDepository;
-    private DepartmentDepositoryContract $departmentDepository;
-    private TeacherDepositoryContract $teacherDepository;
-    private FacultyDepositoryContract $facultyDepository;
+    private OtherDepartmentRepositoryContract $otherDepartmentDepository;
+    private DepartmentRepositoryContract $departmentDepository;
+    private TeacherRepositoryContract $teacherDepository;
+    private FacultyRepositoryContract $facultyDepository;
 
     /**
      * LoginService constructor.
-     * @param OtherDepartmentDepositoryContract $otherDepartmentDepository
-     * @param DepartmentDepositoryContract $departmentDepository
-     * @param TeacherDepositoryContract $teacherDepository
-     * @param FacultyDepositoryContract $facultyDepository
-     * @param AccountDepositoryContract $accountDepository
+     * @param OtherDepartmentRepositoryContract $otherDepartmentDepository
+     * @param DepartmentRepositoryContract $departmentDepository
+     * @param TeacherRepositoryContract $teacherDepository
+     * @param FacultyRepositoryContract $facultyDepository
+     * @param AccountRepositoryContract $accountDepository
      */
-    public function __construct (OtherDepartmentDepositoryContract $otherDepartmentDepository,
-                                 DepartmentDepositoryContract      $departmentDepository,
-                                 TeacherDepositoryContract         $teacherDepository,
-                                 FacultyDepositoryContract         $facultyDepository,
-                                 AccountDepositoryContract         $accountDepository)
+    public function __construct (OtherDepartmentRepositoryContract $otherDepartmentDepository,
+                                 DepartmentRepositoryContract      $departmentDepository,
+                                 TeacherRepositoryContract         $teacherDepository,
+                                 FacultyRepositoryContract         $facultyDepository,
+                                 AccountRepositoryContract         $accountDepository)
     {
         parent::__construct($accountDepository);
         $this->otherDepartmentDepository = $otherDepartmentDepository;

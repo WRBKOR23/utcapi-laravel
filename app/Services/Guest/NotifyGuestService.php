@@ -5,7 +5,7 @@ namespace App\Services\Guest;
 
 
 use App\BusinessClass\FirebaseCloudMessaging;
-use App\Depositories\Contracts\GuestInfoDepositoryContract;
+use App\Repositories\Contracts\GuestInfoDepositoryContract;
 use App\Services\Contracts\Guest\NotifyGuestServiceContract;
 use Kreait\Firebase\Exception\FirebaseException;
 use Kreait\Firebase\Exception\MessagingException;

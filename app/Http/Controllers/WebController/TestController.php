@@ -11,6 +11,7 @@ use App\Imports\FileImport;
 use App\Models\Account;
 use App\Models\Class_;
 use App\Models\DataVersionStudent;
+use App\Models\DataVersionTeacher;
 use App\Models\Department;
 use App\Models\Device;
 use App\Models\ExamSchedule;
@@ -115,6 +116,11 @@ class TestController extends Controller
 //return $aa;
         $b = [35, 36, 37];
 
+        return DataVersionStudent::where('id_student', '=','191201402')
+                                 ->pluck('notification'
+                                 );
+
+        return DataVersionTeacher::select('schedule')->find('0884');
 
         return Account::find(996)->dataVersionStudent()->pluck('notification')->first();
 

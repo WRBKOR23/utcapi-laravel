@@ -4,17 +4,17 @@
 namespace App\Services;
 
 
-use App\Depositories\Contracts\DataVersionTeacherDepositoryContract;
+use App\Repositories\Contracts\DataVersionTeacherRepositoryContract;
 
 class DataVersionTeacherService implements Contracts\DataVersionTeacherServiceContract
 {
-    private DataVersionTeacherDepositoryContract $dataVersionTeacherDepository;
+    private DataVersionTeacherRepositoryContract $dataVersionTeacherDepository;
 
     /**
      * DataVersionTeacherService constructor.
-     * @param DataVersionTeacherDepositoryContract $dataVersionTeacherDepository
+     * @param DataVersionTeacherRepositoryContract $dataVersionTeacherDepository
      */
-    public function __construct (DataVersionTeacherDepositoryContract $dataVersionTeacherDepository)
+    public function __construct (DataVersionTeacherRepositoryContract $dataVersionTeacherDepository)
     {
         $this->dataVersionTeacherDepository = $dataVersionTeacherDepository;
     }

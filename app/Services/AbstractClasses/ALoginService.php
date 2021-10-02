@@ -2,7 +2,7 @@
 
 namespace App\Services\AbstractClasses;
 
-use App\Depositories\Contracts\AccountDepositoryContract;
+use App\Repositories\Contracts\AccountRepositoryContract;
 use App\Exceptions\InvalidAccountException;
 use App\Services\Contracts\LoginAppServiceContract;
 use App\Services\Contracts\LoginWebServiceContract;
@@ -10,13 +10,13 @@ use Illuminate\Support\Facades\Session;
 
 abstract class ALoginService implements LoginWebServiceContract, LoginAppServiceContract
 {
-    private AccountDepositoryContract $accountDepository;
+    private AccountRepositoryContract $accountDepository;
 
     /**
      * ALoginService constructor.
-     * @param AccountDepositoryContract $accountDepository
+     * @param AccountRepositoryContract $accountDepository
      */
-    public function __construct (AccountDepositoryContract $accountDepository)
+    public function __construct (AccountRepositoryContract $accountDepository)
     {
         $this->accountDepository = $accountDepository;
     }

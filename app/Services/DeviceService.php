@@ -4,18 +4,18 @@
 namespace App\Services;
 
 
-use App\Depositories\Contracts\DeviceDepositoryContract;
+use App\Repositories\Contracts\DeviceRepositoryContract;
 use App\Services\Contracts\DeviceServiceContract;
 
 class DeviceService implements DeviceServiceContract
 {
-    private DeviceDepositoryContract $deviceDepository;
+    private DeviceRepositoryContract $deviceDepository;
 
     /**
      * DeviceService constructor.
-     * @param DeviceDepositoryContract $deviceDepository
+     * @param DeviceRepositoryContract $deviceDepository
      */
-    public function __construct (DeviceDepositoryContract $deviceDepository)
+    public function __construct (DeviceRepositoryContract $deviceDepository)
     {
         $this->deviceDepository = $deviceDepository;
     }

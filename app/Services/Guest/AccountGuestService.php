@@ -5,7 +5,7 @@ namespace App\Services\Guest;
 
 
 use App\BusinessClass\CrawlQLDTData;
-use App\Depositories\Contracts\GuestInfoDepositoryContract;
+use App\Repositories\Contracts\GuestInfoDepositoryContract;
 use App\Services\Contracts\Guest\AccountGuestServiceContract;
 use Exception;
 

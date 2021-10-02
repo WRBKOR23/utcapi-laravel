@@ -4,8 +4,8 @@
 namespace App\Services\Guest;
 
 
-use App\Depositories\Contracts\GuestInfoDepositoryContract;
-use App\Depositories\Contracts\NotificationGuestDepositoryContract;
+use App\Repositories\Contracts\GuestInfoDepositoryContract;
+use App\Repositories\Contracts\NotificationGuestDepositoryContract;
 use App\Helpers\SharedFunctions;
 use App\Services\Contracts\Guest\NotificationGuestServiceContract;
 

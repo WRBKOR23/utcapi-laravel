@@ -5,7 +5,7 @@ namespace App\Services;
 
 
 use App\BusinessClass\FirebaseCloudMessaging;
-use App\Depositories\Contracts\DeviceDepositoryContract;
+use App\Repositories\Contracts\DeviceRepositoryContract;
 use App\Helpers\SharedFunctions;
 use App\Services\Contracts\NotifyServiceContract;
 use Kreait\Firebase\Exception\FirebaseException;
@@ -13,15 +13,15 @@ use Kreait\Firebase\Exception\MessagingException;
 
 class NotifyService implements NotifyServiceContract
 {
-    private DeviceDepositoryContract $deviceDepository;
+    private DeviceRepositoryContract $deviceDepository;
     private FirebaseCloudMessaging $fcm;
 
     /**
      * NotifyService constructor.
-     * @param DeviceDepositoryContract $depositoryContract
+     * @param DeviceRepositoryContract $depositoryContract
      * @param FirebaseCloudMessaging $fcm
      */
-    public function __construct (DeviceDepositoryContract $depositoryContract, FirebaseCloudMessaging $fcm)
+    public function __construct (DeviceRepositoryContract $depositoryContract, FirebaseCloudMessaging $fcm)
     {
         $this->deviceDepository = $depositoryContract;
         $this->fcm              = $fcm;
