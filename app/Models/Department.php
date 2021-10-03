@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Support\Facades\DB;
 
 class Department extends Model
 {
@@ -17,12 +15,12 @@ class Department extends Model
     public const table_as = 'department as dep';
 
     protected $table = 'department';
-    protected $primaryKey = 'id_department';
+    protected $primaryKey = 'id';
     protected $keyType = 'string';
     public $timestamps = false;
 
     protected $fillable = [
-        'id_department',
+        'id',
         'department_name',
         'email',
         'phone_number',
@@ -31,18 +29,18 @@ class Department extends Model
         'id_account'
     ];
 
-    public function account () : HasOne
+    public function account () : BelongsTo
     {
-        return $this->hasOne(Account::class, 'id_account', 'id_account');
+        return $this->belongsTo(Account::class, 'id_account', 'id');
     }
 
     public function faculty () : BelongsTo
     {
-        return $this->belongsTo(Faculty::class, 'id_faculty', 'id_faculty');
+        return $this->belongsTo(Faculty::class, 'id_faculty', 'id');
     }
 
-    public function modules() : HasMany
+    public function modules () : HasMany
     {
-        return $this->hasMany(Module::class, 'id_department', 'id_department');
+        return $this->hasMany(Module::class, 'id_department', 'id');
     }
 }

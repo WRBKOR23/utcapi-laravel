@@ -14,12 +14,12 @@ class ScheduleRepository implements ScheduleRepositoryContract
     public function getStudentSchedules ($id_student) : Collection
     {
         return Student::find($id_student)->moduleClasses()
-                      ->join(Schedule::table_as, 'module_class.id_module_class', '=', 'sdu.id_module_class')
+                      ->join(Schedule::table_as, 'module_class.id', '=', 'sdu.id_module_class')
                       ->where('sdu.date', '>=', DB::raw('DATE_SUB(NOW(), INTERVAL 1 YEAR)'))
-                      ->leftJoin(Teacher::table_as, 'tea.id_teacher', '=', 'module_class.id_teacher')
+                      ->leftJoin(Teacher::table_as, 'tea.id', '=', 'module_class.id_teacher')
                       ->orderBy('sdu.id_module_class')
-                      ->orderBy('sdu.id_schedule')
-                      ->select('sdu.id_schedule', 'sdu.id_module_class', 'module_class_name',
+                      ->orderBy('sdu.id')
+                      ->select('sdu.id as id_schedule', 'sdu.id_module_class', 'module_class_name',
                                'sdu.id_room', 'sdu.shift', 'sdu.date', 'teacher_name')
                       ->get();
     }
@@ -27,11 +27,11 @@ class ScheduleRepository implements ScheduleRepositoryContract
     public function getTeacherSchedules ($id_teacher) : Collection
     {
         return Teacher::find($id_teacher)->moduleClasses()
-                      ->join(Schedule::table_as, 'module_class.id_module_class', '=', 'sdu.id_module_class')
+                      ->join(Schedule::table_as, 'module_class.id', '=', 'sdu.id_module_class')
                       ->where('sdu.date', '>=', DB::raw('DATE_SUB(NOW(), INTERVAL 1 YEAR)'))
                       ->orderBy('sdu.id_module_class')
-                      ->orderBy('sdu.id_schedule')
-                      ->select('sdu.id_schedule', 'sdu.id_module_class', 'module_class.module_class_name',
+                      ->orderBy('sdu.id')
+                      ->select('sdu.id as id_schedule', 'sdu.id_module_class', 'module_class.module_class_name',
                                'sdu.id_room', 'sdu.shift', 'sdu.date')
                       ->get();
     }

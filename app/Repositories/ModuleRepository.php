@@ -7,9 +7,9 @@ use App\Repositories\Contracts\ModuleRepositoryContract;
 
 class ModuleRepository implements ModuleRepositoryContract
 {
-    public function getAll (): array
+    public function getAll () : array
     {
-        return Module::select('id_module', 'module_name')
+        return Module::select('id as id_module', 'module_name')
                      ->get()
                      ->toArray();
     }

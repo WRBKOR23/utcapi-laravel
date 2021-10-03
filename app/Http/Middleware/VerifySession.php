@@ -22,7 +22,7 @@ class VerifySession
             || time() > session('ttl'))
         {
             Session::forget('username');
-            Session::forget('id_account');
+            Session::forget('id');
             Session::forget('ttl');
 
             return redirect('/login');

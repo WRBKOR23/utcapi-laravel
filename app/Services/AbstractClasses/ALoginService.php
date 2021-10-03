@@ -24,10 +24,10 @@ abstract class ALoginService implements LoginWebServiceContract, LoginAppService
     /**
      * @throws InvalidAccountException
      */
-    public function login ($username, $password): array
+    public function login ($username, $password) : array
     {
         $token = $this->_authenticate($username, $password);
-        $data  = $this->_customGetAccountOwnerInfo(auth()->user()->id_account, auth()->user()->permission);
+        $data  = $this->_customGetAccountOwnerInfo(auth()->user()->id, auth()->user()->permission);
 
         return [
             'access_token' => $token,
@@ -61,7 +61,7 @@ abstract class ALoginService implements LoginWebServiceContract, LoginAppService
     protected function _setSession ($id_account, $user_name)
     {
         Session::put('username', $user_name);
-        Session::put('id_account', $id_account);
+        Session::put('id', $id_account);
         Session::put('ttl', time() + 900);
     }
 }

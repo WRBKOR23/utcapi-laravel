@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Facades\DB;
 
 class Module extends Model
 {
@@ -16,12 +15,12 @@ class Module extends Model
     public const table_as = 'module as md';
 
     protected $table = 'module';
-    protected $primaryKey = 'id_module';
+    protected $primaryKey = 'id';
     protected $keyType = 'string';
     public $timestamps = false;
 
     protected $fillable = [
-        'id_module',
+        'id',
         'module_name',
         'credit',
         'semester',
@@ -35,11 +34,11 @@ class Module extends Model
 
     public function department () : BelongsTo
     {
-        return $this->belongsTo(Department::class, 'id_department', 'id_department');
+        return $this->belongsTo(Department::class, 'id_department', 'id');
     }
 
-    public function moduleClasses() : HasMany
+    public function moduleClasses () : HasMany
     {
-        return $this->hasMany(ModuleClass::class, 'id_module', 'id_module');
+        return $this->hasMany(ModuleClass::class, 'id_module', 'id');
     }
 }

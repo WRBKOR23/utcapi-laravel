@@ -11,7 +11,7 @@ class AccountRepository implements AccountRepositoryContract
     public function get ($username) : array
     {
         return Account::where('username', '=', $username)
-                      ->select('id_account', 'username', 'password', 'permission')
+                      ->select('id', 'username', 'password', 'permission')
                       ->get()
                       ->toArray();
     }
@@ -22,7 +22,7 @@ class AccountRepository implements AccountRepositoryContract
 
         return DB::table(Account::table_as)
                  ->join('temp1', 'acc.username', '=', 'temp1.id_student')
-                 ->pluck('id_account')
+                 ->pluck('id')
                  ->toArray();
     }
 
@@ -52,7 +52,7 @@ class AccountRepository implements AccountRepositoryContract
 
     public function insertGetId ($data) : int
     {
-        return Account::create($data)->id_account;
+        return Account::create($data)->id;
     }
 
     public function _createTemporaryTable ($id_student_list)

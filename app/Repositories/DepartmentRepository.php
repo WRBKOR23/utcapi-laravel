@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\Account;
-use App\Models\Department;
 use App\Repositories\Contracts\DepartmentRepositoryContract;
 
 class DepartmentRepository implements DepartmentRepositoryContract

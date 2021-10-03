@@ -39,7 +39,7 @@ class RegisterController extends Controller
         $this->form1->validate($request);
         if ($this->registerService->process1($request->id_student, $request->qldt_password)->original != '')
         {
-//            return response('Account available', 406);
+            return response('Account available', 406);
         }
         return $this->process2($request);
     }

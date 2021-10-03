@@ -62,7 +62,6 @@ class RegisterService implements Contracts\RegisterServiceContract
     private function _checkAccountExist ($username) : bool
     {
         $account = $this->accountDepository->get($username);
-
         return !empty($account);
     }
 
@@ -98,23 +97,23 @@ class RegisterService implements Contracts\RegisterServiceContract
         $account['qldt_password'] = md5($data['qldt_password']);
         $account['permission']    = 0;
 
-        $student['id_student']   = $data['id_student'];
+        $student['id']           = $data['id_student'];
         $student['student_name'] = $student_info['student_name'];
         $student['birth']        = $student_info['birth'];
         $student['id_class']     = $student_info['academic_year'] . '.' . $data['id_class'];
 
-        $class['id_class']      = $student['id_class'];
+        $class['id']            = $student['id_class'];
         $class['academic_year'] = $student_info['academic_year'];
-        $class['class_name']    = $this->_getInfoClass($class['id_class'], $data['id_faculty'])['class_name'];
+        $class['class_name']    = $this->_getInfoClass($class['id'], $data['id_faculty'])['class_name'];
         $class['id_faculty']    = $data['id_faculty'];
 
         $data_version['id_student'] = $data['id_student'];
 
         return [
-                'data_version' => $data_version,
-                'account'      => $account,
-                'student'      => $student,
-                'class'        => $class
+            'data_version' => $data_version,
+            'account'      => $account,
+            'student'      => $student,
+            'class'        => $class
         ];
     }
 
@@ -162,7 +161,7 @@ class RegisterService implements Contracts\RegisterServiceContract
     private function _createData (&$data)
     {
         $id_account = $this->accountDepository->insertGetId($data['account']);
-        $this->classDepositoryContract->upsert($data['class']);
+        $this->classDepositoryContract->insert($data['class']);
         $data['student']['id_account'] = $id_account;
         $this->studentDepository->insert($data['student']);
         $this->dataVersionStudentDepository->insert($data['data_version']);

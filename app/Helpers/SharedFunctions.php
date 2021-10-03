@@ -176,18 +176,4 @@ class SharedFunctions
     /*
      *
      */
-
-    public static function setUpNotificationGuestData ($id_notification, $id_guest_list) : array
-    {
-        $data = [];
-        foreach ($id_guest_list as $id_guest)
-        {
-            $arr['ID_Notification'] = $id_notification;
-            $arr['ID_Guest']        = $id_guest;
-
-            $data[] = $arr;
-        }
-
-        return $data;
-    }
 }

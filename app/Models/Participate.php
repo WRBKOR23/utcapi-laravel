@@ -1,28 +1,26 @@
 <?php
 
-    namespace App\Models;
+namespace App\Models;
 
-    use Illuminate\Database\Eloquent\Factories\HasFactory;
-    use Illuminate\Database\Eloquent\Model;
-    use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-    class Participate extends Model
-    {
-        use HasFactory;
+class Participate extends Model
+{
+    use HasFactory;
 
-        public const table = 'participate';
-        public const table_as = 'participate as par';
+    public const table = 'participate';
+    public const table_as = 'participate as par';
 
-        protected $table = 'participate';
-//        protected $primaryKey = 'id_account';
-        public $timestamps = false;
+    protected $table = 'participate';
+    public $timestamps = false;
 
-        protected $fillable = [
-            'id_module_class',
-            'id_student'
-        ];
+    protected $fillable = [
+        'id_module_class',
+        'id_student'
+    ];
 
-        protected $hidden = [
-            'pivot'
-        ];
-    }
+    protected $hidden = [
+        'pivot'
+    ];
+}

@@ -25,19 +25,19 @@ class ClassRepository implements ClassRepositoryContract
         return Class_::join('temp as t', 'class.academic_year', '=', 't.academic_year')
                      ->orderBy('academic_year')
                      ->orderBy('id_faculty')
-                     ->orderBy('id_class')
-                     ->select('class.academic_year', 'id_faculty', 'id_class')
+                     ->orderBy('id')
+                     ->select('class.academic_year', 'id_faculty', 'id as id_class')
                      ->get();
     }
 
     public function insertMultiple ($data)
     {
-        Class_::upsert($data, ['id_class'], ['id_class']);
+        Class_::upsert($data, ['id'], ['id']);
     }
 
-    public function upsert ($data)
+    public function insert ($data)
     {
-        Class_::updateOrCreate(['id_class' => $data['id_class']], $data);
+        Class_::updateOrCreate(['id' => $data['id']], $data);
     }
 
     private function _createTemporaryTable ($academic_year_list)

@@ -11,12 +11,12 @@ class NotificationRepository implements NotificationRepositoryContract
 {
     public function insertGetID ($data) : int
     {
-        return Notification::create($data)->id_notification;
+        return Notification::create($data)->id;
     }
 
     public function setDelete ($id_notification_list)
     {
-        Notification::whereIn('id_notification', $id_notification_list)
+        Notification::whereIn('id', $id_notification_list)
                     ->update(['is_delete' => 1]);
     }
 
@@ -24,10 +24,10 @@ class NotificationRepository implements NotificationRepositoryContract
     {
         return Notification::where('id_sender', '=', $id_sender)
                            ->where('is_delete', '=', 0)
-                           ->orderBy('id_notification', 'desc')
+                           ->orderBy('id', 'desc')
                            ->offset($num)
                            ->limit(15)
-                           ->select('id_notification', 'title', 'content',
+                           ->select('id as id_notification', 'title', 'content',
                                     'time_create', 'time_start', 'time_end')
                            ->get();
     }
@@ -36,7 +36,7 @@ class NotificationRepository implements NotificationRepositoryContract
     {
         return Notification::where('is_delete', '=', true)
                            ->where('time_create', '>=', DB::raw('DATE_SUB(NOW(), INTERVAL 3 WEEK)'))
-                           ->pluck('id_notification')
+                           ->pluck('id')
                            ->toArray();
     }
 }

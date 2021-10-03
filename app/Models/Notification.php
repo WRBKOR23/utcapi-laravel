@@ -4,9 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
 
 class Notification extends Model
 {
@@ -16,11 +15,11 @@ class Notification extends Model
     public const table_as = 'notification as noti';
 
     protected $table = 'notification';
-    protected $primaryKey = 'id_notification';
+    protected $primaryKey = 'id';
     public $timestamps = false;
 
     protected $fillable = [
-        'id_notification',
+        'id',
         'title',
         'content',
         'type',
@@ -35,6 +34,11 @@ class Notification extends Model
         'is_delete',
         'pivot'
     ];
+
+    public function sender () : BelongsTo
+    {
+        return $this->belongsTo(Account::class, 'id_sender', 'id');
+    }
 
     public function accounts () : BelongsToMany
     {

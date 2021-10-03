@@ -10,6 +10,6 @@ interface ClassRepositoryContract
 
     public function insertMultiple ($data);
 
-    public function upsert ($data);
+    public function insert ($data);
 
 }

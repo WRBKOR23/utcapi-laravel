@@ -10,8 +10,9 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 class User extends Authenticatable implements JWTSubject
 {
     use HasFactory, Notifiable;
+
     protected $table = 'account';
-    protected $primaryKey = 'id_account';
+    protected $primaryKey = 'id';
     /**
      * The attributes that are mass assignable.
      *
@@ -50,7 +51,8 @@ class User extends Authenticatable implements JWTSubject
      *
      * @return mixed
      */
-    public function getJWTIdentifier() {
+    public function getJWTIdentifier ()
+    {
         return $this->getKey();
     }
 
@@ -59,7 +61,7 @@ class User extends Authenticatable implements JWTSubject
      *
      * @return array
      */
-    public function getJWTCustomClaims(): array
+    public function getJWTCustomClaims () : array
     {
         return [];
     }

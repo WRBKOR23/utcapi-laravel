@@ -5,8 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
 
 class ExamSchedule extends Model
 {
@@ -16,11 +14,11 @@ class ExamSchedule extends Model
     public const table_as = 'exam_schedule as es';
 
     protected $table = 'exam_schedule';
-    protected $primaryKey = 'id_exam_schedule';
+    protected $primaryKey = 'id';
     public $timestamps = false;
 
     protected $fillable = [
-        'id_exam_schedule',
+        'id',
         'school_year',
         'id_student',
         'id_module',
@@ -35,6 +33,6 @@ class ExamSchedule extends Model
 
     public function student () : BelongsTo
     {
-        return $this->belongsTo(Student::class, 'id_student', 'id_student');
+        return $this->belongsTo(Student::class, 'id_student', 'id');
     }
 }

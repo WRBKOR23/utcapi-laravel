@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
@@ -15,12 +16,12 @@ class Teacher extends Model
     public const table_as = 'teacher as tea';
 
     protected $table = 'teacher';
-    protected $primaryKey = 'id_teacher';
+    protected $primaryKey = 'id';
     protected $keyType = 'string';
     public $timestamps = false;
 
     protected $fillable = [
-        'id_teacher',
+        'id',
         'teacher_name',
         'birth',
         'phone_number',
@@ -31,13 +32,18 @@ class Teacher extends Model
         'id_account'
     ];
 
+    public function account () : BelongsTo
+    {
+        return $this->belongsTo(Account::class, 'id_account', 'id');
+    }
+
     public function dataVersionTeacher () : HasOne
     {
-        return $this->hasOne(DataVersionTeacher::class, 'id_teacher', 'id_teacher');
+        return $this->hasOne(DataVersionTeacher::class, 'id_teacher', 'id');
     }
 
     public function moduleClasses () : HasMany
     {
-        return $this->hasMany(ModuleClass::class, 'id_teacher', 'id_teacher');
+        return $this->hasMany(ModuleClass::class, 'id_teacher', 'id');
     }
 }

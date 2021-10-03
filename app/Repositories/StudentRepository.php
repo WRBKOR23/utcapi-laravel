@@ -20,20 +20,20 @@ class StudentRepository implements StudentRepositoryContract
 
         return DB::table(Student::table_as)
                  ->join('temp', 'stu.id_class', 'temp.id_class')
-                 ->pluck('id_student')
+                 ->pluck('id')
                  ->toArray();
     }
 
     public function insertMultiple ($data)
     {
-        Student::upsert($data, ['id_student'], ['id_student']);
+        Student::upsert($data, ['id'], ['id']);
     }
 
     public function updateMultiple ($id_student_list)
     {
-        Student::whereIn('id_student', $id_student_list)
-               ->join(Account::table_as, 'student.id_student', '=', 'acc.username')
-               ->update(['student.id_account' => DB::raw('acc.id_account')]);
+        Student::whereIn('student.id', $id_student_list)
+               ->join(Account::table_as, 'student.id', '=', 'acc.username')
+               ->update(['student.id_account' => DB::raw('acc.id')]);
     }
 
     public function insert ($data)

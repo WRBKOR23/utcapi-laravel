@@ -47,6 +47,6 @@ class DataVersionStudentRepository implements DataVersionStudentRepositoryContra
     {
         DataVersionStudent::upsert($data,
                                    ['id_student'],
-                                   ['schedule' => DB::raw('schedule+1')]);
+                                   ['schedule' => DB::raw('schedule + 1')]);
     }
 }

@@ -74,11 +74,11 @@ class ExcelFileReader
                             {
                                 $module_class[] = $curr_mc;
                             }
-                            foreach ($temp_arr as $a)
+                            foreach ($temp_arr as $id_student)
                             {
                                 $participate[] = [
                                     'id_module_class' => $curr_mc,
-                                    'id_student'      => $a['id_student']
+                                    'id_student'      => $id_student
                                 ];
                             }
                         }
@@ -96,12 +96,12 @@ class ExcelFileReader
                 }
                 if ($flag)
                 {
-                    $arr['id_student']   = $row[2];
+                    $arr['id']           = $row[2];
                     $arr['student_name'] = $row[3] . ' ' . $row[4];
                     $arr['birth']        = SharedFunctions::formatDate($row[5]);
                     $arr['id_class']     = $row[1];
                     $student[]           = $arr;
-                    $temp_arr[]          = ['id_student' => $arr['id_student']];
+                    $temp_arr[]          = $arr['id'];
                 }
             }
         }
@@ -127,11 +127,11 @@ class ExcelFileReader
             {
                 $module_class[] = $curr_mc;
             }
-            foreach ($temp_arr as $a)
+            foreach ($temp_arr as $id_student)
             {
                 $participate[] = [
                     'id_module_class' => $curr_mc,
-                    'id_student'      => $a['id_student']
+                    'id_student'      => $id_student
                 ];
             }
         }

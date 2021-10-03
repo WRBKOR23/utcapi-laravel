@@ -13,7 +13,7 @@ class ExamScheduleRepository implements ExamScheduleRepositoryContract
     {
         return Student::find($id_student)->examSchedules()
                       ->orderBy('date_start')
-                      ->select('id_exam_schedule', 'school_year', 'module_name',
+                      ->select('id as id_exam_schedule', 'school_year', 'module_name',
                                'credit', 'date_start', 'time_start',
                                'method', 'identification_number', 'room')
                       ->get();
@@ -39,7 +39,7 @@ class ExamScheduleRepository implements ExamScheduleRepositoryContract
                              ['school_year', 'id_module_class', 'id_student'],
                              [
                                  'date_start', 'time_start', 'method',
-                              'identification_number', 'room'
+                                 'identification_number', 'room'
                              ]);
     }
 

@@ -5,8 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Schedule extends Model
 {
@@ -16,20 +15,29 @@ class Schedule extends Model
     public const table_as = 'schedule as sdu';
 
     protected $table = 'schedule';
-    protected $primaryKey = 'id_schedule';
+    protected $primaryKey = 'id';
     public $timestamps = false;
 
     protected $fillable = [
-        'id_schedule',
+        'id',
         'id_module_class',
-        'id_room',
-        'shift',
         'date',
-        'number_student'
+        'shift',
+        'id_room',
     ];
 
     public function moduleClass () : BelongsTo
     {
-        return $this->belongsTo(ModuleClass::class, 'id_module_class', 'id_module_class');
+        return $this->belongsTo(ModuleClass::class, 'id_module_class', 'id');
+    }
+
+    public function rooms () : BelongsTo
+    {
+        return $this->belongsTo(Room::class, 'id_room', 'id');
+    }
+
+    public function fixedSchedule () : hasOne
+    {
+        return $this->hasOne(FixedSchedule::class, 'id_schedule', 'id');
     }
 }

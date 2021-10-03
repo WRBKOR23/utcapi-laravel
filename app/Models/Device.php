@@ -26,6 +26,6 @@ class Device extends Model
 
     public function account () : BelongsTo
     {
-        return $this->belongsTo(Account::class, 'id_account', 'id_account');
+        return $this->belongsTo(Account::class, 'id_account', 'id');
     }
 }

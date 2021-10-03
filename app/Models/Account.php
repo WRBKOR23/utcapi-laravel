@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 class Account extends Model
@@ -17,11 +17,11 @@ class Account extends Model
     public const table_as = 'account as acc';
 
     protected $table = 'account';
-    protected $primaryKey = 'id_account';
+    protected $primaryKey = 'id';
     public $timestamps = false;
 
     protected $fillable = [
-        'id_account',
+        'id',
         'username',
         'email',
         'password',
@@ -29,34 +29,34 @@ class Account extends Model
         'permission'
     ];
 
-    public function student () : BelongsTo
+    public function student () : HasOne
     {
-        return $this->belongsTo(Student::class, 'id_account', 'id_account');
+        return $this->hasOne(Student::class, 'id_account', 'id');
     }
 
-    public function teacher () : BelongsTo
+    public function teacher () : hasOne
     {
-        return $this->belongsTo(Teacher::class, 'id_account', 'id_account');
+        return $this->hasOne(Teacher::class, 'id_account', 'id');
     }
 
-    public function otherDepartment () : BelongsTo
+    public function otherDepartment () : hasOne
     {
-        return $this->belongsTo(OtherDepartment::class, 'id_account', 'id_account');
+        return $this->hasOne(OtherDepartment::class, 'id_account', 'id');
     }
 
-    public function department () : BelongsTo
+    public function department () : hasOne
     {
-        return $this->belongsTo(Department::class, 'id_account', 'id_account');
+        return $this->hasOne(Department::class, 'id_account', 'id');
     }
 
-    public function faculty () : BelongsTo
+    public function faculty () : hasOne
     {
-        return $this->belongsTo(Faculty::class, 'id_account', 'id_account');
+        return $this->hasOne(Faculty::class, 'id_account', 'id');
     }
 
-    public function devices() : HasMany
+    public function devices () : HasMany
     {
-        return $this->hasMany(Device::class, 'id_account', 'id_account');
+        return $this->hasMany(Device::class, 'id_account', 'id');
     }
 
     public function notifications () : BelongsToMany
@@ -65,15 +65,20 @@ class Account extends Model
                                     'id_account', 'id_notification');
     }
 
-    public function dataVersionStudent() : HasOneThrough
+    public function sendNotification () : HasMany
+    {
+        return $this->hasMany(Notification::class, 'id_sender', 'id');
+    }
+
+    public function dataVersionStudent () : HasOneThrough
     {
         return $this->hasOneThrough(
             DataVersionStudent::class,
             Student::class,
             'id_account',
             'id_student',
-            'id_account',
-            'id_student',
+            'id',
+            'id',
         );
     }
 }

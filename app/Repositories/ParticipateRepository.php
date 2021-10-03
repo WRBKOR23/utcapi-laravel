@@ -8,13 +8,13 @@ use Illuminate\Support\Facades\DB;
 
 class ParticipateRepository implements ParticipateRepositoryContract
 {
-    public function getIDStudentsBMC ($class_list): array
+    public function getIDStudentsBMC ($class_list) : array
     {
         $this->_createTemporaryTable($class_list);
 
         return Participate::join('temp', 'participate.id_module_class', '=', 'temp.id_module_class')
-                 ->pluck('id_student')
-                 ->toArray();
+                          ->pluck('id_student')
+                          ->toArray();
     }
 
     public function insertMultiple ($data)

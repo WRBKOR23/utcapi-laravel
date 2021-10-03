@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Facades\DB;
 
 class DataVersionStudent extends Model
 {
@@ -29,6 +28,6 @@ class DataVersionStudent extends Model
 
     public function student () : BelongsTo
     {
-        return $this->belongsTo(Student::class, 'id_student', 'id_student');
+        return $this->belongsTo(Student::class, 'id_student', 'id');
     }
 }

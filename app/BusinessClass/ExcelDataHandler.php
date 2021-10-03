@@ -21,12 +21,12 @@ class ExcelDataHandler
             $class_list[] = $class_info;
 
             $account_list[] = [
-                'username'   => $student['id_student'],
+                'username'   => $student['id'],
                 'password'   => $student['birth'],
                 'permission' => '0'
             ];
 
-            $data_version_student_list[] = ['id_student' => $student['id_student']];
+            $data_version_student_list[] = ['id_student' => $student['id']];
 
         }
         $account_list = array_chunk($account_list, 200);
@@ -88,7 +88,7 @@ class ExcelDataHandler
                 $class_info['class_name'] = $class_info['class_name'] . ' - ' . $name_academic_year;
             }
         }
-        $class_info['id_class']      = $id_class;
+        $class_info['id']            = $id_class;
         $class_info['academic_year'] = $academic_year;
 
         return $class_info;

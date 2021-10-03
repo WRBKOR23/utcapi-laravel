@@ -16,8 +16,8 @@ class FacultyRepository implements FacultyRepositoryContract
 
     public function getAll ($data) : Collection
     {
-        return Faculty::whereNotIn('id_faculty', $data)
-                 ->select('id_faculty', 'faculty_name')
-                 ->get();
+        return Faculty::whereNotIn('id', $data)
+                      ->select('id as id_faculty', 'faculty_name')
+                      ->get();
     }
 }

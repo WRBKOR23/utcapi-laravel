@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Support\Facades\DB;
 
 class Student extends Model
 {
@@ -18,12 +17,12 @@ class Student extends Model
     use HasFactory;
 
     protected $table = 'student';
-    protected $primaryKey = 'id_student';
+    protected $primaryKey = 'id';
     protected $keyType = 'string';
     public $timestamps = false;
 
     protected $fillable = [
-        'id_student',
+        'id',
         'student_name',
         'birth',
         'id_class',
@@ -33,14 +32,14 @@ class Student extends Model
         'id_account'
     ];
 
-    public function account () : HasOne
+    public function account () : BelongsTo
     {
-        return $this->hasOne(Account::class, 'id_account', 'id_account');
+        return $this->belongsTo(Account::class, 'id_account', 'id');
     }
 
     public function class_ () : BelongsTo
     {
-        return $this->belongsTo(Class_::class, 'id_faculty', 'id_faculty');
+        return $this->belongsTo(Class_::class, 'id_faculty', 'id');
     }
 
     public function moduleClasses () : BelongsToMany
@@ -50,16 +49,16 @@ class Student extends Model
 
     public function dataVersionStudent () : HasOne
     {
-        return $this->hasOne(DataVersionStudent::class, 'id_student', 'id_student');
+        return $this->hasOne(DataVersionStudent::class, 'id_student', 'id');
     }
 
     public function moduleScores () : HasMany
     {
-        return $this->hasMany(ModuleScore::class, 'id_student', 'id_student');
+        return $this->hasMany(ModuleScore::class, 'id_student', 'id');
     }
 
     public function examSchedules () : HasMany
     {
-        return $this->hasMany(ExamSchedule::class, 'id_student', 'id_student');
+        return $this->hasMany(ExamSchedule::class, 'id_student', 'id');
     }
 }

@@ -27,7 +27,7 @@
                 id="dropdownMenuButton">
           {{ session('username') }}
         <i class="fas fa-cogs"></i>
-        <input type="hidden" name="id_" value="{{ session('id_account') }}"/>
+        <input type="hidden" name="id_" value="{{ session('id') }}"/>
         </button>
 
         <ul class="dropdown-menu mr-5" aria-labelledby="dropdownMenuButton">

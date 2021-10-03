@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
 
 class ModuleClass extends Model
 {
@@ -18,12 +16,12 @@ class ModuleClass extends Model
     public const table_as = 'module_class as mc';
 
     protected $table = 'module_class';
-    protected $primaryKey = 'id_module_class';
+    protected $primaryKey = 'id';
     protected $keyType = 'string';
     public $timestamps = false;
 
     protected $fillable = [
-        'id_module_class',
+        'id',
         'module_class_name',
         'number_plan',
         'number_reality',
@@ -36,14 +34,19 @@ class ModuleClass extends Model
         'pivot'
     ];
 
-    public function department () : BelongsTo
+    public function module () : BelongsTo
     {
-        return $this->belongsTo(Module::class, 'id_module', 'id_module');
+        return $this->belongsTo(Module::class, 'id_module', 'id');
+    }
+
+    public function teacher () : BelongsTo
+    {
+        return $this->belongsTo(Teacher::class, 'id_teacher', 'id');
     }
 
     public function schedules () : HasMany
     {
-        return $this->hasMany(Schedule::class, 'id_module_class', 'id_module_class');
+        return $this->hasMany(Schedule::class, 'id_module_class', 'id');
     }
 
     public function students () : BelongsToMany

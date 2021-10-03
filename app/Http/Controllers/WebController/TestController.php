@@ -114,15 +114,7 @@ class TestController extends Controller
 //        echo $d . '-----';
 //        echo $d - $c . '-----';
 //return $aa;
-        $b = [35, 36, 37];
-
-        return DataVersionStudent::where('id_student', '=','191201402')
-                                 ->pluck('notification'
-                                 );
-
-        return DataVersionTeacher::select('schedule')->find('0884');
-
-        return Account::find(996)->dataVersionStudent()->pluck('notification')->first();
+        return Account::find(20)->teacher;
 
     }
 
