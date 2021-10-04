@@ -34,6 +34,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
@@ -114,9 +115,48 @@ class TestController extends Controller
 //        echo $d . '-----';
 //        echo $d - $c . '-----';
 //return $aa;
-        return Account::find(20)->teacher;
+//        return Account::find(20)->teacher;
+//        $a = Teacher::select('*')->get()->toArray();
+//        foreach ($a as $e)
+//        {
+//            if ($e['id'] == 'KHOAKHAC')
+//                continue;
+//
+//            $id = Account::create([
+//                                'username' => 'GV_' . $e['id'],
+//                                'password' => '$2y$10$vQebZAiZ51suJZScdnXas.vd/IkCE1AIVL4Ur3tds0nhIe3MSlY2a',
+//                                'permission' => '1'
+//                            ])->id;
+//
+//            $x = Teacher::find($e['id']);
+//            $x->id_account = $id;
+//            $x->save();
+        $credential = [
+            'username' => 'PH_QLDT',
+            'password' => '1234'
+        ];
 
+        if (!$token = auth()->attempt($credential))
+        {
+            throw new InvalidAccountException();
+        }
+        return $token;
     }
+
+
+
+//if ($e['id'] == 'KHOAKHAC')
+//continue;
+//
+//$id = Account::create([
+//'username' => 'KH_' . $e['id'],
+//'password' => '$2y$10$vQebZAiZ51suJZScdnXas.vd/IkCE1AIVL4Ur3tds0nhIe3MSlY2a',
+//'permission' => '3'
+//])->id;
+//
+//$x = Faculty::find($e['id']);
+//$x->id_account = $id;
+//$x->save();
 
     public function test2 ()
     {

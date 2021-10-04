@@ -121,7 +121,6 @@ class SharedFunctions
     public static function convertToOfficialSchoolYear ($shor_school_year) : string
     {
         $arr = explode('_', $shor_school_year);
-
         return '20' . $arr[0] . '_20' . $arr[1] . '_' . $arr[2];
     }
 

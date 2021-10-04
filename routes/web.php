@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\CmdController;
 use App\Http\Controllers\WebController\AccountController;
 use App\Http\Controllers\WebController\Auth\LoginWebController;
 use App\Http\Controllers\WebController\Auth\LogoutController;
@@ -10,7 +9,6 @@ use App\Http\Controllers\WebController\ModuleClassController;
 use App\Http\Controllers\WebController\NotificationController;
 use App\Http\Controllers\WebController\HomeController;
 use App\Http\Controllers\WebController\TestController;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
