@@ -27,7 +27,7 @@ class ModuleScore extends Model
         'evaluation',
         'process_score',
         'test_score',
-        'theoretical_score'
+        'final_score'
     ];
 
     public function student () : BelongsTo

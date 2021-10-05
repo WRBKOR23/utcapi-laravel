@@ -17,7 +17,11 @@ class Participate extends Model
 
     protected $fillable = [
         'id_module_class',
-        'id_student'
+        'id_student',
+        'evaluation',
+        'process_score',
+        'test_score',
+        'final_score',
     ];
 
     protected $hidden = [

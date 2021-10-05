@@ -245,7 +245,7 @@ class CrawlQLDTData
                 {
                     $arr['process_score']                  = null;
                     $arr['test_score']                     = null;
-                    $arr['theoretical_score']              = $temp_score == '&nbsp;' ? null : $temp_score;
+                    $arr['final_score']              = $temp_score == '&nbsp;' ? null : $temp_score;
                     $data[$school_year][$arr['id_module']] = $arr;
 
                     continue;
@@ -275,7 +275,7 @@ class CrawlQLDTData
 
                 if (count($tr[$j]->children()) == 12)
                 {
-                    $arr['theoretical_score']              = null;
+                    $arr['final_score']              = null;
                     $data[$school_year][$arr['id_module']] = $arr;
 
                     continue;
@@ -296,7 +296,7 @@ class CrawlQLDTData
                 {
                     $temp_score = $td1[1] ?? $td1[0];
                 }
-                $arr['theoretical_score'] = $temp_score == '&nbsp;' ? null : $temp_score;
+                $arr['final_score'] = $temp_score == '&nbsp;' ? null : $temp_score;
                 //------------------------------------------------------------
 
                 $data[$school_year][$arr['id_module']] = $arr;
@@ -518,12 +518,12 @@ class CrawlQLDTData
                     $dupl_evaluation    = $data[$official_school_year][$module['id_module']]['evaluation'];
                     $dupl_process_score = $data[$official_school_year][$module['id_module']]['process_score'];
                     $dupl_test_score    = $data[$official_school_year][$module['id_module']]['test_score'];
-                    $dupl_theore_score  = $data[$official_school_year][$module['id_module']]['theoretical_score'];
+                    $dupl_theore_score  = $data[$official_school_year][$module['id_module']]['final_score'];
 
                     $module['evaluation']        = $dupl_evaluation == null ? $module['evaluation'] : $dupl_evaluation;
                     $module['process_score']     = $dupl_process_score == null ? $module['process_score'] : $dupl_process_score;
                     $module['test_score']        = $dupl_test_score == null ? $module['test_score'] : $dupl_test_score;
-                    $module['theoretical_score'] = $dupl_theore_score == null ? $module['theoretical_score'] : $dupl_theore_score;
+                    $module['final_score'] = $dupl_theore_score == null ? $module['final_score'] : $dupl_theore_score;
                 }
 
                 $module['school_year'] = $official_school_year;

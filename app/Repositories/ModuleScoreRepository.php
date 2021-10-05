@@ -15,7 +15,7 @@ class ModuleScoreRepository implements ModuleScoreDepositoryContract
                       ->orderBy('school_year')
                       ->select('id as id_module_score', 'school_year', 'module_name',
                                'credit', 'evaluation', 'process_score',
-                               'test_score', 'theoretical_score')
+                               'test_score', 'final_score')
                       ->get();
     }
 
@@ -30,7 +30,7 @@ class ModuleScoreRepository implements ModuleScoreDepositoryContract
                             ['school_year', 'id_module_class', 'id_student'],
                             [
                                 'evaluation', 'process_score',
-                                'test_score', 'theoretical_score'
+                                'test_score', 'final_score'
                             ]);
     }
 }
