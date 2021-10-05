@@ -4,6 +4,7 @@ namespace App\Http\Controllers\WebController;
 
 use App\BusinessClass\CrawlQLDTData;
 use App\Exceptions\InvalidAccountException;
+use App\Helpers\SharedData;
 use App\Helpers\SharedFunctions;
 use App\Http\Controllers\Controller;
 use App\Imports\Import;
@@ -131,16 +132,31 @@ class TestController extends Controller
 //            $x = Teacher::find($e['id']);
 //            $x->id_account = $id;
 //            $x->save();
-        $credential = [
-            'username' => 'PH_QLDT',
-            'password' => '1234'
-        ];
+        $x  = 'https://qldt.utc.edu.vn/CMCSoft.IU.Web.info/(S(o1ys50ibgsb4cslwgj40bf3w))/Login.aspx';
+        $y  = 'https://qldt.utc.edu.vn/CMCSoft.IU.Web.info/(S(o1ys50ibgsb4cslwgj40bf3w))/StudentMark.aspx';
+        $ch = curl_init();
 
-        if (!$token = auth()->attempt($credential))
-        {
-            throw new InvalidAccountException();
-        }
-        return $token;
+        $form_login_request                = SharedData::$form_login_request;
+        $form_login_request['txtUserName'] = '191201402';
+        $form_login_request['txtPassword'] = md5('21/05/2001');
+
+        curl_setopt($ch, CURLOPT_URL, $x);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($form_login_request));
+        curl_setopt($ch, CURLOPT_COOKIEJAR, 'c.txt');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($ch);
+
+        curl_setopt($ch, CURLOPT_URL, $y);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_POST, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_COOKIEJAR, 'c.txt');
+        $response = curl_exec($ch);
+
+        return $response;
     }
 
 
