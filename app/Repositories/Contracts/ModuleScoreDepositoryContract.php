@@ -1,12 +1,12 @@
 <?php
 
-    namespace App\Repositories\Contracts;
+namespace App\Repositories\Contracts;
 
-    interface ModuleScoreDepositoryContract
-    {
-        public function get ($id_student);
+interface ModuleScoreDepositoryContract
+{
+    public function get ($id_student);
 
-        public function insertMultiple ($data);
+    public function insertMultiple ($data);
 
-        public function upsert ($data);
-    }
+    public function upsert ($data);
+}

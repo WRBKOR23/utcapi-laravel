@@ -1,10 +1,8 @@
 <?php
 
+namespace App\Services\Contracts;
 
-    namespace App\Services\Contracts;
+interface LoginWebServiceContract extends LoginServiceContract
+{
 
-
-    interface LoginWebServiceContract extends LoginServiceContract
-    {
-
-    }
+}

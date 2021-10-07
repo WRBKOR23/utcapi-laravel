@@ -1,8 +1,8 @@
 <?php
 
-    namespace App\Services\Contracts;
+namespace App\Services\Contracts;
 
-    interface CrawlModuleScoreServiceContract extends CrawlServiceContract
-    {
+interface CrawlModuleScoreServiceContract extends CrawlServiceContract
+{
 
-    }
+}

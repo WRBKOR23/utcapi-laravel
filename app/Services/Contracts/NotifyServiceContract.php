@@ -1,11 +1,8 @@
 <?php
 
+namespace App\Services\Contracts;
 
-    namespace App\Services\Contracts;
-
-
-    interface NotifyServiceContract
-    {
-        public function sendNotification ($notification, $id_account_list);
-
-    }
+interface NotifyServiceContract
+{
+    public function sendNotification ($notification, $id_account_list);
+}

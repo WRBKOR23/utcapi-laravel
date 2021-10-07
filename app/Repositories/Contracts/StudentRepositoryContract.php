@@ -13,5 +13,4 @@ interface StudentRepositoryContract
     public function insertMultiple ($data);
 
     public function updateMultiple ($id_student_list);
-
 }

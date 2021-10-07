@@ -1,11 +1,10 @@
 <?php
 
-    namespace App\Repositories\Contracts;
+namespace App\Repositories\Contracts;
 
-    interface FacultyRepositoryContract
-    {
-        public function get ($id_account);
+interface FacultyRepositoryContract
+{
+    public function get ($id_account);
 
-        public function getAll ($data);
-
-    }
+    public function getAll ($data);
+}

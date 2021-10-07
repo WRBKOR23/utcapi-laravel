@@ -1,10 +1,8 @@
 <?php
 
+namespace App\Services\Contracts;
 
-    namespace App\Services\Contracts;
-
-
-    interface LoginServiceContract
-    {
-        public function login ($username, $password);
-    }
+interface LoginServiceContract
+{
+    public function login ($username, $password);
+}

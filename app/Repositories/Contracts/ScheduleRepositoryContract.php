@@ -1,10 +1,10 @@
 <?php
 
-    namespace App\Repositories\Contracts;
+namespace App\Repositories\Contracts;
 
-    interface ScheduleRepositoryContract
-    {
-        public function getStudentSchedules($id_student);
+interface ScheduleRepositoryContract
+{
+    public function getStudentSchedules ($id_student);
 
-        public function getTeacherSchedules($id_teacher);
-    }
+    public function getTeacherSchedules ($id_teacher);
+}

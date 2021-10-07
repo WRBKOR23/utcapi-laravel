@@ -1,8 +1,8 @@
 <?php
 
-    namespace App\Services\Contracts;
+namespace App\Services\Contracts;
 
-    interface CrawlExamScheduleServiceContract extends CrawlServiceContract
-    {
+interface CrawlExamScheduleServiceContract extends CrawlServiceContract
+{
 
-    }
+}
