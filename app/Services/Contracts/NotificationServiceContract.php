@@ -10,9 +10,9 @@
 
         public function pushNotificationBMC($notification, $class_list);
 
-        public function getNotificationsApp($id_account, $id_notification = '0');
+        public function getNotificationByReceiver($id_account, $is_student, $id_notification = '0');
 
-        public function getNotificationsWeb ($id_sender, $num);
+        public function getNotificationBySender ($id_sender, $num);
 
         public function setDelete($id_notification_list);
     }

@@ -6,6 +6,7 @@ namespace App\Services;
 
 use App\Repositories\Contracts\AccountRepositoryContract;
 use App\Repositories\Contracts\DataVersionStudentRepositoryContract;
+use App\Repositories\Contracts\DataVersionTeacherRepositoryContract;
 use App\Repositories\Contracts\NotificationAccountRepositoryContract;
 use App\Repositories\Contracts\NotificationRepositoryContract;
 use App\Repositories\Contracts\ParticipateRepositoryContract;
@@ -17,15 +18,16 @@ class NotificationService implements NotificationServiceContract
 {
     private NotificationAccountRepositoryContract $notificationAccountDepository;
     private DataVersionStudentRepositoryContract $dataVersionStudentDepository;
+    private DataVersionTeacherRepositoryContract $dataVersionTeacherRepository;
     private NotificationRepositoryContract $notificationDepository;
     private ParticipateRepositoryContract $participateDepository;
     private AccountRepositoryContract $accountDepository;
     private StudentRepositoryContract $studentDepository;
 
     /**
-     * NotificationService constructor.
      * @param NotificationAccountRepositoryContract $notificationAccountDepository
      * @param DataVersionStudentRepositoryContract $dataVersionStudentDepository
+     * @param DataVersionTeacherRepositoryContract $dataVersionTeacherRepository
      * @param NotificationRepositoryContract $notificationDepository
      * @param ParticipateRepositoryContract $participateDepository
      * @param AccountRepositoryContract $accountDepository
@@ -33,6 +35,7 @@ class NotificationService implements NotificationServiceContract
      */
     public function __construct (NotificationAccountRepositoryContract $notificationAccountDepository,
                                  DataVersionStudentRepositoryContract  $dataVersionStudentDepository,
+                                 DataVersionTeacherRepositoryContract  $dataVersionTeacherRepository,
                                  NotificationRepositoryContract        $notificationDepository,
                                  ParticipateRepositoryContract         $participateDepository,
                                  AccountRepositoryContract             $accountDepository,
@@ -40,6 +43,7 @@ class NotificationService implements NotificationServiceContract
     {
         $this->notificationAccountDepository = $notificationAccountDepository;
         $this->dataVersionStudentDepository  = $dataVersionStudentDepository;
+        $this->dataVersionTeacherRepository  = $dataVersionTeacherRepository;
         $this->notificationDepository        = $notificationDepository;
         $this->participateDepository         = $participateDepository;
         $this->accountDepository             = $accountDepository;
@@ -110,11 +114,18 @@ class NotificationService implements NotificationServiceContract
     }
 
 
-    public function getNotificationsApp ($id_account, $id_notification = '0') : array
+    public function getNotificationByReceiver ($id_account, $is_student, $id_notification = '0') : array
     {
-        $data              = $this->notificationAccountDepository->getNotifications($id_account, $id_notification);
-        $data              = SharedFunctions::formatGetNotificationResponse($data);
-        $data_version      = $this->dataVersionStudentDepository->getSingleColumn1($id_account, 'notification');
+        $data = $this->notificationAccountDepository->getNotifications($id_account, $id_notification);
+        $data = SharedFunctions::formatGetNotificationResponse($data);
+        if ($is_student)
+        {
+            $data_version = $this->dataVersionStudentDepository->getSingleColumn1($id_account, 'notification');
+        }
+        else
+        {
+            $data_version = $this->dataVersionTeacherRepository->getSingleColumn1($id_account, 'notification');
+        }
         $data['index_del'] = $this->_getDeletedNotifications($id_notification);
 
         return [
@@ -148,7 +159,7 @@ class NotificationService implements NotificationServiceContract
     }
 
 
-    public function getNotificationsWeb ($id_sender, $num)
+    public function getNotificationBySender ($id_sender, $num)
     {
         return $this->notificationDepository->getNotifications($id_sender, $num);
     }

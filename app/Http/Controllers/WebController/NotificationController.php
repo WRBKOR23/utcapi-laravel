@@ -34,7 +34,7 @@ class NotificationController extends Controller
 
     public function getNotifications ($id_sender, $num)
     {
-        return $this->notificationService->getNotificationsWeb($id_sender, $num);
+        return $this->notificationService->getNotificationBySender($id_sender, $num);
     }
 
     /**

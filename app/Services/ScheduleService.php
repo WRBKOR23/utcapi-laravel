@@ -42,7 +42,7 @@ class ScheduleService implements Contracts\ScheduleServiceContract
     public function getTeacherSchedules ($id_teacher) : array
     {
         $data         = $this->scheduleDepository->getTeacherSchedules($id_teacher);
-        $data_version = $this->dataVersionTeacherDepository->getSingleColumn($id_teacher, 'schedule');
+        $data_version = $this->dataVersionTeacherDepository->getSingleColumn2($id_teacher, 'schedule');
 
         return [
             'data'         => $data,

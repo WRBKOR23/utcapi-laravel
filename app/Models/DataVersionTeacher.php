@@ -20,7 +20,8 @@ class DataVersionTeacher extends Model
 
     protected $fillable = [
         'id_teacher',
-        'schedule'
+        'schedule',
+        'notification',
     ];
 
     public function teacher () : BelongsTo

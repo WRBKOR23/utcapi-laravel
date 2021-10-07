@@ -81,4 +81,16 @@ class Account extends Model
             'id',
         );
     }
+
+    public function dataVersionTeacher () : HasOneThrough
+    {
+        return $this->hasOneThrough(
+            DataVersionTeacher::class,
+            Teacher::class,
+            'id_account',
+            'id_teacher',
+            'id',
+            'id',
+        );
+    }
 }
