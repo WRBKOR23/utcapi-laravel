@@ -5,6 +5,7 @@
     use App\Http\Controllers\Controller;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Session;
+    use Tymon\JWTAuth\Facades\JWTAuth;
 
     class LogoutController extends Controller
     {
@@ -14,7 +15,7 @@
             Session::forget('id_account');
             Session::forget('ttl');
 
-            auth()->logout();
+            JWTAuth::logout();
 
             return response();
         }

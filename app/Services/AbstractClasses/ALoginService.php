@@ -7,6 +7,7 @@ use App\Exceptions\InvalidAccountException;
 use App\Services\Contracts\LoginAppServiceContract;
 use App\Services\Contracts\LoginWebServiceContract;
 use Illuminate\Support\Facades\Session;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 abstract class ALoginService implements LoginWebServiceContract, LoginAppServiceContract
 {
@@ -27,7 +28,7 @@ abstract class ALoginService implements LoginWebServiceContract, LoginAppService
     public function login ($username, $password) : array
     {
         $token = $this->_authenticate($username, $password);
-        $data  = $this->_customGetAccountOwnerInfo(auth()->user()->id, auth()->user()->permission);
+        $data  = $this->_customGetAccountOwnerInfo(JWTAuth::user()->id, JWTAuth::user()->permission);
 
         return [
             'access_token' => $token,
@@ -45,7 +46,7 @@ abstract class ALoginService implements LoginWebServiceContract, LoginAppService
             'password' => $password
         ];
 
-        if (!$token = auth()->attempt($credential))
+        if (!$token = JWTAuth::attempt($credential))
         {
             throw new InvalidAccountException();
         }
