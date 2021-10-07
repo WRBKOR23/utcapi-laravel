@@ -6,14 +6,6 @@ use App\Services\AccountService;
 use App\Services\Contracts\DataVersionTeacherServiceContract;
 use App\Services\Contracts\FacultyServiceContract;
 use App\Services\Contracts\FixScheduleServiceContract;
-use App\Services\Contracts\Guest\AccountGuestServiceContract;
-use App\Services\Contracts\Guest\CrawlExamScheduleGuestServiceContract;
-use App\Services\Contracts\Guest\CrawlModuleScoreGuestServiceContract;
-use App\Services\Contracts\Guest\DataVersionGuestServiceContract;
-use App\Services\Contracts\Guest\ExamScheduleGuestServiceContract;
-use App\Services\Contracts\Guest\LoginGuestServiceContract;
-use App\Services\Contracts\Guest\ModuleScoreGuestServiceContract;
-use App\Services\Contracts\Guest\NotificationGuestServiceContract;
 use App\Services\Contracts\RegisterServiceContract;
 use App\Services\Contracts\ScheduleServiceContract;
 use App\Services\CrawlExamScheduleService;
@@ -39,14 +31,6 @@ use App\Services\Contracts\NotificationServiceContract;
 use App\Services\Contracts\NotifyServiceContract;
 use App\Services\FacultyService;
 use App\Services\FixScheduleService;
-use App\Services\Guest\AccountGuestService;
-use App\Services\Guest\CrawlExamScheduleGuestService;
-use App\Services\Guest\CrawlModuleScoreGuestService;
-use App\Services\Guest\DataVersionGuestService;
-use App\Services\Guest\ExamScheduleGuestService;
-use App\Services\Guest\LoginGuestService;
-use App\Services\Guest\ModuleScoreGuestService;
-use App\Services\Guest\NotificationGuestService;
 use App\Services\DataService;
 use App\Services\LoginAppService;
 use App\Services\LoginWebService;
@@ -87,16 +71,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(DeviceServiceContract::class, DeviceService::class);
         $this->app->bind(NotifyServiceContract::class, NotifyService::class);
         $this->app->bind(DataServiceContract::class, DataService::class);
-
-        $this->app->bind(CrawlExamScheduleGuestServiceContract::class, CrawlExamScheduleGuestService::class);
-        $this->app->bind(CrawlModuleScoreGuestServiceContract::class, CrawlModuleScoreGuestService::class);
-        $this->app->bind(NotificationGuestServiceContract::class, NotificationGuestService::class);
-        $this->app->bind(ExamScheduleGuestServiceContract::class, ExamScheduleGuestService::class);
-        $this->app->bind(ModuleScoreGuestServiceContract::class, ModuleScoreGuestService::class);
-        $this->app->bind(DataVersionGuestServiceContract::class, DataVersionGuestService::class);
-        $this->app->bind(AccountGuestServiceContract::class, AccountGuestService::class);
-        $this->app->bind(LoginGuestServiceContract::class, LoginGuestService::class);
-
     }
 
     /**
