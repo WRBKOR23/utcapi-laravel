@@ -11,14 +11,6 @@ use App\Http\Controllers\ApiController\DataVersionTeacherController;
 use App\Http\Controllers\ApiController\DeviceController;
 use App\Http\Controllers\ApiController\ExamScheduleController;
 use App\Http\Controllers\ApiController\FacultyController;
-use App\Http\Controllers\ApiController\Guest\AccountGuestController;
-use App\Http\Controllers\ApiController\Guest\CrawlExamScheduleGuestController;
-use App\Http\Controllers\ApiController\Guest\CrawlModuleScoreGuestController;
-use App\Http\Controllers\ApiController\Guest\DataVersionGuestController;
-use App\Http\Controllers\ApiController\Guest\ExamScheduleGuestController;
-use App\Http\Controllers\ApiController\Guest\LoginGuestController;
-use App\Http\Controllers\ApiController\Guest\ModuleScoreGuestController;
-use App\Http\Controllers\ApiController\Guest\NotificationGuestController;
 use App\Http\Controllers\ApiController\ModuleScoreController;
 use App\Http\Controllers\ApiController\NotificationController;
 use App\Http\Controllers\ApiController\ScheduleController;
@@ -109,50 +101,6 @@ Route::middleware('cus.auth')->group(function ()
 
         Route::get('notification/{id_account}/{id_notification?}', [NotificationController::class, 'getTeacherNotification']);
 
-    });
-
-    /**
-     * @Guest----------------------------------------------------------------------------
-     */
-
-    Route::group(['prefix' => 'guest'], function ()
-    {
-        Route::post('login', [LoginGuestController::class, 'login']);
-
-        Route::group(['prefix' => 'account'], function ()
-        {
-            Route::post('update-password', [AccountGuestController::class, 'updatePassword']);
-
-            Route::post('update-device-token', [AccountGuestController::class, 'updateDeviceToken']);
-
-        });
-
-        Route::group(['prefix' => 'data-version'], function ()
-        {
-            Route::get('{id_student}', [DataVersionGuestController::class, 'getDataVersion']);
-
-            Route::get('notification/{id_student}', [DataVersionGuestController::class, 'getNotificationVersion']);
-        });
-
-        Route::group(['prefix' => 'notification'], function ()
-        {
-            Route::get('{id_guest}/{id_notification?}', [NotificationGuestController::class, 'getNotifications']);
-        });
-
-        Route::group(['prefix' => 'crawl'], function ()
-        {
-            Route::post('module-score/all', [CrawlModuleScoreGuestController::class, 'crawlAll']);
-
-            Route::post('module-score', [CrawlModuleScoreGuestController::class, 'crawl']);
-
-            Route::post('exam-schedule/all', [CrawlExamScheduleGuestController::class, 'crawlAll']);
-
-            Route::post('exam-schedule', [CrawlExamScheduleGuestController::class, 'crawl']);
-        });
-
-        Route::get('module-score/{id_student}', [ModuleScoreGuestController::class, 'get']);
-
-        Route::get('exam-schedule/{id_student}', [ExamScheduleGuestController::class, 'get']);
     });
 
     Route::get('schedule/{id}', [ScheduleController::class, 'getTeacherSchedules']);
