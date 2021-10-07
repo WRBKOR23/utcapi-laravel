@@ -1,24 +1,24 @@
 <?php
 
-    namespace App\Http\Controllers\ApiController;
+namespace App\Http\Controllers\ApiController;
 
-    use App\Services\Contracts\ModuleScoreServiceContract;
+use App\Services\Contracts\ModuleScoreServiceContract;
 
-    class ModuleScoreController
+class ModuleScoreController
+{
+    private ModuleScoreServiceContract $moduleScoreService;
+
+    /**
+     * ModuleScoreController constructor.
+     * @param ModuleScoreServiceContract $moduleScoreService
+     */
+    public function __construct (ModuleScoreServiceContract $moduleScoreService)
     {
-        private ModuleScoreServiceContract $moduleScoreService;
-
-        /**
-         * ModuleScoreController constructor.
-         * @param ModuleScoreServiceContract $moduleScoreService
-         */
-        public function __construct (ModuleScoreServiceContract $moduleScoreService)
-        {
-            $this->moduleScoreService = $moduleScoreService;
-        }
-
-        public function get ($id_student)
-        {
-            return $this->moduleScoreService->get($id_student);
-        }
+        $this->moduleScoreService = $moduleScoreService;
     }
+
+    public function get ($id_student)
+    {
+        return $this->moduleScoreService->get($id_student);
+    }
+}

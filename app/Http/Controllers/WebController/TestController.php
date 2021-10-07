@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\WebController;
 
-use App\BusinessClass\CrawlQLDTData;
+use App\BusinessClasses\CrawlQLDTData;
 use App\Exceptions\InvalidAccountException;
 use App\Helpers\SharedData;
 use App\Helpers\SharedFunctions;

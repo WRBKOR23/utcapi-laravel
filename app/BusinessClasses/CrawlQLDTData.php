@@ -1,6 +1,6 @@
 <?php
 
-namespace App\BusinessClass;
+namespace App\BusinessClasses;
 
 use App\Exceptions\InvalidQLDTAccount;
 use App\Helpers\SharedData;

@@ -1,8 +1,6 @@
 <?php
 
-
-namespace App\Http\RequestForm;
-
+namespace App\Http\FormRequest;
 
 use App\Exceptions\InvalidFormRequestException;
 use Exception;
@@ -10,13 +8,13 @@ use Illuminate\Http\Request;
 
 class PushNotificationGuestForm extends BaseForm
 {
-    protected function getRules (): array
+    protected function getRules () : array
     {
         return [
             'id_notification' => 'required',
-            'academic_year' => 'required',
-            'faculty' => 'required',
-            'info' => 'required'
+            'academic_year'   => 'required',
+            'faculty'         => 'required',
+            'info'            => 'required'
         ];
     }
 

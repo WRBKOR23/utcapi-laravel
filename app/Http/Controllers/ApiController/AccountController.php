@@ -1,13 +1,11 @@
 <?php
 
-
 namespace App\Http\Controllers\ApiController;
-
 
 use App\Exceptions\InvalidFormRequestException;
 use App\Http\Controllers\Controller;
-use App\Http\RequestForm\ChangePasswordForm;
-use App\Http\RequestForm\UpdateQLDTPasswordForm;
+use App\Http\FormRequest\ChangePasswordForm;
+use App\Http\FormRequest\UpdateQLDTPasswordForm;
 use App\Services\Contracts\AccountServiceContract;
 use Illuminate\Http\Request;
 
@@ -23,7 +21,8 @@ class AccountController extends Controller
      * @param ChangePasswordForm $form2
      * @param AccountServiceContract $accountService
      */
-    public function __construct (UpdateQLDTPasswordForm $form1, ChangePasswordForm $form2, AccountServiceContract $accountService)
+    public function __construct (UpdateQLDTPasswordForm $form1, ChangePasswordForm $form2,
+                                 AccountServiceContract $accountService)
     {
         $this->form1          = $form1;
         $this->form2          = $form2;

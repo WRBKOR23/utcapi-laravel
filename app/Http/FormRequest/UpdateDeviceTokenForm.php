@@ -1,13 +1,10 @@
 <?php
 
-
-namespace App\Http\RequestForm;
-
+namespace App\Http\FormRequest;
 
 class UpdateDeviceTokenForm extends BaseForm
 {
-
-    protected function getRules (): array
+    protected function getRules () : array
     {
         return [
             'id_account'   => 'required',

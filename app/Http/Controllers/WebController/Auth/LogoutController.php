@@ -1,23 +1,23 @@
 <?php
 
-    namespace App\Http\Controllers\WebController\Auth;
+namespace App\Http\Controllers\WebController\Auth;
 
-    use App\Http\Controllers\Controller;
-    use Illuminate\Http\Request;
-    use Illuminate\Support\Facades\Session;
-    use Tymon\JWTAuth\Facades\JWTAuth;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
-    class LogoutController extends Controller
+class LogoutController extends Controller
+{
+    public function logout (Request $request)
     {
-        public function logout (Request $request)
-        {
-            Session::forget('user_name');
-            Session::forget('id_account');
-            Session::forget('ttl');
+        Session::forget('user_name');
+        Session::forget('id_account');
+        Session::forget('ttl');
 
-            JWTAuth::logout();
+        JWTAuth::logout();
 
-            return response();
-        }
+        return response();
     }
+}
 

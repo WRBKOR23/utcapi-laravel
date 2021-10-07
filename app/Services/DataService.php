@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\BusinessClass\FileUploadHandler;
+use App\BusinessClasses\FileUploadHandler;
 use App\Repositories\Contracts\AccountRepositoryContract;
 use App\Repositories\Contracts\ClassRepositoryContract;
 use App\Repositories\Contracts\DataVersionStudentRepositoryContract;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\BusinessClass;
+namespace App\BusinessClasses;
 
 use App\Helpers\SharedData;
 use App\Models\Module;

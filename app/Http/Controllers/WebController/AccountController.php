@@ -1,12 +1,10 @@
 <?php
 
-
 namespace App\Http\Controllers\WebController;
-
 
 use App\Exceptions\InvalidFormRequestException;
 use App\Http\Controllers\Controller;
-use App\Http\RequestForm\ChangePasswordForm;
+use App\Http\FormRequest\ChangePasswordForm;
 use App\Services\Contracts\AccountServiceContract;
 use Illuminate\Http\Request;
 

@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\RequestForm;
-
+namespace App\Http\FormRequest;
 
 class LoginForm extends BaseForm
 {
-    protected function getRules (): array
+    protected function getRules () : array
     {
         return [
             'username' => 'required',

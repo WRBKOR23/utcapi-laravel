@@ -1,6 +1,6 @@
 <?php
 
-namespace App\BusinessClass;
+namespace App\BusinessClasses;
 
 require dirname(__DIR__, 2) . '/vendor/autoload.php';
 

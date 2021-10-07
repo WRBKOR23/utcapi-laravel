@@ -4,7 +4,7 @@ namespace App\Http\Controllers\ApiController\Auth;
 
 use App\Exceptions\InvalidFormRequestException;
 use App\Http\Controllers\Controller;
-use App\Http\RequestForm\LoginForm;
+use App\Http\FormRequest\LoginForm;
 use App\Services\Contracts\LoginAppServiceContract;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;

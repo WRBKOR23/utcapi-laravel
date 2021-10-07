@@ -30,6 +30,6 @@ class DataController extends Controller
 
     public function process2 (Request $request)
     {
-        return  $this->dataService->process2($request->all());
+        return $this->dataService->process2($request->all());
     }
 }

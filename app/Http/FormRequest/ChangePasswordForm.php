@@ -1,12 +1,10 @@
 <?php
 
-
-namespace App\Http\RequestForm;
-
+namespace App\Http\FormRequest;
 
 class ChangePasswordForm extends BaseForm
 {
-    protected function getRules (): array
+    protected function getRules () : array
     {
         return [
             'username'     => 'required',

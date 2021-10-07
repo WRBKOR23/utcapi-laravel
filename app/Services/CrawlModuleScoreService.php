@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\BusinessClass\CrawlQLDTData;
+use App\BusinessClasses\CrawlQLDTData;
 use App\Repositories\Contracts\AccountRepositoryContract;
 use App\Repositories\Contracts\DataVersionStudentRepositoryContract;
 use App\Repositories\Contracts\ModuleScoreDepositoryContract;

@@ -18,7 +18,6 @@ class ModuleClassController extends Controller
         $this->moduleClassService = $moduleClassService;
     }
 
-
     public function getModuleClasses ()
     {
         $module_class_list = $this->moduleClassService->getModuleClasses();

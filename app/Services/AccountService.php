@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\BusinessClass\CrawlQLDTData;
+use App\BusinessClasses\CrawlQLDTData;
 use App\Repositories\Contracts\AccountRepositoryContract;
 use App\Exceptions\InvalidAccountException;
 use App\Services\Contracts\AccountServiceContract;

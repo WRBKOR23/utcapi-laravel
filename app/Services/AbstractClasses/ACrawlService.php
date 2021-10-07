@@ -2,7 +2,7 @@
 
 namespace App\Services\AbstractClasses;
 
-use App\BusinessClass\CrawlQLDTData;
+use App\BusinessClasses\CrawlQLDTData;
 use App\Repositories\Contracts\AccountRepositoryContract;
 use App\Repositories\Contracts\SchoolYearRepositoryContract;
 use App\Services\Contracts\CrawlExamScheduleServiceContract;

@@ -4,7 +4,7 @@
 namespace App\Services;
 
 
-use App\BusinessClass\FirebaseCloudMessaging;
+use App\BusinessClasses\FirebaseCloudMessaging;
 use App\Repositories\Contracts\DeviceRepositoryContract;
 use App\Helpers\SharedFunctions;
 use App\Services\Contracts\NotifyServiceContract;

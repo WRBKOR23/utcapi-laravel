@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\ApiController;
 
 use App\Http\Controllers\Controller;
-use App\Http\RequestForm\CrawlForm;
+use App\Http\FormRequest\CrawlForm;
 use App\Services\Contracts\CrawlExamScheduleServiceContract;
 use Illuminate\Http\Request;
 
@@ -19,7 +19,7 @@ class CrawlExamScheduleController extends Controller
      */
     public function __construct (CrawlForm $form, CrawlExamScheduleServiceContract $crawlExamScheduleService)
     {
-        $this->form                = $form;
+        $this->form                     = $form;
         $this->crawlExamScheduleService = $crawlExamScheduleService;
     }
 

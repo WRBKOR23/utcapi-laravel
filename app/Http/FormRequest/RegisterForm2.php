@@ -1,12 +1,9 @@
 <?php
 
-
-namespace App\Http\RequestForm;
-
+namespace App\Http\FormRequest;
 
 class RegisterForm2 extends BaseForm
 {
-
     protected function getRules () : array
     {
         return [

@@ -1,12 +1,10 @@
 <?php
 
-
 namespace App\Http\Controllers\WebController;
-
 
 use App\Exceptions\InvalidFormRequestException;
 use App\Http\Controllers\Controller;
-use App\Http\RequestForm\PushNotificationForm;
+use App\Http\FormRequest\PushNotificationForm;
 use App\Services\Contracts\NotificationServiceContract;
 use App\Services\Contracts\NotifyServiceContract;
 use Illuminate\Http\Request;
@@ -23,9 +21,9 @@ class NotificationController extends Controller
      * @param NotificationServiceContract $notificationService
      * @param NotifyServiceContract $notifyService
      */
-    public function __construct (PushNotificationForm $pushNotificationForm,
+    public function __construct (PushNotificationForm        $pushNotificationForm,
                                  NotificationServiceContract $notificationService,
-                                 NotifyServiceContract $notifyService)
+                                 NotifyServiceContract       $notifyService)
     {
         $this->form                = $pushNotificationForm;
         $this->notificationService = $notificationService;

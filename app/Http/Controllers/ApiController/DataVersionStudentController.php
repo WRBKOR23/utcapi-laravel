@@ -1,22 +1,21 @@
 <?php
 
-    namespace App\Http\Controllers\ApiController;
+namespace App\Http\Controllers\ApiController;
 
-    use App\Http\Controllers\Controller;
-    use App\Services\Contracts\DataVersionStudentServiceContract;
-    use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Services\Contracts\DataVersionStudentServiceContract;
 
-    class DataVersionStudentController extends Controller
+class DataVersionStudentController extends Controller
+{
+    private DataVersionStudentServiceContract $dataVersionStudentService;
+
+    public function __construct (DataVersionStudentServiceContract $dataVersionStudentService)
     {
-        private DataVersionStudentServiceContract $dataVersionStudentService;
-
-        public function __construct (DataVersionStudentServiceContract $dataVersionStudentService)
-        {
-            $this->dataVersionStudentService = $dataVersionStudentService;
-        }
-
-        public function getDataVersion ($id_student)
-        {
-            return $this->dataVersionStudentService->getDataVersion($id_student);
-        }
+        $this->dataVersionStudentService = $dataVersionStudentService;
     }
+
+    public function getDataVersion ($id_student)
+    {
+        return $this->dataVersionStudentService->getDataVersion($id_student);
+    }
+}

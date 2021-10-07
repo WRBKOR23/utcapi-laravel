@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\BusinessClass;
+namespace App\BusinessClasses;
 
 use Aws\S3\S3Client;
 use finfo;

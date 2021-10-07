@@ -1,13 +1,13 @@
 <?php
 
-    namespace App\Http\Controllers\WebController;
+namespace App\Http\Controllers\WebController;
 
-    use App\Http\Controllers\Controller;
+use App\Http\Controllers\Controller;
 
-    class HomeController extends Controller
+class HomeController extends Controller
+{
+    public function showHome ()
     {
-        public function showHome ()
-        {
-            return view('home');
-        }
+        return view('home');
     }
+}

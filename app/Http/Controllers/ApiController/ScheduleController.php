@@ -1,27 +1,26 @@
 <?php
 
-    namespace App\Http\Controllers\ApiController;
+namespace App\Http\Controllers\ApiController;
 
-    use App\Services\Contracts\ScheduleServiceContract;
-    use App\Http\Controllers\Controller;
-    use Illuminate\Support\Collection;
+use App\Services\Contracts\ScheduleServiceContract;
+use App\Http\Controllers\Controller;
 
-    class ScheduleController extends Controller
+class ScheduleController extends Controller
+{
+    private ScheduleServiceContract $scheduleService;
+
+    public function __construct (ScheduleServiceContract $scheduleService)
     {
-        private ScheduleServiceContract $scheduleService;
-
-        public function __construct (ScheduleServiceContract $scheduleService)
-        {
-            $this->scheduleService = $scheduleService;
-        }
-
-        public function getStudentSchedules ($id)
-        {
-            return $this->scheduleService->getStudentSchedules($id);
-        }
-
-        public function getTeacherSchedules ($id)
-        {
-            return $this->scheduleService->getTeacherSchedules($id);
-        }
+        $this->scheduleService = $scheduleService;
     }
+
+    public function getStudentSchedules ($id)
+    {
+        return $this->scheduleService->getStudentSchedules($id);
+    }
+
+    public function getTeacherSchedules ($id)
+    {
+        return $this->scheduleService->getTeacherSchedules($id);
+    }
+}

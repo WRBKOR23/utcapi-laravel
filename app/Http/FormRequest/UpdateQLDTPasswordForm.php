@@ -1,13 +1,10 @@
 <?php
 
-
-namespace App\Http\RequestForm;
-
+namespace App\Http\FormRequest;
 
 class UpdateQLDTPasswordForm extends BaseForm
 {
-
-    protected function getRules (): array
+    protected function getRules () : array
     {
         return [
             'id_student'    => 'required',

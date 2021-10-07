@@ -1,14 +1,11 @@
 <?php
 
-
 namespace App\Http\Controllers\ApiController\Auth;
 
-
-use App\BusinessClass\CrawlQLDTData;
 use App\Exceptions\InvalidFormRequestException;
 use App\Http\Controllers\Controller;
-use App\Http\RequestForm\RegisterForm1;
-use App\Http\RequestForm\RegisterForm2;
+use App\Http\FormRequest\RegisterForm1;
+use App\Http\FormRequest\RegisterForm2;
 use App\Services\Contracts\RegisterServiceContract;
 use Illuminate\Http\Request;
 

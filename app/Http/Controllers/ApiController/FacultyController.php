@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\ApiController;
 
 use App\Http\Controllers\Controller;
-use App\Services\Contracts\FacultyClassServiceContract;
 use App\Services\Contracts\FacultyServiceContract;
 
 class FacultyController extends Controller
