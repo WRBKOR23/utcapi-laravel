@@ -6,28 +6,28 @@ use App\BusinessClass\CrawlQLDTData;
 use App\Repositories\Contracts\AccountRepositoryContract;
 use App\Repositories\Contracts\DataVersionStudentRepositoryContract;
 use App\Repositories\Contracts\ModuleScoreDepositoryContract;
+use App\Repositories\Contracts\SchoolYearRepositoryContract;
 use App\Services\AbstractClasses\ACrawlService;
 
 class CrawlModuleScoreService extends ACrawlService
 {
-    private AccountRepositoryContract $accountDepository;
     private ModuleScoreDepositoryContract $moduleScoreDepository;
     private DataVersionStudentRepositoryContract $dataVersionStudentDepository;
 
     /**
-     * CrawlModuleScoreService constructor.
      * @param CrawlQLDTData $crawl
      * @param AccountRepositoryContract $accountDepository
+     * @param SchoolYearRepositoryContract $schoolYearRepository
      * @param ModuleScoreDepositoryContract $moduleScoreDepository
      * @param DataVersionStudentRepositoryContract $dataVersionStudentDepository
      */
     public function __construct (CrawlQLDTData                        $crawl,
                                  AccountRepositoryContract            $accountDepository,
+                                 SchoolYearRepositoryContract         $schoolYearRepository,
                                  ModuleScoreDepositoryContract        $moduleScoreDepository,
                                  DataVersionStudentRepositoryContract $dataVersionStudentDepository)
     {
-        parent::__construct($crawl);
-        $this->accountDepository            = $accountDepository;
+        parent::__construct($crawl, $accountDepository, $schoolYearRepository);
         $this->moduleScoreDepository        = $moduleScoreDepository;
         $this->dataVersionStudentDepository = $dataVersionStudentDepository;
     }
@@ -46,11 +46,6 @@ class CrawlModuleScoreService extends ACrawlService
         $data = $this->crawl->getStudentModuleScore(false);
         $this->_upsert($data);
         $this->_updateDataVersion($id_student);
-    }
-
-    protected function _getQLDTPassword ($id_student): string
-    {
-        return $this->accountDepository->getQLDTPassword($id_student);
     }
 
     protected function _updateDataVersion ($id_student)

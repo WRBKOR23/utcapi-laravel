@@ -8,13 +8,11 @@ use App\BusinessClass\CrawlQLDTData;
 use App\Repositories\Contracts\AccountRepositoryContract;
 use App\Repositories\Contracts\DataVersionStudentRepositoryContract;
 use App\Repositories\Contracts\ExamScheduleRepositoryContract;
-use App\Repositories\Contracts\ModuleScoreDepositoryContract;
+use App\Repositories\Contracts\SchoolYearRepositoryContract;
 use App\Services\AbstractClasses\ACrawlService;
 
 class CrawlExamScheduleService extends ACrawlService
 {
-    private AccountRepositoryContract $accountDepository;
-    private ModuleScoreDepositoryContract $moduleScoreDepository;
     private ExamScheduleRepositoryContract $examScheduleDepository;
     private DataVersionStudentRepositoryContract $dataVersionStudentDepository;
 
@@ -22,19 +20,17 @@ class CrawlExamScheduleService extends ACrawlService
      * CrawlExamScheduleService constructor.
      * @param CrawlQLDTData $crawl
      * @param AccountRepositoryContract $accountDepository
-     * @param ModuleScoreDepositoryContract $moduleScoreDepository
+     * @param SchoolYearRepositoryContract $schoolYearRepository
      * @param ExamScheduleRepositoryContract $examScheduleDepository
      * @param DataVersionStudentRepositoryContract $dataVersionStudentDepository
      */
     public function __construct (CrawlQLDTData                        $crawl,
                                  AccountRepositoryContract            $accountDepository,
-                                 ModuleScoreDepositoryContract        $moduleScoreDepository,
+                                 SchoolYearRepositoryContract         $schoolYearRepository,
                                  ExamScheduleRepositoryContract       $examScheduleDepository,
                                  DataVersionStudentRepositoryContract $dataVersionStudentDepository)
     {
-        parent::__construct($crawl);
-        $this->accountDepository            = $accountDepository;
-        $this->moduleScoreDepository        = $moduleScoreDepository;
+        parent::__construct($crawl, $accountDepository, $schoolYearRepository);
         $this->examScheduleDepository       = $examScheduleDepository;
         $this->dataVersionStudentDepository = $dataVersionStudentDepository;
     }
@@ -57,11 +53,6 @@ class CrawlExamScheduleService extends ACrawlService
         $this->_updateDataVersion($id_student);
     }
 
-    protected function _getQLDTPassword ($id_student) : string
-    {
-        return $this->accountDepository->getQLDTPassword($id_student);
-    }
-
     private function _verifyData (&$data)
     {
         if (count($data) == 2)
@@ -75,17 +66,17 @@ class CrawlExamScheduleService extends ACrawlService
         $latest_school_year = $this->_getLatestSchoolYear($id_student);
         foreach ($data as $school_year => $module)
         {
-            if ($latest_school_year != null)
+            if (!empty($latest_school_year))
             {
-                if ($school_year < $latest_school_year)
+                if ($school_year < $latest_school_year[0]['school_year'])
                 {
-                    $this->_deleteWrongExamSchedules($id_student, $latest_school_year);
+                    $this->_deleteWrongExamSchedules($id_student, $latest_school_year[0]['id']);
                     return;
                 }
 
-                if (empty($module) && $school_year == $latest_school_year)
+                if (empty($module) && $school_year == $latest_school_year[0]['school_year'])
                 {
-                    $this->_deleteWrongExamSchedules($id_student, $latest_school_year);
+                    $this->_deleteWrongExamSchedules($id_student, $latest_school_year[0]['id']);
                     return;
                 }
             }

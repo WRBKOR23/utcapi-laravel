@@ -12,5 +12,5 @@ interface ExamScheduleRepositoryContract
 
     public function upsert ($data);
 
-    public function delete ($id_student, $school_year);
+    public function delete ($id_student, $id_school_year);
 }

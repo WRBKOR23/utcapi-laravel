@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\ExamSchedule;
+use App\Models\SchoolYear;
 use App\Models\Student;
 use App\Repositories\Contracts\ExamScheduleRepositoryContract;
 use Illuminate\Support\Collection;
@@ -21,11 +22,10 @@ class ExamScheduleRepository implements ExamScheduleRepositoryContract
 
     public function getLatestSchoolYear ($id_student)
     {
-        return ExamSchedule::where('id_student', '=', $id_student)
-                           ->distinct()
-                           ->orderBy('school_year', 'desc')
-                           ->pluck('school_year')
-                           ->first();
+        return SchoolYear::whereHas('examSchedules', function ($query)
+        {
+            return $query->where('id_student', '191201402');
+        })->orderBy('id', 'desc')->limit(1)->select('id', 'school_year')->get()->toArray();
     }
 
     public function insertMultiple ($data)
@@ -43,10 +43,10 @@ class ExamScheduleRepository implements ExamScheduleRepositoryContract
                              ]);
     }
 
-    public function delete ($id_student, $school_year)
+    public function delete ($id_student, $id_school_year)
     {
         ExamSchedule::where('id_student', '=', $id_student)
-                    ->where('school_year', '=', $school_year)
+                    ->where('id_school_year', '=', $id_school_year)
                     ->delete();
     }
 }

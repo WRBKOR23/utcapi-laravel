@@ -12,7 +12,6 @@ use Exception;
 class CrawlQLDTData
 {
     private string $id_student;
-    private string $qldt_password;
     private string $major = '';
     private array $school_year_arr = [];
     private array $form_crawl_request = [];
@@ -48,12 +47,11 @@ class CrawlQLDTData
      */
     public function loginQLDT (string $id_student, string $qldt_password)
     {
-        $this->id_student    = $id_student;
-        $this->qldt_password = $qldt_password;
+        $this->id_student = $id_student;
 
         $form_login_request                = SharedData::$form_login_request;
         $form_login_request['txtUserName'] = $this->id_student;
-        $form_login_request['txtPassword'] = $this->qldt_password;
+        $form_login_request['txtPassword'] = $qldt_password;
 
         $response = $this->_postRequest($this->url_login, $form_login_request);
 
@@ -155,10 +153,6 @@ class CrawlQLDTData
 
         $elements = $html->find('select[name=drpHK] option');
         unset($elements[0]);
-//        unset($elements[1]);
-//        unset($elements[2]);
-//        unset($elements[3]);
-//        unset($elements[4]);
 
         if ($this->is_all)
         {
@@ -245,7 +239,7 @@ class CrawlQLDTData
                 {
                     $arr['process_score']                  = null;
                     $arr['test_score']                     = null;
-                    $arr['final_score']              = $temp_score == '&nbsp;' ? null : $temp_score;
+                    $arr['final_score']                    = $temp_score == '&nbsp;' ? null : $temp_score;
                     $data[$school_year][$arr['id_module']] = $arr;
 
                     continue;
@@ -275,7 +269,7 @@ class CrawlQLDTData
 
                 if (count($tr[$j]->children()) == 12)
                 {
-                    $arr['final_score']              = null;
+                    $arr['final_score']                    = null;
                     $data[$school_year][$arr['id_module']] = $arr;
 
                     continue;
@@ -521,10 +515,10 @@ class CrawlQLDTData
                     $dupl_test_score    = $data[$official_school_year][$module['id_module']]['test_score'];
                     $dupl_theore_score  = $data[$official_school_year][$module['id_module']]['final_score'];
 
-                    $module['evaluation']        = $dupl_evaluation == null ? $module['evaluation'] : $dupl_evaluation;
-                    $module['process_score']     = $dupl_process_score == null ? $module['process_score'] : $dupl_process_score;
-                    $module['test_score']        = $dupl_test_score == null ? $module['test_score'] : $dupl_test_score;
-                    $module['final_score'] = $dupl_theore_score == null ? $module['final_score'] : $dupl_theore_score;
+                    $module['evaluation']    = $dupl_evaluation == null ? $module['evaluation'] : $dupl_evaluation;
+                    $module['process_score'] = $dupl_process_score == null ? $module['process_score'] : $dupl_process_score;
+                    $module['test_score']    = $dupl_test_score == null ? $module['test_score'] : $dupl_test_score;
+                    $module['final_score']   = $dupl_theore_score == null ? $module['final_score'] : $dupl_theore_score;
                 }
 
                 $module['school_year'] = $official_school_year;

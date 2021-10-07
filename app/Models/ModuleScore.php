@@ -19,7 +19,7 @@ class ModuleScore extends Model
 
     protected $fillable = [
         'id',
-        'school_year',
+        'id_school_year',
         'id_student',
         'id_module',
         'module_name',
@@ -33,5 +33,10 @@ class ModuleScore extends Model
     public function student () : BelongsTo
     {
         return $this->belongsTo(Student::class, 'id_student', 'id');
+    }
+
+    public function schoolYear() : BelongsTo
+    {
+        return $this->belongsTo(SchoolYear::class, 'id_school_year', 'id');
     }
 }
