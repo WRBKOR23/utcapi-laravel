@@ -53,7 +53,7 @@ class AccountService implements AccountServiceContract
             'password' => $password
         ];
 
-        if (!JWTAuth::attempt($credential))
+        if (!auth()->attempt($credential))
         {
             throw new InvalidAccountException();
         }

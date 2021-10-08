@@ -28,7 +28,7 @@ abstract class ALoginService implements LoginWebServiceContract, LoginAppService
     public function login ($username, $password) : array
     {
         $token = $this->_authenticate($username, $password);
-        $data  = $this->_customGetAccountOwnerInfo(JWTAuth::user()->id, JWTAuth::user()->permission);
+        $data  = $this->_customGetAccountOwnerInfo(auth()->user()->id, auth()->user()->permission);
 
         return [
             'access_token' => $token,
@@ -46,7 +46,7 @@ abstract class ALoginService implements LoginWebServiceContract, LoginAppService
             'password' => $password
         ];
 
-        if (!$token = JWTAuth::attempt($credential))
+        if (!$token = auth()->attempt($credential))
         {
             throw new InvalidAccountException();
         }

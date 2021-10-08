@@ -15,7 +15,7 @@ class LogoutController extends Controller
         Session::forget('id_account');
         Session::forget('ttl');
 
-        JWTAuth::logout();
+        auth()->logout();
 
         return response();
     }
