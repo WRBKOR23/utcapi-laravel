@@ -30,7 +30,6 @@ use App\Services\Contracts\ModuleScoreServiceContract;
 use App\Services\Contracts\NotificationServiceContract;
 use App\Services\Contracts\NotifyServiceContract;
 use App\Services\FacultyService;
-use App\Services\FixScheduleService;
 use App\Services\DataService;
 use App\Services\LoginAppService;
 use App\Services\LoginWebService;
@@ -40,7 +39,6 @@ use App\Services\NotificationService;
 use App\Services\NotifyService;
 use App\Services\RegisterService;
 use App\Services\ScheduleService;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -80,6 +78,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot ()
     {
-        URL::forceScheme('http');
+//        URL::forceScheme('http');
     }
 }
