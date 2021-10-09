@@ -20,29 +20,13 @@ class ModuleClassService implements ModuleClassServiceContract
 
     public function getModuleClasses ()
     {
-        $school_year_list = $this->_getSchoolYears();
-        return $this->moduleClassDepository->getModuleClasses1($school_year_list[0], $school_year_list[1]);
+        $id_school_year_list = $this->_getSchoolYears();
+        return $this->moduleClassDepository->getModuleClasses1($id_school_year_list);
     }
 
-    private function _getSchoolYears (): array
+    private function _getSchoolYears () : array
     {
         $latest_school_year = $this->moduleClassDepository->getLatestSchoolYear();
-
-        $first_school_year  = '';
-        $second_school_year = '';
-
-        switch (intval(substr($latest_school_year, 0, 1)))
-        {
-            case 1:
-                $first_school_year  = '2' . '-' . (intval(substr($latest_school_year, 2, 2)) - 1);
-                $second_school_year = $latest_school_year;
-                break;
-
-            case 2:
-                $first_school_year  = '1' . '-' . substr($latest_school_year, 2, 2);
-                $second_school_year = $latest_school_year;
-        }
-
-        return [$first_school_year, $second_school_year];
+        return [intval($latest_school_year) - 1, intval($latest_school_year)];
     }
 }

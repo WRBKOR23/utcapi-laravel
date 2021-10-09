@@ -7,15 +7,11 @@ use App\Repositories\Contracts\AccountRepositoryContract;
 use App\Repositories\Contracts\SchoolYearRepositoryContract;
 use App\Services\Contracts\CrawlExamScheduleServiceContract;
 use App\Services\Contracts\CrawlModuleScoreServiceContract;
-use App\Services\Contracts\Guest\CrawlExamScheduleGuestServiceContract;
-use App\Services\Contracts\Guest\CrawlModuleScoreGuestServiceContract;
 use Exception;
 use Illuminate\Support\Facades\Cache;
 
 abstract class ACrawlService implements CrawlModuleScoreServiceContract,
-                                        CrawlExamScheduleServiceContract,
-                                        CrawlModuleScoreGuestServiceContract,
-                                        CrawlExamScheduleGuestServiceContract
+                                        CrawlExamScheduleServiceContract
 {
     protected CrawlQLDTData $crawl;
     protected AccountRepositoryContract $accountDepository;
@@ -118,12 +114,10 @@ abstract class ACrawlService implements CrawlModuleScoreServiceContract,
 
     protected function _getSchoolYears ()
     {
-//        $this->school_year_list = Cache::remember('school_year_list', 30000, function ()
-//        {
-//            return $this->schoolYearRepository->getMultiple();
-//        });
-
-        $this->school_year_list = $this->schoolYearRepository->getMultiple();
+        $this->school_year_list = Cache::remember('school_year_list', 30000, function ()
+        {
+            return $this->schoolYearRepository->getMultiple();
+        });
     }
 
     private function _destroyCacheSchoolYears ()

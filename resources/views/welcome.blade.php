@@ -11,7 +11,7 @@
     if (localStorage.getItem('a_t') === null)
     {
         localStorage.setItem('a_t', @json($access_token ?? ''));
-        window.location.replace('../../public/home')
+        window.location.replace('../../utcapi/home')
     }
 </script>
 </body>

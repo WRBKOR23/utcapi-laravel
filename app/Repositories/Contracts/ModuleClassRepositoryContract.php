@@ -6,7 +6,7 @@ interface ModuleClassRepositoryContract
 {
     public function getLatestSchoolYear ();
 
-    public function getModuleClasses1 ($first_school_year, $second_school_year);
+    public function getModuleClasses1 ($id_school_year_list);
 
     public function getModuleClasses2 ($module_class_list);
 }

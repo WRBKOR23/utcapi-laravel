@@ -10,12 +10,12 @@ class ModuleClassRepository implements ModuleClassRepositoryContract
 {
     public function getLatestSchoolYear ()
     {
-        return ModuleClass::max('school_year');
+        return ModuleClass::max('id_school_year');
     }
 
-    public function getModuleClasses1 ($first_school_year, $second_school_year) : Collection
+    public function getModuleClasses1 ($id_school_year_list) : Collection
     {
-        return ModuleClass::whereIn('school_year', [$first_school_year, $second_school_year])
+        return ModuleClass::whereIn('id_school_year', $id_school_year_list)
                           ->orderBy('id')
                           ->select('id as id_module_class', 'module_class_name')
                           ->get();

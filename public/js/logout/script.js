@@ -6,7 +6,7 @@ function logout ()
     const url = 'web/auth/logout'
     postData(url, data)
 
-    window.location.replace('../public/login')
+    window.location.replace('login')
 }
 
 logout()
