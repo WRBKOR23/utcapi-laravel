@@ -8,19 +8,19 @@ use App\Repositories\Contracts\DataVersionTeacherRepositoryContract;
 
 class DataVersionTeacherService implements Contracts\DataVersionTeacherServiceContract
 {
-    private DataVersionTeacherRepositoryContract $dataVersionTeacherDepository;
+    private DataVersionTeacherRepositoryContract $dataVersionTeacherRepository;
 
     /**
      * DataVersionTeacherService constructor.
-     * @param DataVersionTeacherRepositoryContract $dataVersionTeacherDepository
+     * @param DataVersionTeacherRepositoryContract $dataVersionTeacherRepository
      */
-    public function __construct (DataVersionTeacherRepositoryContract $dataVersionTeacherDepository)
+    public function __construct (DataVersionTeacherRepositoryContract $dataVersionTeacherRepository)
     {
-        $this->dataVersionTeacherDepository = $dataVersionTeacherDepository;
+        $this->dataVersionTeacherRepository = $dataVersionTeacherRepository;
     }
 
     public function getDataVersion ($id_teacher)
     {
-        return $this->dataVersionTeacherDepository->get($id_teacher);
+        return $this->dataVersionTeacherRepository->get($id_teacher);
     }
 }

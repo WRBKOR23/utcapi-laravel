@@ -10,28 +10,28 @@ use App\Repositories\Contracts\ScheduleRepositoryContract;
 
 class ScheduleService implements Contracts\ScheduleServiceContract
 {
-    private ScheduleRepositoryContract $scheduleDepository;
-    private DataVersionStudentRepositoryContract $dataVersionStudentDepository;
-    private DataVersionTeacherRepositoryContract $dataVersionTeacherDepository;
+    private ScheduleRepositoryContract $scheduleRepository;
+    private DataVersionStudentRepositoryContract $dataVersionStudentRepository;
+    private DataVersionTeacherRepositoryContract $dataVersionTeacherRepository;
 
     /**
-     * @param ScheduleRepositoryContract $scheduleDepository
-     * @param DataVersionStudentRepositoryContract $dataVersionStudentDepository
-     * @param DataVersionTeacherRepositoryContract $dataVersionTeacherDepository
+     * @param ScheduleRepositoryContract $scheduleRepository
+     * @param DataVersionStudentRepositoryContract $dataVersionStudentRepository
+     * @param DataVersionTeacherRepositoryContract $dataVersionTeacherRepository
      */
-    public function __construct (ScheduleRepositoryContract           $scheduleDepository,
-                                 DataVersionStudentRepositoryContract $dataVersionStudentDepository,
-                                 DataVersionTeacherRepositoryContract $dataVersionTeacherDepository)
+    public function __construct (ScheduleRepositoryContract           $scheduleRepository,
+                                 DataVersionStudentRepositoryContract $dataVersionStudentRepository,
+                                 DataVersionTeacherRepositoryContract $dataVersionTeacherRepository)
     {
-        $this->scheduleDepository           = $scheduleDepository;
-        $this->dataVersionStudentDepository = $dataVersionStudentDepository;
-        $this->dataVersionTeacherDepository = $dataVersionTeacherDepository;
+        $this->scheduleRepository           = $scheduleRepository;
+        $this->dataVersionStudentRepository = $dataVersionStudentRepository;
+        $this->dataVersionTeacherRepository = $dataVersionTeacherRepository;
     }
 
     public function getStudentSchedules ($id_student) : array
     {
-        $data         = $this->scheduleDepository->getStudentSchedules($id_student);
-        $data_version = $this->dataVersionStudentDepository->getSingleColumn2($id_student, 'schedule');
+        $data         = $this->scheduleRepository->getStudentSchedules($id_student);
+        $data_version = $this->dataVersionStudentRepository->getSingleColumn2($id_student, 'schedule');
 
         return [
             'data'         => $data,
@@ -41,8 +41,8 @@ class ScheduleService implements Contracts\ScheduleServiceContract
 
     public function getTeacherSchedules ($id_teacher) : array
     {
-        $data         = $this->scheduleDepository->getTeacherSchedules($id_teacher);
-        $data_version = $this->dataVersionTeacherDepository->getSingleColumn2($id_teacher, 'schedule');
+        $data         = $this->scheduleRepository->getTeacherSchedules($id_teacher);
+        $data_version = $this->dataVersionTeacherRepository->getSingleColumn2($id_teacher, 'schedule');
 
         return [
             'data'         => $data,

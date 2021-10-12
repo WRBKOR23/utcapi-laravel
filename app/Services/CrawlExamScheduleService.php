@@ -13,26 +13,26 @@ use App\Services\AbstractClasses\ACrawlService;
 
 class CrawlExamScheduleService extends ACrawlService
 {
-    private ExamScheduleRepositoryContract $examScheduleDepository;
-    private DataVersionStudentRepositoryContract $dataVersionStudentDepository;
+    private ExamScheduleRepositoryContract $examScheduleRepository;
+    private DataVersionStudentRepositoryContract $dataVersionStudentRepository;
 
     /**
      * CrawlExamScheduleService constructor.
      * @param CrawlQLDTData $crawl
-     * @param AccountRepositoryContract $accountDepository
+     * @param AccountRepositoryContract $accountRepository
      * @param SchoolYearRepositoryContract $schoolYearRepository
-     * @param ExamScheduleRepositoryContract $examScheduleDepository
-     * @param DataVersionStudentRepositoryContract $dataVersionStudentDepository
+     * @param ExamScheduleRepositoryContract $examScheduleRepository
+     * @param DataVersionStudentRepositoryContract $dataVersionStudentRepository
      */
     public function __construct (CrawlQLDTData                        $crawl,
-                                 AccountRepositoryContract            $accountDepository,
+                                 AccountRepositoryContract            $accountRepository,
                                  SchoolYearRepositoryContract         $schoolYearRepository,
-                                 ExamScheduleRepositoryContract       $examScheduleDepository,
-                                 DataVersionStudentRepositoryContract $dataVersionStudentDepository)
+                                 ExamScheduleRepositoryContract       $examScheduleRepository,
+                                 DataVersionStudentRepositoryContract $dataVersionStudentRepository)
     {
-        parent::__construct($crawl, $accountDepository, $schoolYearRepository);
-        $this->examScheduleDepository       = $examScheduleDepository;
-        $this->dataVersionStudentDepository = $dataVersionStudentDepository;
+        parent::__construct($crawl, $accountRepository, $schoolYearRepository);
+        $this->examScheduleRepository       = $examScheduleRepository;
+        $this->dataVersionStudentRepository = $dataVersionStudentRepository;
     }
 
     public function crawlAll ($id_student)
@@ -85,26 +85,26 @@ class CrawlExamScheduleService extends ACrawlService
 
     private function _getLatestSchoolYear ($id_student)
     {
-        return $this->examScheduleDepository->getLatestSchoolYear($id_student);
+        return $this->examScheduleRepository->getLatestSchoolYear($id_student);
     }
 
     private function _deleteWrongExamSchedules ($id_student, $school_year)
     {
-        $this->examScheduleDepository->delete($id_student, $school_year);
+        $this->examScheduleRepository->delete($id_student, $school_year);
     }
 
     protected function _updateDataVersion ($id_student)
     {
-        $this->dataVersionStudentDepository->updateDataVersion($id_student, 'exam_schedule');
+        $this->dataVersionStudentRepository->updateDataVersion($id_student, 'exam_schedule');
     }
 
     protected function _customInsertMultiple ($data)
     {
-        $this->examScheduleDepository->insertMultiple($data);
+        $this->examScheduleRepository->insertMultiple($data);
     }
 
     protected function _customUpsert ($data)
     {
-        $this->examScheduleDepository->upsert($data);
+        $this->examScheduleRepository->upsert($data);
     }
 }

@@ -4,10 +4,10 @@ namespace App\Repositories;
 
 use App\Models\ModuleScore;
 use App\Models\Student;
-use App\Repositories\Contracts\ModuleScoreDepositoryContract;
+use App\Repositories\Contracts\ModuleScoreRepositoryContract;
 use Illuminate\Support\Collection;
 
-class ModuleScoreRepository implements ModuleScoreDepositoryContract
+class ModuleScoreRepository implements ModuleScoreRepositoryContract
 {
     public function get ($id_student) : Collection
     {

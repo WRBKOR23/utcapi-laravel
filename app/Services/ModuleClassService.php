@@ -7,26 +7,26 @@ use App\Services\Contracts\ModuleClassServiceContract;
 
 class ModuleClassService implements ModuleClassServiceContract
 {
-    private ModuleClassRepositoryContract $moduleClassDepository;
+    private ModuleClassRepositoryContract $moduleClassRepository;
 
     /**
      * ModuleClassService constructor.
-     * @param ModuleClassRepositoryContract $moduleClassDepository
+     * @param ModuleClassRepositoryContract $moduleClassRepository
      */
-    public function __construct (ModuleClassRepositoryContract $moduleClassDepository)
+    public function __construct (ModuleClassRepositoryContract $moduleClassRepository)
     {
-        $this->moduleClassDepository = $moduleClassDepository;
+        $this->moduleClassRepository = $moduleClassRepository;
     }
 
     public function getModuleClasses ()
     {
         $id_school_year_list = $this->_getSchoolYears();
-        return $this->moduleClassDepository->getModuleClasses1($id_school_year_list);
+        return $this->moduleClassRepository->getModuleClasses1($id_school_year_list);
     }
 
     private function _getSchoolYears () : array
     {
-        $latest_school_year = $this->moduleClassDepository->getLatestSchoolYear();
+        $latest_school_year = $this->moduleClassRepository->getLatestSchoolYear();
         return [intval($latest_school_year) - 1, intval($latest_school_year)];
     }
 }

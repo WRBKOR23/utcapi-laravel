@@ -7,19 +7,19 @@ use App\Services\Contracts\ExamScheduleServiceContract;
 
 class ExamScheduleService implements ExamScheduleServiceContract
 {
-    private ExamScheduleRepositoryContract $examScheduleDepository;
+    private ExamScheduleRepositoryContract $examScheduleRepository;
 
     /**
      * ExamScheduleService constructor.
-     * @param ExamScheduleRepositoryContract $examScheduleDepository
+     * @param ExamScheduleRepositoryContract $examScheduleRepository
      */
-    public function __construct (ExamScheduleRepositoryContract $examScheduleDepository)
+    public function __construct (ExamScheduleRepositoryContract $examScheduleRepository)
     {
-        $this->examScheduleDepository = $examScheduleDepository;
+        $this->examScheduleRepository = $examScheduleRepository;
     }
 
     public function get ($id_student)
     {
-        return $this->examScheduleDepository->get($id_student);
+        return $this->examScheduleRepository->get($id_student);
     }
 }

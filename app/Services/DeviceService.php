@@ -9,22 +9,22 @@ use App\Services\Contracts\DeviceServiceContract;
 
 class DeviceService implements DeviceServiceContract
 {
-    private DeviceRepositoryContract $deviceDepository;
+    private DeviceRepositoryContract $deviceRepository;
 
     /**
      * DeviceService constructor.
-     * @param DeviceRepositoryContract $deviceDepository
+     * @param DeviceRepositoryContract $deviceRepository
      */
-    public function __construct (DeviceRepositoryContract $deviceDepository)
+    public function __construct (DeviceRepositoryContract $deviceRepository)
     {
-        $this->deviceDepository = $deviceDepository;
+        $this->deviceRepository = $deviceRepository;
     }
 
 
     public function upsert ($id_account, $device_token)
     {
         $curr_time = $this->_getCurrentTime();
-        $this->deviceDepository->upsert($id_account, $device_token, $curr_time);
+        $this->deviceRepository->upsert($id_account, $device_token, $curr_time);
     }
 
     private function _getCurrentTime ()

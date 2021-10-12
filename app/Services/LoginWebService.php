@@ -13,30 +13,30 @@ use Illuminate\Support\Facades\Storage;
 
 class LoginWebService extends ALoginService
 {
-    private OtherDepartmentRepositoryContract $otherDepartmentDepository;
-    private DepartmentRepositoryContract $departmentDepository;
-    private TeacherRepositoryContract $teacherDepository;
-    private FacultyRepositoryContract $facultyDepository;
+    private OtherDepartmentRepositoryContract $otherDepartmentRepository;
+    private DepartmentRepositoryContract $departmentRepository;
+    private TeacherRepositoryContract $teacherRepository;
+    private FacultyRepositoryContract $facultyRepository;
 
     /**
      * LoginService constructor.
-     * @param OtherDepartmentRepositoryContract $otherDepartmentDepository
-     * @param DepartmentRepositoryContract $departmentDepository
-     * @param TeacherRepositoryContract $teacherDepository
-     * @param FacultyRepositoryContract $facultyDepository
-     * @param AccountRepositoryContract $accountDepository
+     * @param OtherDepartmentRepositoryContract $otherDepartmentRepository
+     * @param DepartmentRepositoryContract $departmentRepository
+     * @param TeacherRepositoryContract $teacherRepository
+     * @param FacultyRepositoryContract $facultyRepository
+     * @param AccountRepositoryContract $accountRepository
      */
-    public function __construct (OtherDepartmentRepositoryContract $otherDepartmentDepository,
-                                 DepartmentRepositoryContract      $departmentDepository,
-                                 TeacherRepositoryContract         $teacherDepository,
-                                 FacultyRepositoryContract         $facultyDepository,
-                                 AccountRepositoryContract         $accountDepository)
+    public function __construct (OtherDepartmentRepositoryContract $otherDepartmentRepository,
+                                 DepartmentRepositoryContract      $departmentRepository,
+                                 TeacherRepositoryContract         $teacherRepository,
+                                 FacultyRepositoryContract         $facultyRepository,
+                                 AccountRepositoryContract         $accountRepository)
     {
-        parent::__construct($accountDepository);
-        $this->otherDepartmentDepository = $otherDepartmentDepository;
-        $this->departmentDepository      = $departmentDepository;
-        $this->facultyDepository         = $facultyDepository;
-        $this->teacherDepository         = $teacherDepository;
+        parent::__construct($accountRepository);
+        $this->otherDepartmentRepository = $otherDepartmentRepository;
+        $this->departmentRepository      = $departmentRepository;
+        $this->facultyRepository         = $facultyRepository;
+        $this->teacherRepository         = $teacherRepository;
     }
 
     /**
@@ -47,21 +47,21 @@ class LoginWebService extends ALoginService
         switch ($permission)
         {
             case 1:
-                $data       = $this->teacherDepository->get($id_account);
+                $data       = $this->teacherRepository->get($id_account);
                 $data->name = 'Gv.' . $data->teacher_name;
                 break;
 
             case 2:
-                $data       = $this->departmentDepository->get($id_account);
+                $data       = $this->departmentRepository->get($id_account);
                 $data->name = 'Bộ môn ' . $data->department_name;
                 break;
             case 3:
-                $data       = $this->facultyDepository->get($id_account);
+                $data       = $this->facultyRepository->get($id_account);
                 $data->name = 'Khoa ' . $data->faculty_name;
                 break;
 
             case 4:
-                $data       = $this->otherDepartmentDepository->get($id_account);
+                $data       = $this->otherDepartmentRepository->get($id_account);
                 $data->name = $data->other_department_name;
                 break;
 

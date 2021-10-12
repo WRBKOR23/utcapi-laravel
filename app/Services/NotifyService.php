@@ -13,7 +13,7 @@ use Kreait\Firebase\Exception\MessagingException;
 
 class NotifyService implements NotifyServiceContract
 {
-    private DeviceRepositoryContract $deviceDepository;
+    private DeviceRepositoryContract $deviceRepository;
     private FirebaseCloudMessaging $fcm;
 
     /**
@@ -23,7 +23,7 @@ class NotifyService implements NotifyServiceContract
      */
     public function __construct (DeviceRepositoryContract $depositoryContract, FirebaseCloudMessaging $fcm)
     {
-        $this->deviceDepository = $depositoryContract;
+        $this->deviceRepository = $depositoryContract;
         $this->fcm              = $fcm;
     }
 
@@ -45,7 +45,7 @@ class NotifyService implements NotifyServiceContract
             return [];
         }
 
-        return $this->deviceDepository->getTokens(SharedFunctions::formatArray($id_account_list, 'id_account'));
+        return $this->deviceRepository->getTokens(SharedFunctions::formatArray($id_account_list, 'id_account'));
     }
 
     /**
@@ -65,6 +65,6 @@ class NotifyService implements NotifyServiceContract
             return;
         }
 
-        $this->deviceDepository->deleteMultiple($device_token_list);
+        $this->deviceRepository->deleteMultiple($device_token_list);
     }
 }

@@ -4,24 +4,24 @@
 namespace App\Services;
 
 
-use App\Repositories\Contracts\ModuleScoreDepositoryContract;
+use App\Repositories\Contracts\ModuleScoreRepositoryContract;
 use App\Services\Contracts\ModuleScoreServiceContract;
 
 class ModuleScoreService implements ModuleScoreServiceContract
 {
-    private ModuleScoreDepositoryContract $moduleScoreDepository;
+    private ModuleScoreRepositoryContract $moduleScoreRepository;
 
     /**
      * ModuleScoreService constructor.
-     * @param ModuleScoreDepositoryContract $moduleScoreDepository
+     * @param ModuleScoreRepositoryContract $moduleScoreRepository
      */
-    public function __construct (ModuleScoreDepositoryContract $moduleScoreDepository)
+    public function __construct (ModuleScoreRepositoryContract $moduleScoreRepository)
     {
-        $this->moduleScoreDepository = $moduleScoreDepository;
+        $this->moduleScoreRepository = $moduleScoreRepository;
     }
 
     public function get ($id_student)
     {
-        return $this->moduleScoreDepository->get($id_student);
+        return $this->moduleScoreRepository->get($id_student);
     }
 }

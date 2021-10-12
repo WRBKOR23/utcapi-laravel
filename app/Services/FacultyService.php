@@ -7,18 +7,18 @@ use App\Helpers\SharedData;
 
 class FacultyService implements Contracts\FacultyServiceContract
 {
-    private FacultyRepositoryContract $facultyDepository;
+    private FacultyRepositoryContract $facultyRepository;
 
     /**
-     * @param FacultyRepositoryContract $facultyDepository
+     * @param FacultyRepositoryContract $facultyRepository
      */
-    public function __construct (FacultyRepositoryContract $facultyDepository)
+    public function __construct (FacultyRepositoryContract $facultyRepository)
     {
-        $this->facultyDepository = $facultyDepository;
+        $this->facultyRepository = $facultyRepository;
     }
 
     public function getInfoFaculties ()
     {
-        return $this->facultyDepository->getAll(SharedData::$id_faculties);
+        return $this->facultyRepository->getAll(SharedData::$id_faculties);
     }
 }

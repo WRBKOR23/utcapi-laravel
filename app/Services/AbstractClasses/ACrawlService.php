@@ -14,22 +14,22 @@ abstract class ACrawlService implements CrawlModuleScoreServiceContract,
                                         CrawlExamScheduleServiceContract
 {
     protected CrawlQLDTData $crawl;
-    protected AccountRepositoryContract $accountDepository;
+    protected AccountRepositoryContract $accountRepository;
     protected SchoolYearRepositoryContract $schoolYearRepository;
     protected array $school_year_list;
 
     /**
      * CrawlModuleScoreService constructor.
      * @param CrawlQLDTData $crawl
-     * @param AccountRepositoryContract $accountDepository
+     * @param AccountRepositoryContract $accountRepository
      * @param SchoolYearRepositoryContract $schoolYearRepository
      */
     public function __construct (CrawlQLDTData                $crawl,
-                                 AccountRepositoryContract    $accountDepository,
+                                 AccountRepositoryContract    $accountRepository,
                                  SchoolYearRepositoryContract $schoolYearRepository)
     {
         $this->crawl                = $crawl;
-        $this->accountDepository    = $accountDepository;
+        $this->accountRepository    = $accountRepository;
         $this->schoolYearRepository = $schoolYearRepository;
     }
 
@@ -60,7 +60,7 @@ abstract class ACrawlService implements CrawlModuleScoreServiceContract,
 
     private function _getQLDTPassword ($id_student) : string
     {
-        return $this->accountDepository->getQLDTPassword($id_student);
+        return $this->accountRepository->getQLDTPassword($id_student);
     }
 
     /**

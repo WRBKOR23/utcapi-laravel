@@ -12,17 +12,17 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 class AccountService implements AccountServiceContract
 {
     private CrawlQLDTData $crawl;
-    private AccountRepositoryContract $accountDepository;
+    private AccountRepositoryContract $accountRepository;
 
     /**
      * AccountService constructor.
      * @param CrawlQLDTData $crawl
-     * @param AccountRepositoryContract $accountDepository
+     * @param AccountRepositoryContract $accountRepository
      */
-    public function __construct (CrawlQLDTData $crawl, AccountRepositoryContract $accountDepository)
+    public function __construct (CrawlQLDTData $crawl, AccountRepositoryContract $accountRepository)
     {
         $this->crawl             = $crawl;
-        $this->accountDepository = $accountDepository;
+        $this->accountRepository = $accountRepository;
     }
 
     /**
@@ -31,7 +31,7 @@ class AccountService implements AccountServiceContract
     public function updateQLDTPassword ($username, $qldt_password)
     {
         $this->crawl->loginQLDT($username, md5($qldt_password));
-        $this->accountDepository->updateQLDTPassword($username, md5($qldt_password));
+        $this->accountRepository->updateQLDTPassword($username, md5($qldt_password));
     }
 
     /**
@@ -61,6 +61,6 @@ class AccountService implements AccountServiceContract
 
     private function _updatePassword ($username, $password)
     {
-        $this->accountDepository->updatePassword($username, bcrypt($password));
+        $this->accountRepository->updatePassword($username, bcrypt($password));
     }
 }

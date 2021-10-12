@@ -10,22 +10,22 @@ use App\Services\AbstractClasses\ALoginService;
 
 class LoginAppService extends ALoginService
 {
-    private StudentRepositoryContract $studentDepository;
-    private TeacherRepositoryContract $teacherDepository;
+    private StudentRepositoryContract $studentRepository;
+    private TeacherRepositoryContract $teacherRepository;
 
     /**
      * LoginAppService constructor.
-     * @param AccountRepositoryContract $accountDepository
-     * @param StudentRepositoryContract $studentDepository
-     * @param TeacherRepositoryContract $teacherDepository
+     * @param AccountRepositoryContract $accountRepository
+     * @param StudentRepositoryContract $studentRepository
+     * @param TeacherRepositoryContract $teacherRepository
      */
-    public function __construct (AccountRepositoryContract $accountDepository,
-                                 StudentRepositoryContract $studentDepository,
-                                 TeacherRepositoryContract $teacherDepository)
+    public function __construct (AccountRepositoryContract $accountRepository,
+                                 StudentRepositoryContract $studentRepository,
+                                 TeacherRepositoryContract $teacherRepository)
     {
-        parent::__construct($accountDepository);
-        $this->studentDepository = $studentDepository;
-        $this->teacherDepository = $teacherDepository;
+        parent::__construct($accountRepository);
+        $this->studentRepository = $studentRepository;
+        $this->teacherRepository = $teacherRepository;
     }
 
     /**
@@ -36,13 +36,13 @@ class LoginAppService extends ALoginService
         switch ($permission)
         {
             case 0:
-                $data       = $this->studentDepository->get($id_account);
+                $data       = $this->studentRepository->get($id_account);
                 $data->name = $data->student_name;
                 unset($data->student_name);
                 break;
 
             case 1:
-                $data       = $this->teacherDepository->get($id_account);
+                $data       = $this->teacherRepository->get($id_account);
                 $data->name = $data->teacher_name;
                 unset($data->teacher_name);
                 break;

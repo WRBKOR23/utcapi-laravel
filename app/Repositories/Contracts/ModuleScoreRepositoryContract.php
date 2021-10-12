@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Contracts;
 
-interface ModuleScoreDepositoryContract
+interface ModuleScoreRepositoryContract
 {
     public function get ($id_student);
 

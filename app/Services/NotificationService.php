@@ -16,38 +16,38 @@ use App\Services\Contracts\NotificationServiceContract;
 
 class NotificationService implements NotificationServiceContract
 {
-    private NotificationAccountRepositoryContract $notificationAccountDepository;
-    private DataVersionStudentRepositoryContract $dataVersionStudentDepository;
+    private NotificationAccountRepositoryContract $notificationAccountRepository;
+    private DataVersionStudentRepositoryContract $dataVersionStudentRepository;
     private DataVersionTeacherRepositoryContract $dataVersionTeacherRepository;
-    private NotificationRepositoryContract $notificationDepository;
-    private ParticipateRepositoryContract $participateDepository;
-    private AccountRepositoryContract $accountDepository;
-    private StudentRepositoryContract $studentDepository;
+    private NotificationRepositoryContract $notificationRepository;
+    private ParticipateRepositoryContract $participateRepository;
+    private AccountRepositoryContract $accountRepository;
+    private StudentRepositoryContract $studentRepository;
 
     /**
-     * @param NotificationAccountRepositoryContract $notificationAccountDepository
-     * @param DataVersionStudentRepositoryContract $dataVersionStudentDepository
+     * @param NotificationAccountRepositoryContract $notificationAccountRepository
+     * @param DataVersionStudentRepositoryContract $dataVersionStudentRepository
      * @param DataVersionTeacherRepositoryContract $dataVersionTeacherRepository
-     * @param NotificationRepositoryContract $notificationDepository
-     * @param ParticipateRepositoryContract $participateDepository
-     * @param AccountRepositoryContract $accountDepository
-     * @param StudentRepositoryContract $studentDepository
+     * @param NotificationRepositoryContract $notificationRepository
+     * @param ParticipateRepositoryContract $participateRepository
+     * @param AccountRepositoryContract $accountRepository
+     * @param StudentRepositoryContract $studentRepository
      */
-    public function __construct (NotificationAccountRepositoryContract $notificationAccountDepository,
-                                 DataVersionStudentRepositoryContract  $dataVersionStudentDepository,
+    public function __construct (NotificationAccountRepositoryContract $notificationAccountRepository,
+                                 DataVersionStudentRepositoryContract  $dataVersionStudentRepository,
                                  DataVersionTeacherRepositoryContract  $dataVersionTeacherRepository,
-                                 NotificationRepositoryContract        $notificationDepository,
-                                 ParticipateRepositoryContract         $participateDepository,
-                                 AccountRepositoryContract             $accountDepository,
-                                 StudentRepositoryContract             $studentDepository)
+                                 NotificationRepositoryContract        $notificationRepository,
+                                 ParticipateRepositoryContract         $participateRepository,
+                                 AccountRepositoryContract             $accountRepository,
+                                 StudentRepositoryContract             $studentRepository)
     {
-        $this->notificationAccountDepository = $notificationAccountDepository;
-        $this->dataVersionStudentDepository  = $dataVersionStudentDepository;
+        $this->notificationAccountRepository = $notificationAccountRepository;
+        $this->dataVersionStudentRepository  = $dataVersionStudentRepository;
         $this->dataVersionTeacherRepository  = $dataVersionTeacherRepository;
-        $this->notificationDepository        = $notificationDepository;
-        $this->participateDepository         = $participateDepository;
-        $this->accountDepository             = $accountDepository;
-        $this->studentDepository             = $studentDepository;
+        $this->notificationRepository        = $notificationRepository;
+        $this->participateRepository         = $participateRepository;
+        $this->accountRepository             = $accountRepository;
+        $this->studentRepository             = $studentRepository;
     }
 
     public function pushNotificationBFC ($notification, $class_list) : array
@@ -60,7 +60,7 @@ class NotificationService implements NotificationServiceContract
 
     private function _getIDStudentsBFC ($class_list)
     {
-        return $this->studentDepository->getIDStudentsBFC($class_list);
+        return $this->studentRepository->getIDStudentsBFC($class_list);
     }
 
     public function pushNotificationBMC ($notification, $class_list) : array
@@ -73,7 +73,7 @@ class NotificationService implements NotificationServiceContract
 
     private function _getIDStudentsBMC ($class_list)
     {
-        return $this->participateDepository->getIDStudentsBMC($class_list);
+        return $this->participateRepository->getIDStudentsBMC($class_list);
     }
 
     private function _sharedFunctions ($notification, $id_student_list) : array
@@ -93,13 +93,13 @@ class NotificationService implements NotificationServiceContract
             return [];
         }
 
-        return $this->accountDepository->getIDAccounts($id_student_list);
+        return $this->accountRepository->getIDAccounts($id_student_list);
     }
 
     private function _insertNotification ($notification)
     {
         $notification = SharedFunctions::setUpNotificationData($notification);
-        return $this->notificationDepository->insertGetID($notification);
+        return $this->notificationRepository->insertGetID($notification);
     }
 
     private function _insertNotificationAccount ($id_account_list, $id_notification)
@@ -110,17 +110,17 @@ class NotificationService implements NotificationServiceContract
         }
 
         $data = SharedFunctions::setUpNotificationAccountData($id_account_list, $id_notification);
-        $this->notificationAccountDepository->insertMultiple($data);
+        $this->notificationAccountRepository->insertMultiple($data);
     }
 
 
     public function getNotificationByReceiver ($id_account, $is_student, $id_notification = '0') : array
     {
-        $data = $this->notificationAccountDepository->getNotifications($id_account, $id_notification);
+        $data = $this->notificationAccountRepository->getNotifications($id_account, $id_notification);
         $data = SharedFunctions::formatGetNotificationResponse($data);
         if ($is_student)
         {
-            $data_version = $this->dataVersionStudentDepository->getSingleColumn1($id_account, 'notification');
+            $data_version = $this->dataVersionStudentRepository->getSingleColumn1($id_account, 'notification');
         }
         else
         {
@@ -138,7 +138,7 @@ class NotificationService implements NotificationServiceContract
     {
         if ($id_notification != '0')
         {
-            return $this->notificationDepository->getDeletedNotifications();
+            return $this->notificationRepository->getDeletedNotifications();
         }
         else
         {
@@ -148,19 +148,19 @@ class NotificationService implements NotificationServiceContract
 
     public function setDelete ($id_notification_list)
     {
-        $this->notificationDepository->setDelete($id_notification_list);
-        $id_student_list = $this->notificationAccountDepository->getIDAccounts($id_notification_list);
+        $this->notificationRepository->setDelete($id_notification_list);
+        $id_student_list = $this->notificationAccountRepository->getIDAccounts($id_notification_list);
         $this->_updateNotificationVersion($id_student_list);
     }
 
     private function _updateNotificationVersion ($id_student_list)
     {
-        $this->dataVersionStudentDepository->updateMultiple($id_student_list, 'notification');
+        $this->dataVersionStudentRepository->updateMultiple($id_student_list, 'notification');
     }
 
 
     public function getNotificationBySender ($id_sender, $num)
     {
-        return $this->notificationDepository->getNotifications($id_sender, $num);
+        return $this->notificationRepository->getNotifications($id_sender, $num);
     }
 }

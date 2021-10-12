@@ -11,15 +11,15 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 abstract class ALoginService implements LoginWebServiceContract, LoginAppServiceContract
 {
-    private AccountRepositoryContract $accountDepository;
+    private AccountRepositoryContract $accountRepository;
 
     /**
      * ALoginService constructor.
-     * @param AccountRepositoryContract $accountDepository
+     * @param AccountRepositoryContract $accountRepository
      */
-    public function __construct (AccountRepositoryContract $accountDepository)
+    public function __construct (AccountRepositoryContract $accountRepository)
     {
-        $this->accountDepository = $accountDepository;
+        $this->accountRepository = $accountRepository;
     }
 
     /**

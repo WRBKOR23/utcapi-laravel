@@ -13,33 +13,34 @@ use App\Repositories\Contracts\StudentRepositoryContract;
 use App\Helpers\SharedData;
 use App\Services\Contracts\FacultyClassServiceContract;
 use Exception;
+use Illuminate\Support\Facades\Cache;
 
 class RegisterService implements Contracts\RegisterServiceContract
 {
     private CrawlQLDTData $crawl;
-    private ClassRepositoryContract $classDepositoryContract;
-    private AccountRepositoryContract $accountDepository;
-    private StudentRepositoryContract $studentDepository;
-    private DataVersionStudentRepositoryContract $dataVersionStudentDepository;
+    private ClassRepositoryContract $classRepositoryContract;
+    private AccountRepositoryContract $accountRepository;
+    private StudentRepositoryContract $studentRepository;
+    private DataVersionStudentRepositoryContract $dataVersionStudentRepository;
 
     /**
      * @param CrawlQLDTData $crawl
-     * @param ClassRepositoryContract $classDepositoryContract
-     * @param AccountRepositoryContract $accountDepository
-     * @param StudentRepositoryContract $studentDepository
-     * @param DataVersionStudentRepositoryContract $dataVersionStudentDepository
+     * @param ClassRepositoryContract $classRepositoryContract
+     * @param AccountRepositoryContract $accountRepository
+     * @param StudentRepositoryContract $studentRepository
+     * @param DataVersionStudentRepositoryContract $dataVersionStudentRepository
      */
     public function __construct (CrawlQLDTData                        $crawl,
-                                 ClassRepositoryContract              $classDepositoryContract,
-                                 AccountRepositoryContract            $accountDepository,
-                                 StudentRepositoryContract            $studentDepository,
-                                 DataVersionStudentRepositoryContract $dataVersionStudentDepository)
+                                 ClassRepositoryContract              $classRepositoryContract,
+                                 AccountRepositoryContract            $accountRepository,
+                                 StudentRepositoryContract            $studentRepository,
+                                 DataVersionStudentRepositoryContract $dataVersionStudentRepository)
     {
         $this->crawl                        = $crawl;
-        $this->classDepositoryContract      = $classDepositoryContract;
-        $this->accountDepository            = $accountDepository;
-        $this->studentDepository            = $studentDepository;
-        $this->dataVersionStudentDepository = $dataVersionStudentDepository;
+        $this->classRepositoryContract      = $classRepositoryContract;
+        $this->accountRepository            = $accountRepository;
+        $this->studentRepository            = $studentRepository;
+        $this->dataVersionStudentRepository = $dataVersionStudentRepository;
     }
 
     /**
@@ -61,7 +62,7 @@ class RegisterService implements Contracts\RegisterServiceContract
 
     private function _checkAccountExist ($username) : bool
     {
-        $account = $this->accountDepository->get($username);
+        $account = $this->accountRepository->get($username);
         return !empty($account);
     }
 
@@ -90,7 +91,8 @@ class RegisterService implements Contracts\RegisterServiceContract
      */
     private function _setupData ($data) : array
     {
-        $student_info = $this->crawl->getStudentInfo();
+        $student_info       = $this->crawl->getStudentInfo();
+        $academic_year_list = $this->_getAcademicYears();
 
         $account['username']      = $data['id_student'];
         $account['password']      = bcrypt($data['password']);
@@ -102,10 +104,10 @@ class RegisterService implements Contracts\RegisterServiceContract
         $student['birth']        = $student_info['birth'];
         $student['id_class']     = $student_info['academic_year'] . '.' . $data['id_class'];
 
-        $class['id']            = $student['id_class'];
-        $class['academic_year'] = $student_info['academic_year'];
-        $class['class_name']    = $this->_getInfoClass($class['id'], $data['id_faculty'])['class_name'];
-        $class['id_faculty']    = $data['id_faculty'];
+        $class['id']               = $student['id_class'];
+        $class['id_academic_year'] = $academic_year_list[$student_info['academic_year']];
+        $class['class_name']       = $this->_getInfoClass($class['id'], $data['id_faculty'])['class_name'];
+        $class['id_faculty']       = $data['id_faculty'];
 
         $data_version['id_student'] = $data['id_student'];
 
@@ -115,6 +117,12 @@ class RegisterService implements Contracts\RegisterServiceContract
             'student'      => $student,
             'class'        => $class
         ];
+    }
+
+    private function _getAcademicYears ()
+    {
+        return Cache::get('academic_years') != null ?
+            Cache::get('academic_years') : Cache::get('academic_years_backup');
     }
 
     /**
@@ -160,11 +168,11 @@ class RegisterService implements Contracts\RegisterServiceContract
 
     private function _createData (&$data)
     {
-        $id_account = $this->accountDepository->insertGetId($data['account']);
-        $this->classDepositoryContract->insert($data['class']);
+        $id_account = $this->accountRepository->insertGetId($data['account']);
+        $this->classRepositoryContract->insert($data['class']);
         $data['student']['id_account'] = $id_account;
-        $this->studentDepository->insert($data['student']);
-        $this->dataVersionStudentDepository->insert($data['data_version']);
+        $this->studentRepository->insert($data['student']);
+        $this->dataVersionStudentRepository->insert($data['data_version']);
     }
 }
 

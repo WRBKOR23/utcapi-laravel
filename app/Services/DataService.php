@@ -19,42 +19,42 @@ use Illuminate\Support\Facades\Cache;
 class DataService implements DataServiceContract
 {
     private FileUploadHandler $fileUploadHandle;
-    private DataVersionStudentRepositoryContract $dataVersionStudentDepository;
-    private ModuleClassRepositoryContract $moduleClassDepository;
-    private ParticipateRepositoryContract $participateDepository;
-    private StudentRepositoryContract $studentDepository;
-    private AccountRepositoryContract $accountDepository;
-    private ModuleRepositoryContract $moduleDepository;
-    private ClassRepositoryContract $classDepository;
+    private DataVersionStudentRepositoryContract $dataVersionStudentRepository;
+    private ModuleClassRepositoryContract $moduleClassRepository;
+    private ParticipateRepositoryContract $participateRepository;
+    private StudentRepositoryContract $studentRepository;
+    private AccountRepositoryContract $accountRepository;
+    private ModuleRepositoryContract $moduleRepository;
+    private ClassRepositoryContract $classRepository;
 
     /**
      * DataService constructor.
      * @param FileUploadHandler $fileUploadHandle
-     * @param DataVersionStudentRepositoryContract $dataVersionStudentDepository
-     * @param ModuleClassRepositoryContract $moduleClassDepository
-     * @param ParticipateRepositoryContract $participateDepository
-     * @param StudentRepositoryContract $studentDepository
-     * @param AccountRepositoryContract $accountDepository
-     * @param ModuleRepositoryContract $moduleDepository
-     * @param ClassRepositoryContract $classDepository
+     * @param DataVersionStudentRepositoryContract $dataVersionStudentRepository
+     * @param ModuleClassRepositoryContract $moduleClassRepository
+     * @param ParticipateRepositoryContract $participateRepository
+     * @param StudentRepositoryContract $studentRepository
+     * @param AccountRepositoryContract $accountRepository
+     * @param ModuleRepositoryContract $moduleRepository
+     * @param ClassRepositoryContract $classRepository
      */
     public function __construct (FileUploadHandler                    $fileUploadHandle,
-                                 DataVersionStudentRepositoryContract $dataVersionStudentDepository,
-                                 ModuleClassRepositoryContract        $moduleClassDepository,
-                                 ParticipateRepositoryContract        $participateDepository,
-                                 StudentRepositoryContract            $studentDepository,
-                                 AccountRepositoryContract            $accountDepository,
-                                 ModuleRepositoryContract             $moduleDepository,
-                                 ClassRepositoryContract              $classDepository)
+                                 DataVersionStudentRepositoryContract $dataVersionStudentRepository,
+                                 ModuleClassRepositoryContract        $moduleClassRepository,
+                                 ParticipateRepositoryContract        $participateRepository,
+                                 StudentRepositoryContract            $studentRepository,
+                                 AccountRepositoryContract            $accountRepository,
+                                 ModuleRepositoryContract             $moduleRepository,
+                                 ClassRepositoryContract              $classRepository)
     {
         $this->fileUploadHandle             = $fileUploadHandle;
-        $this->dataVersionStudentDepository = $dataVersionStudentDepository;
-        $this->moduleClassDepository        = $moduleClassDepository;
-        $this->participateDepository        = $participateDepository;
-        $this->studentDepository            = $studentDepository;
-        $this->accountDepository            = $accountDepository;
-        $this->moduleDepository             = $moduleDepository;
-        $this->classDepository              = $classDepository;
+        $this->dataVersionStudentRepository = $dataVersionStudentRepository;
+        $this->moduleClassRepository        = $moduleClassRepository;
+        $this->participateRepository        = $participateRepository;
+        $this->studentRepository            = $studentRepository;
+        $this->accountRepository            = $accountRepository;
+        $this->moduleRepository             = $moduleRepository;
+        $this->classRepository              = $classRepository;
     }
 
     /**
@@ -81,7 +81,7 @@ class DataService implements DataServiceContract
     {
         $module_list = Cache::remember('module_list', 10080, function ()
         {
-            return $this->moduleDepository->getAll();
+            return $this->moduleRepository->getAll();
         });
 
         return $this->fileUploadHandle->getData($file, $module_list);
@@ -90,7 +90,7 @@ class DataService implements DataServiceContract
     private function _checkModuleClassException ($module_classes) : array
     {
         $exception         = [];
-        $module_class_list = $this->moduleClassDepository->getModuleClasses2($module_classes);
+        $module_class_list = $this->moduleClassRepository->getModuleClasses2($module_classes);
 
         foreach ($module_classes as $module_class)
         {
@@ -113,22 +113,22 @@ class DataService implements DataServiceContract
 
     private function _insertFacultyClasses ($data)
     {
-        $this->classDepository->insertMultiple($data);
+        $this->classRepository->insertMultiple($data);
     }
 
     private function _insertStudents ($data)
     {
-        $this->studentDepository->insertMultiple($data);
+        $this->studentRepository->insertMultiple($data);
     }
 
     private function _insertParticipates ($data)
     {
-        $this->participateDepository->insertMultiple($data);
+        $this->participateRepository->insertMultiple($data);
     }
 
     private function _upsertDataVersionStudents ($data)
     {
-        $this->dataVersionStudentDepository->upsertMultiple($data);
+        $this->dataVersionStudentRepository->upsertMultiple($data);
     }
 
     private function _checkException ($exception, $exception2) : bool
@@ -169,12 +169,12 @@ class DataService implements DataServiceContract
 
     private function _createAccount ($data)
     {
-        $this->accountDepository->insertMultiple($data);
+        $this->accountRepository->insertMultiple($data);
     }
 
     private function _bindAccountToStudent ($data)
     {
-        $this->studentDepository->updateMultiple($data);
+        $this->studentRepository->updateMultiple($data);
     }
 
     private function _prepareData (&$student_list) : array

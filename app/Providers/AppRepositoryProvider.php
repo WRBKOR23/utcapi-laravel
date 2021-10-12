@@ -14,7 +14,7 @@ use App\Repositories\Contracts\ExamScheduleRepositoryContract;
 use App\Repositories\Contracts\FacultyRepositoryContract;
 use App\Repositories\Contracts\ModuleClassRepositoryContract;
 use App\Repositories\Contracts\ModuleRepositoryContract;
-use App\Repositories\Contracts\ModuleScoreDepositoryContract;
+use App\Repositories\Contracts\ModuleScoreRepositoryContract;
 use App\Repositories\Contracts\NotificationAccountRepositoryContract;
 use App\Repositories\Contracts\NotificationRepositoryContract;
 use App\Repositories\Contracts\OtherDepartmentRepositoryContract;
@@ -57,7 +57,7 @@ class AppRepositoryProvider extends ServiceProvider
         $this->app->bind(OtherDepartmentRepositoryContract::class, OtherDepartmentRepository::class);
         $this->app->bind(NotificationRepositoryContract::class, NotificationRepository::class);
         $this->app->bind(ExamScheduleRepositoryContract::class, ExamScheduleRepository::class);
-        $this->app->bind(ModuleScoreDepositoryContract::class, ModuleScoreRepository::class);
+        $this->app->bind(ModuleScoreRepositoryContract::class, ModuleScoreRepository::class);
         $this->app->bind(ModuleClassRepositoryContract::class, ModuleClassRepository::class);
         $this->app->bind(ParticipateRepositoryContract::class, ParticipateRepository::class);
         $this->app->bind(DepartmentRepositoryContract::class, DepartmentRepository::class);

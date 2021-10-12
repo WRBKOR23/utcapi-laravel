@@ -8,15 +8,15 @@ use App\Services\Contracts\FacultyClassServiceContract;
 
 class FacultyClassService implements FacultyClassServiceContract
 {
-    private ClassRepositoryContract $classDepository;
+    private ClassRepositoryContract $classRepository;
 
     /**
      * FacultyClassService constructor.
-     * @param ClassRepositoryContract $classDepository
+     * @param ClassRepositoryContract $classRepository
      */
-    public function __construct (ClassRepositoryContract $classDepository)
+    public function __construct (ClassRepositoryContract $classRepository)
     {
-        $this->classDepository = $classDepository;
+        $this->classRepository = $classRepository;
     }
 
     public function getFacultyClassesAndAcademicYears () : array
@@ -29,11 +29,11 @@ class FacultyClassService implements FacultyClassServiceContract
 
     private function _getAcademicYears()
     {
-        return $this->classDepository->getAcademicYears();
+        return $this->classRepository->getAcademicYears();
     }
 
     private function _getFacultyClasses($academic_year_list)
     {
-        return $this->classDepository->getFacultyClass($academic_year_list);
+        return $this->classRepository->getFacultyClass($academic_year_list);
     }
 }

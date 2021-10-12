@@ -5,31 +5,31 @@ namespace App\Services;
 use App\BusinessClasses\CrawlQLDTData;
 use App\Repositories\Contracts\AccountRepositoryContract;
 use App\Repositories\Contracts\DataVersionStudentRepositoryContract;
-use App\Repositories\Contracts\ModuleScoreDepositoryContract;
+use App\Repositories\Contracts\ModuleScoreRepositoryContract;
 use App\Repositories\Contracts\SchoolYearRepositoryContract;
 use App\Services\AbstractClasses\ACrawlService;
 
 class CrawlModuleScoreService extends ACrawlService
 {
-    private ModuleScoreDepositoryContract $moduleScoreDepository;
-    private DataVersionStudentRepositoryContract $dataVersionStudentDepository;
+    private ModuleScoreRepositoryContract $moduleScoreRepository;
+    private DataVersionStudentRepositoryContract $dataVersionStudentRepository;
 
     /**
      * @param CrawlQLDTData $crawl
-     * @param AccountRepositoryContract $accountDepository
+     * @param AccountRepositoryContract $accountRepository
      * @param SchoolYearRepositoryContract $schoolYearRepository
-     * @param ModuleScoreDepositoryContract $moduleScoreDepository
-     * @param DataVersionStudentRepositoryContract $dataVersionStudentDepository
+     * @param ModuleScoreRepositoryContract $moduleScoreRepository
+     * @param DataVersionStudentRepositoryContract $dataVersionStudentRepository
      */
     public function __construct (CrawlQLDTData                        $crawl,
-                                 AccountRepositoryContract            $accountDepository,
+                                 AccountRepositoryContract            $accountRepository,
                                  SchoolYearRepositoryContract         $schoolYearRepository,
-                                 ModuleScoreDepositoryContract        $moduleScoreDepository,
-                                 DataVersionStudentRepositoryContract $dataVersionStudentDepository)
+                                 ModuleScoreRepositoryContract        $moduleScoreRepository,
+                                 DataVersionStudentRepositoryContract $dataVersionStudentRepository)
     {
-        parent::__construct($crawl, $accountDepository, $schoolYearRepository);
-        $this->moduleScoreDepository        = $moduleScoreDepository;
-        $this->dataVersionStudentDepository = $dataVersionStudentDepository;
+        parent::__construct($crawl, $accountRepository, $schoolYearRepository);
+        $this->moduleScoreRepository        = $moduleScoreRepository;
+        $this->dataVersionStudentRepository = $dataVersionStudentRepository;
     }
 
     public function crawlAll ($id_student)
@@ -50,16 +50,16 @@ class CrawlModuleScoreService extends ACrawlService
 
     protected function _updateDataVersion ($id_student)
     {
-        $this->dataVersionStudentDepository->updateDataVersion($id_student, 'module_score');
+        $this->dataVersionStudentRepository->updateDataVersion($id_student, 'module_score');
     }
 
     protected function _customInsertMultiple ($data)
     {
-        $this->moduleScoreDepository->insertMultiple($data);
+        $this->moduleScoreRepository->insertMultiple($data);
     }
 
     protected function _customUpsert ($data)
     {
-        $this->moduleScoreDepository->upsert($data);
+        $this->moduleScoreRepository->upsert($data);
     }
 }

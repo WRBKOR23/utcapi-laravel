@@ -8,19 +8,19 @@ use App\Services\Contracts\DataVersionStudentServiceContract;
 
 class DataVersionStudentService implements DataVersionStudentServiceContract
 {
-    private DataVersionStudentRepositoryContract $dataVersionStudentDepository;
+    private DataVersionStudentRepositoryContract $dataVersionStudentRepository;
 
     /**
      * DataVersionStudentService constructor.
-     * @param DataVersionStudentRepositoryContract $dataVersionStudentDepository
+     * @param DataVersionStudentRepositoryContract $dataVersionStudentRepository
      */
-    public function __construct (DataVersionStudentRepositoryContract $dataVersionStudentDepository)
+    public function __construct (DataVersionStudentRepositoryContract $dataVersionStudentRepository)
     {
-        $this->dataVersionStudentDepository = $dataVersionStudentDepository;
+        $this->dataVersionStudentRepository = $dataVersionStudentRepository;
     }
 
     public function getDataVersion ($id_student)
     {
-        return $this->dataVersionStudentDepository->get($id_student);
+        return $this->dataVersionStudentRepository->get($id_student);
     }
 }
