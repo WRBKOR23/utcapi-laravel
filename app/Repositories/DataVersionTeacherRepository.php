@@ -10,13 +10,12 @@ class DataVersionTeacherRepository implements DataVersionTeacherRepositoryContra
 {
     public function get ($id_teacher)
     {
-        return DataVersionTeacher::select('schedule')->find($id_teacher);
+        return DataVersionTeacher::select('schedule', 'notification')->find($id_teacher);
     }
 
     public function getSingleColumn1 ($id_account, $column_name)
     {
-        return Account::find($id_account)->dataVersionTeacher()
-                      ->pluck($column_name)->first();
+        return Account::find($id_account)->dataVersionTeacher()->pluck($column_name)->first();
     }
 
     public function getSingleColumn2 ($id_teacher, $column_name)

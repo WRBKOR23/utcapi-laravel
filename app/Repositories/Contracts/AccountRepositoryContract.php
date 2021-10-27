@@ -4,9 +4,11 @@ namespace App\Repositories\Contracts;
 
 interface AccountRepositoryContract
 {
-    public function get ($username);
+    public function insertGetId ($data);
 
-    public function getIDAccounts ($id_student_list);
+    public function insertPivotMultiple ($id_account, $roles);
+
+    public function get ($username);
 
     public function updateQLDTPassword ($username, $qldt_password);
 
@@ -14,8 +16,5 @@ interface AccountRepositoryContract
 
     public function getQLDTPassword ($id_student);
 
-    public function insertGetId ($data);
-
-    public function insertMultiple ($data);
-
+    public function getPermissions ($id_account);
 }

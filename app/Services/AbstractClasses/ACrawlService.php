@@ -19,7 +19,6 @@ abstract class ACrawlService implements CrawlModuleScoreServiceContract,
     protected array $school_year_list;
 
     /**
-     * CrawlModuleScoreService constructor.
      * @param CrawlQLDTData $crawl
      * @param AccountRepositoryContract $accountRepository
      * @param SchoolYearRepositoryContract $schoolYearRepository
@@ -114,7 +113,7 @@ abstract class ACrawlService implements CrawlModuleScoreServiceContract,
 
     protected function _getSchoolYears ()
     {
-        $this->school_year_list = Cache::remember('school_year_list', 30000, function ()
+        $this->school_year_list = Cache::remember('school_years', 30000, function ()
         {
             return $this->schoolYearRepository->getMultiple();
         });
@@ -122,7 +121,7 @@ abstract class ACrawlService implements CrawlModuleScoreServiceContract,
 
     private function _destroyCacheSchoolYears ()
     {
-        Cache::forget('school_year_list');
+        Cache::forget('school_years');
     }
 
     private function _getIDSchoolYear ($school_year)

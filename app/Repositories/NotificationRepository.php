@@ -2,9 +2,13 @@
 
 namespace App\Repositories;
 
+use App\Models\Account;
+use App\Models\Department;
+use App\Models\Faculty;
+use App\Models\OtherDepartment;
+use App\Models\Teacher;
 use App\Repositories\Contracts\NotificationRepositoryContract;
 use App\Models\Notification;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class NotificationRepository implements NotificationRepositoryContract
@@ -14,22 +18,50 @@ class NotificationRepository implements NotificationRepositoryContract
         return Notification::create($data)->id;
     }
 
-    public function setDelete ($id_notification_list)
+    public function getIDNotifications ($id_account, $id_notification_offset)
     {
-        Notification::whereIn('id', $id_notification_list)
-                    ->update(['is_delete' => 1]);
+        return Account::find($id_account)->notifications()
+                      ->where('notification.id', '>', $id_notification_offset)
+                      ->pluck('id_notification')->toArray();
     }
 
-    public function getNotifications ($id_sender, $num) : Collection
+    public function getNotifications ($id_notifications) : array
     {
-        return Notification::where('id_sender', '=', $id_sender)
-                           ->where('is_delete', '=', 0)
-                           ->orderBy('id', 'desc')
-                           ->offset($num)
-                           ->limit(15)
-                           ->select('id as id_notification', 'title', 'content',
-                                    'time_create', 'time_start', 'time_end')
-                           ->get();
+        $result = [];
+
+        $result[] = Notification::whereIn('notification.id', $id_notifications)
+                                ->join(Account::table_as, 'id_sender', '=', 'acc.id')
+                                ->join(OtherDepartment::table_as, 'id_sender', '=', 'od.id_account')
+                                ->select('notification.*',
+                                         'od.other_department_name as sender_name')
+                                ->get()
+                                ->toArray();
+
+        $result[] = Notification::whereIn('notification.id', $id_notifications)
+                                ->join(Account::table_as, 'id_sender', '=', 'acc.id')
+                                ->join(Faculty::table_as, 'id_sender', '=', 'fac.id_account')
+                                ->select('notification.*',
+                                         'fac.faculty_name as sender_name')
+                                ->get()
+                                ->toArray();
+
+        $result[] = Notification::whereIn('notification.id', $id_notifications)
+                                ->join(Account::table_as, 'id_sender', '=', 'acc.id')
+                                ->join(Department::table_as, 'id_sender', '=', 'dep.id_account')
+                                ->select('notification.*',
+                                         'dep.department_name as sender_name')
+                                ->get()
+                                ->toArray();
+
+        $result[] = Notification::whereIn('notification.id', $id_notifications)
+                                ->join(Account::table_as, 'id_sender', '=', 'acc.id')
+                                ->join(Teacher::table_as, 'id_sender', '=', 'tea.id_account')
+                                ->select('notification.*',
+                                         'tea.teacher_name as sender_name')
+                                ->get()
+                                ->toArray();
+
+        return $result;
     }
 
     public function getDeletedNotifications ()

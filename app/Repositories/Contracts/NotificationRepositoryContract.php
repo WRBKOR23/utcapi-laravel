@@ -6,9 +6,9 @@ interface NotificationRepositoryContract
 {
     public function insertGetID ($data);
 
-    public function setDelete ($id_notification_list);
+    public function getIDNotifications ($id_account, $id_notification_offset);
 
-    public function getNotifications ($id_sender, $num);
+    public function getNotifications ($id_notifications);
 
     public function getDeletedNotifications ();
 }

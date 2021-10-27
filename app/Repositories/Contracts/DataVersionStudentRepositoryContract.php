@@ -13,6 +13,4 @@ interface DataVersionStudentRepositoryContract
     public function updateDataVersion ($id_student, $column_name);
 
     public function updateMultiple ($id_student_list, $column_name);
-
-    public function upsertMultiple ($data);
 }

@@ -42,11 +42,4 @@ class DataVersionStudentRepository implements DataVersionStudentRepositoryContra
         DataVersionStudent::whereIn('id_student', $id_student_list)
                           ->increment($column_name);
     }
-
-    public function upsertMultiple ($data)
-    {
-        DataVersionStudent::upsert($data,
-                                   ['id_student'],
-                                   ['schedule' => DB::raw('schedule + 1')]);
-    }
 }

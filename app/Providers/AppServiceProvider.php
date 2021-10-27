@@ -3,9 +3,10 @@
 namespace App\Providers;
 
 use App\Services\AccountService;
+use App\Services\AuthService;
+use App\Services\Contracts\AuthServiceContract;
 use App\Services\Contracts\DataVersionTeacherServiceContract;
 use App\Services\Contracts\FacultyServiceContract;
-use App\Services\Contracts\FixScheduleServiceContract;
 use App\Services\Contracts\RegisterServiceContract;
 use App\Services\Contracts\ScheduleServiceContract;
 use App\Services\CrawlExamScheduleService;
@@ -22,62 +23,51 @@ use App\Services\Contracts\DataVersionStudentServiceContract;
 use App\Services\Contracts\DeviceServiceContract;
 use App\Services\Contracts\ExamScheduleServiceContract;
 use App\Services\Contracts\FacultyClassServiceContract;
-use App\Services\Contracts\DataServiceContract;
-use App\Services\Contracts\LoginAppServiceContract;
-use App\Services\Contracts\LoginWebServiceContract;
 use App\Services\Contracts\ModuleClassServiceContract;
 use App\Services\Contracts\ModuleScoreServiceContract;
 use App\Services\Contracts\NotificationServiceContract;
-use App\Services\Contracts\NotifyServiceContract;
 use App\Services\FacultyService;
-use App\Services\DataService;
-use App\Services\LoginAppService;
-use App\Services\LoginWebService;
 use App\Services\ModuleClassService;
 use App\Services\ModuleScoreService;
 use App\Services\NotificationService;
-use App\Services\NotifyService;
 use App\Services\RegisterService;
 use App\Services\ScheduleService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
+    public array $bindings = [
+        DataVersionStudentServiceContract::class => DataVersionStudentService::class,
+        DataVersionTeacherServiceContract::class => DataVersionTeacherService::class,
+        CrawlExamScheduleServiceContract::class  => CrawlExamScheduleService::class,
+        CrawlModuleScoreServiceContract::class   => CrawlModuleScoreService::class,
+        FacultyClassServiceContract::class       => FacultyClassService::class,
+        NotificationServiceContract::class       => NotificationService::class,
+        ExamScheduleServiceContract::class       => ExamScheduleService::class,
+        ModuleScoreServiceContract::class        => ModuleScoreService::class,
+        ModuleClassServiceContract::class        => ModuleClassService::class,
+        RegisterServiceContract::class           => RegisterService::class,
+        ScheduleServiceContract::class           => ScheduleService::class,
+        AccountServiceContract::class            => AccountService::class,
+        FacultyServiceContract::class            => FacultyService::class,
+        DeviceServiceContract::class             => DeviceService::class,
+        AuthServiceContract::class               => AuthService::class,
+    ];
+
     /**
      * Register any application services.
-     *
      * @return void
      */
     public function register ()
     {
-        $this->app->bind(DataVersionStudentServiceContract::class, DataVersionStudentService::class);
-        $this->app->bind(DataVersionTeacherServiceContract::class, DataVersionTeacherService::class);
-        $this->app->bind(CrawlExamScheduleServiceContract::class, CrawlExamScheduleService::class);
-        $this->app->bind(CrawlModuleScoreServiceContract::class, CrawlModuleScoreService::class);
-        $this->app->bind(FacultyClassServiceContract::class, FacultyClassService::class);
-        $this->app->bind(NotificationServiceContract::class, NotificationService::class);
-        $this->app->bind(ExamScheduleServiceContract::class, ExamScheduleService::class);
-        $this->app->bind(ModuleScoreServiceContract::class, ModuleScoreService::class);
-        $this->app->bind(ModuleClassServiceContract::class, ModuleClassService::class);
-        $this->app->bind(FixScheduleServiceContract::class, FixScheduleService::class);
-        $this->app->bind(RegisterServiceContract::class, RegisterService::class);
-        $this->app->bind(LoginWebServiceContract::class, LoginWebService::class);
-        $this->app->bind(LoginAppServiceContract::class, LoginAppService::class);
-        $this->app->bind(ScheduleServiceContract::class, ScheduleService::class);
-        $this->app->bind(AccountServiceContract::class, AccountService::class);
-        $this->app->bind(FacultyServiceContract::class, FacultyService::class);
-        $this->app->bind(DeviceServiceContract::class, DeviceService::class);
-        $this->app->bind(NotifyServiceContract::class, NotifyService::class);
-        $this->app->bind(DataServiceContract::class, DataService::class);
     }
 
     /**
      * Bootstrap any application services.
-     *
      * @return void
      */
     public function boot ()
     {
-//        URL::forceScheme('http');
+        //        URL::forceScheme('http');
     }
 }

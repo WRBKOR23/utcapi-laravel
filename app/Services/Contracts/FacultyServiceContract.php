@@ -4,5 +4,5 @@ namespace App\Services\Contracts;
 
 interface FacultyServiceContract
 {
-    public function getInfoFaculties ();
+    public function getFaculties ();
 }

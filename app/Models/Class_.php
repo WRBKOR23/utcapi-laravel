@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Class_ extends Model
@@ -20,13 +21,24 @@ class Class_ extends Model
 
     protected $fillable = [
         'id',
-        'academic_year',
+        'id_academic_year',
         'class_name',
-        'id_faculty'
+        'id_faculty',
+        'id_training_type',
     ];
 
     public function students () : HasMany
     {
         return $this->hasMany(Student::class, 'id_class', 'id');
+    }
+
+    public function academicYear () : BelongsTo
+    {
+        return $this->belongsTo(AcademicYear::class, 'id_academic_year', 'id');
+    }
+
+    public function faculty () : BelongsTo
+    {
+        return $this->belongsTo(Faculty::class, 'id_faculty', 'id');
     }
 }

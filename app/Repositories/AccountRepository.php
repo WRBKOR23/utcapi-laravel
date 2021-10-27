@@ -4,26 +4,25 @@ namespace App\Repositories;
 
 use App\Repositories\Contracts\AccountRepositoryContract;
 use App\Models\Account;
-use Illuminate\Support\Facades\DB;
 
 class AccountRepository implements AccountRepositoryContract
 {
+    public function insertGetId ($data) : int
+    {
+        return Account::create($data)->id;
+    }
+
+    public function insertPivotMultiple ($id_account, $roles)
+    {
+        Account::find($id_account)->roles()->attach($roles);
+    }
+
     public function get ($username) : array
     {
         return Account::where('username', '=', $username)
-                      ->select('id', 'username', 'password', 'permission')
+                      ->select('id')
                       ->get()
                       ->toArray();
-    }
-
-    public function getIDAccounts ($id_student_list) : array
-    {
-        $this->_createTemporaryTable($id_student_list);
-
-        return DB::table(Account::table_as)
-                 ->join('temp1', 'acc.username', '=', 'temp1.id_student')
-                 ->pluck('id')
-                 ->toArray();
     }
 
     public function updateQLDTPassword ($username, $qldt_password)
@@ -45,24 +44,8 @@ class AccountRepository implements AccountRepositoryContract
                       ->first();
     }
 
-    public function insertMultiple ($data)
+    public function getPermissions ($id_account)
     {
-        Account::upsert($data, ['username'], ['username']);
-    }
-
-    public function insertGetId ($data) : int
-    {
-        return Account::create($data)->id;
-    }
-
-    public function _createTemporaryTable ($id_student_list)
-    {
-        $sql_query =
-            'CREATE TEMPORARY TABLE temp1 (
-                  id_student varchar(15) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
-                ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci';
-
-        DB::unprepared($sql_query);
-        DB::table('temp1')->insert($id_student_list);
+        return Account::find($id_account)->roles()->pluck('role.id')->toArray();
     }
 }

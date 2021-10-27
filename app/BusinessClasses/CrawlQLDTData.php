@@ -83,32 +83,33 @@ class CrawlQLDTData
 
         $data['student_name']  = $html->find('span[id=lblStudentName]', 0)->innertext;
         $data['academic_year'] = $html->find('span[id=lblAy]', 0)->innertext;
-//        $data['class_name']    = $html->find('span[id=lblAdminClass]', 0)->innertext;
-//        $data['class_name']    = 'Lớp ' . SharedFunctions::formatString(substr_replace($data['class_name'],
-//                                                                                       '- Khóa ',
-//                                                                                       strlen($data['class_name']) - 2,
-//                                                                                       0));
+        $data['academic_year'] = str_replace('Liên thông ', 'LT', $data['academic_year']);
+        //        $data['class_name']    = $html->find('span[id=lblAdminClass]', 0)->innertext;
+        //        $data['class_name']    = 'Lớp ' . SharedFunctions::formatString(substr_replace($data['class_name'],
+        //                                                                                       '- Khóa ',
+        //                                                                                       strlen($data['class_name']) - 2,
+        //                                                                                       0));
         $html->load($response2);
         $data['birth'] = $html->find('input[id=txtNgaySinh]', 0)->value;
         $data['birth'] = SharedFunctions::formatDate($data['birth']);
 
-//        $dom = new DOMDocument();
-//        @$dom->loadHTML(mb_convert_encoding($response1, 'HTML-ENTITIES', "UTF-8"));
-//        $major = $dom->getElementById('drpField')->childNodes->item(1)->textContent;
+        //        $dom = new DOMDocument();
+        //        @$dom->loadHTML(mb_convert_encoding($response1, 'HTML-ENTITIES', "UTF-8"));
+        //        $major = $dom->getElementById('drpField')->childNodes->item(1)->textContent;
 
-//        $str_length = 0;
-//        foreach (SharedData::$faculties as $faculty => $arr)
-//        {
-//            foreach ($arr as $a)
-//            {
-//                if (strpos($major, $a) !== false
-//                    && strlen($a) > $str_length)
-//                {
-//                    $data['id_faculty'] = $faculty;
-//                    $str_length         = strlen($a);
-//                }
-//            }
-//        }
+        //        $str_length = 0;
+        //        foreach (SharedData::$faculties as $faculty => $arr)
+        //        {
+        //            foreach ($arr as $a)
+        //            {
+        //                if (strpos($major, $a) !== false
+        //                    && strlen($a) > $str_length)
+        //                {
+        //                    $data['id_faculty'] = $faculty;
+        //                    $str_length         = strlen($a);
+        //                }
+        //            }
+        //        }
 
         return $data;
     }
@@ -136,11 +137,16 @@ class CrawlQLDTData
         $html->load($response);
 
         $this->form_crawl_request                      = SharedData::$form_get_mark_request;
-        $this->form_crawl_request['__VIEWSTATE']       = $html->find('input[name=__VIEWSTATE]', 0)->value;
-        $this->form_crawl_request['__EVENTVALIDATION'] = $html->find('input[name=__EVENTVALIDATION]', 0)->value;
-        $this->form_crawl_request['hidStudentId']      = $html->find('input[id=hidStudentId]', 0)->value;
-        $this->form_crawl_request['drpField']          = $html->find('select[name=drpField] option', 0)->value;
-        $this->form_crawl_request['hidFieldId']        = $html->find('input[id=hidFieldId]', 0)->value;
+        $this->form_crawl_request['__VIEWSTATE']       = $html->find('input[name=__VIEWSTATE]',
+                                                                     0)->value;
+        $this->form_crawl_request['__EVENTVALIDATION'] = $html->find('input[name=__EVENTVALIDATION]',
+                                                                     0)->value;
+        $this->form_crawl_request['hidStudentId']      = $html->find('input[id=hidStudentId]',
+                                                                     0)->value;
+        $this->form_crawl_request['drpField']          = $html->find('select[name=drpField] option',
+                                                                     0)->value;
+        $this->form_crawl_request['hidFieldId']        = $html->find('input[id=hidFieldId]',
+                                                                     0)->value;
         $this->form_crawl_request['hidFieldName']      = $this->major;
     }
 
@@ -237,11 +243,11 @@ class CrawlQLDTData
 
                 if (count($tr[$j]->children()) == 11)
                 {
-                    $arr['process_score']                  = null;
-                    $arr['test_score']                     = null;
-                    $arr['final_score']                    = $temp_score == '&nbsp;' ? null : $temp_score;
-                    $data[$school_year][$arr['id_module']] = $arr;
+                    $arr['process_score'] = null;
+                    $arr['test_score']    = null;
+                    $arr['final_score']   = $temp_score == '&nbsp;' ? null : $temp_score;
 
+                    $data[$school_year][$arr['id_module']] = $arr;
                     continue;
                 }
 
@@ -271,7 +277,6 @@ class CrawlQLDTData
                 {
                     $arr['final_score']                    = null;
                     $data[$school_year][$arr['id_module']] = $arr;
-
                     continue;
                 }
 
@@ -348,9 +353,12 @@ class CrawlQLDTData
         $html->load($response);
 
         $this->form_crawl_request                      = SharedData::$form_get_exam_schedule_request;
-        $this->form_crawl_request['__VIEWSTATE']       = $html->find('input[name=__VIEWSTATE]', 0)->value;
-        $this->form_crawl_request['__EVENTVALIDATION'] = $html->find('input[name=__EVENTVALIDATION]', 0)->value;
-        $this->form_crawl_request['hidStudentId']      = $html->find('input[id=hidStudentId]', 0)->value;
+        $this->form_crawl_request['__VIEWSTATE']       = $html->find('input[name=__VIEWSTATE]',
+                                                                     0)->value;
+        $this->form_crawl_request['__EVENTVALIDATION'] = $html->find('input[name=__EVENTVALIDATION]',
+                                                                     0)->value;
+        $this->form_crawl_request['hidStudentId']      = $html->find('input[id=hidStudentId]',
+                                                                     0)->value;
 
         $this->_formatToUnOfficialSchoolYear();
         $elements = $html->find('select[name=drpSemester] option');
@@ -400,7 +408,8 @@ class CrawlQLDTData
         {
             $this->form_crawl_request['drpSemester'] = $school_year_value;
 
-            $response = $this->_postRequest($this->url_student_exam_schedule, $this->form_crawl_request);
+            $response = $this->_postRequest($this->url_student_exam_schedule,
+                                            $this->form_crawl_request);
             $html     = new simple_html_dom();
             $html->load($response);
             $exam_type_by_shtmldom = $html->find('select[id=drpDotThi] option');
@@ -414,23 +423,27 @@ class CrawlQLDTData
             $j         = 1;
             for ($i = 3; $i < $exam_type_by_dom_document->childNodes->count(); $i += 2)
             {
-                $exam_type[$i - (2 + $j)][] = $exam_type_by_dom_document->childNodes->item($i)->textContent;
+                $exam_type[$i - (2 +
+                                 $j)][]     = $exam_type_by_dom_document->childNodes->item($i)->textContent;
                 $exam_type[$i - (2 + $j)][] = $exam_type_by_shtmldom[$i - ($j + 1)]->value;
                 $j++;
             }
 
-            $exam_type_selected = $html->find('select[id=drpDotThi] option[selected=selected]', 0)->value;
+            $exam_type_selected = $html->find('select[id=drpDotThi] option[selected=selected]',
+                                              0)->value;
             for ($i = count($exam_type) - 1; $i >= 0; $i--)
             {
                 if ($exam_type[$i][1] != $exam_type_selected)
                 {
                     $this->form_crawl_request['drpDotThi']         = $exam_type[$i][1];
                     $this->form_crawl_request['__EVENTTARGET']     = 'drpDotThi';
-                    $this->form_crawl_request['__VIEWSTATE']       = $html->find('input[name=__VIEWSTATE]', 0)->value;
+                    $this->form_crawl_request['__VIEWSTATE']       = $html->find('input[name=__VIEWSTATE]',
+                                                                                 0)->value;
                     $this->form_crawl_request['__EVENTVALIDATION'] = $html->find('input[name=__EVENTVALIDATION]',
                                                                                  0)->value;
 
-                    $response = $this->_postRequest($this->url_student_exam_schedule, $this->form_crawl_request);
+                    $response = $this->_postRequest($this->url_student_exam_schedule,
+                                                    $this->form_crawl_request);
                     $html->load($response);
 
                     $this->form_crawl_request['__EVENTTARGET'] = 'drpSemester';
@@ -515,10 +528,14 @@ class CrawlQLDTData
                     $dupl_test_score    = $data[$official_school_year][$module['id_module']]['test_score'];
                     $dupl_theore_score  = $data[$official_school_year][$module['id_module']]['final_score'];
 
-                    $module['evaluation']    = $dupl_evaluation == null ? $module['evaluation'] : $dupl_evaluation;
-                    $module['process_score'] = $dupl_process_score == null ? $module['process_score'] : $dupl_process_score;
-                    $module['test_score']    = $dupl_test_score == null ? $module['test_score'] : $dupl_test_score;
-                    $module['final_score']   = $dupl_theore_score == null ? $module['final_score'] : $dupl_theore_score;
+                    $module['evaluation']    = $dupl_evaluation ==
+                                               null ? $module['evaluation'] : $dupl_evaluation;
+                    $module['process_score'] = $dupl_process_score ==
+                                               null ? $module['process_score'] : $dupl_process_score;
+                    $module['test_score']    = $dupl_test_score ==
+                                               null ? $module['test_score'] : $dupl_test_score;
+                    $module['final_score']   = $dupl_theore_score ==
+                                               null ? $module['final_score'] : $dupl_theore_score;
                 }
 
                 $module['school_year'] = $official_school_year;

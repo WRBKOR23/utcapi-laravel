@@ -45,7 +45,7 @@ class SharedData
                                'id_faculty' => 'DDT'],
             'KTDTTHCN'     => ['class_name' => 'Lớp Kỹ thuật điện tử và tin học công nghiệp',
                                'id_faculty' => 'DDT'],
-            'KTĐK&TDH'     => ['class_name' => 'Lớp Kỹ thuật điều khiển và tự động hoá',
+            'KTDK&TDH'     => ['class_name' => 'Lớp Kỹ thuật điều khiển và tự động hoá',
                                'id_faculty' => 'DDT'],
             'TBD'          => ['class_name' => 'Lớp Trang bị điện trong công nghiệp và giao thông',
                                'id_faculty' => 'DDT'],

@@ -1,19 +1,19 @@
 <?php
 
-use App\Http\Controllers\ApiController\AccountController;
-use App\Http\Controllers\ApiController\Auth\LoginAppController;
-use App\Http\Controllers\ApiController\Auth\RegisterController;
-use App\Http\Controllers\ApiController\CrawlExamScheduleController;
-use App\Http\Controllers\ApiController\CrawlModuleScoreController;
-use App\Http\Controllers\ApiController\CronJob\FixScheduleController;
-use App\Http\Controllers\ApiController\DataVersionStudentController;
-use App\Http\Controllers\ApiController\DataVersionTeacherController;
-use App\Http\Controllers\ApiController\DeviceController;
-use App\Http\Controllers\ApiController\ExamScheduleController;
-use App\Http\Controllers\ApiController\FacultyController;
-use App\Http\Controllers\ApiController\ModuleScoreController;
-use App\Http\Controllers\ApiController\NotificationController;
-use App\Http\Controllers\ApiController\ScheduleController;
+use App\Http\Controllers\AccountController;
+use App\Http\Controllers;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\CrawlExamScheduleController;
+use App\Http\Controllers\CrawlModuleScoreController;
+use App\Http\Controllers\DataVersionStudentController;
+use App\Http\Controllers\DataVersionTeacherController;
+use App\Http\Controllers\DeviceController;
+use App\Http\Controllers\ExamScheduleController;
+use App\Http\Controllers\FacultyController;
+use App\Http\Controllers\ModuleScoreController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\ScheduleController;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 
@@ -28,11 +28,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('faculty', [FacultyController::class, 'getInfoFaculties']);
+Route::get('faculty', [FacultyController::class, 'getFaculties']);
 
 Route::group(['prefix' => 'auth'], function ()
 {
-    Route::post('authenticate', [LoginAppController::class, 'login']);
+    Route::post('login', [AuthController::class, 'login']);
 
     Route::group(['prefix' => 'register'], function ()
     {
@@ -41,8 +41,6 @@ Route::group(['prefix' => 'auth'], function ()
         Route::post('process2', [RegisterController::class, 'process2']);
     });
 });
-
-Route::get('/check-fixschedule', [FixScheduleController::class, 'checkFixSchedule']);
 
 Route::middleware('cus.auth')->group(function ()
 {

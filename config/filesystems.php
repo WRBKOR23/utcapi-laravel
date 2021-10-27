@@ -51,13 +51,6 @@ return [
             'url'                     => env('AWS_URL'),
             'endpoint'                => env('AWS_ENDPOINT'),
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
-            'cron_job_folder_1'       => 'cron-jobs/',
-            'file_name_1'             => 'last_schedule_fixed.txt',
-            'file_path_1'             => storage_path('app/public/cron-jobs/last_schedule_fixed.txt'),
-        ],
-
-        'credentials' => [
-            'file_path' => storage_path('app/firebase_credentials.json'),
         ],
 
         'errors' => [

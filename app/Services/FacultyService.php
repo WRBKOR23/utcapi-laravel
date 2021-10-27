@@ -17,7 +17,7 @@ class FacultyService implements Contracts\FacultyServiceContract
         $this->facultyRepository = $facultyRepository;
     }
 
-    public function getInfoFaculties ()
+    public function getFaculties ()
     {
         return $this->facultyRepository->getAll(SharedData::$id_faculties);
     }

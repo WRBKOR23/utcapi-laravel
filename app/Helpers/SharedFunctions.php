@@ -12,14 +12,10 @@ class SharedFunctions
         $message .= 'Code: ' . $error->getCode() . PHP_EOL;
         $message .= $error->getMessage() . PHP_EOL;
         $message .= $error->getFile() . '  ' . $error->getLine() . PHP_EOL;
-        $message .= '=========================================================================================' . PHP_EOL;
+        $message .= '=========================================================================================' .
+                    PHP_EOL;
 
         file_put_contents(config('filesystems.disks.errors.file_path'), $message, FILE_APPEND);
-    }
-
-    public static function printFileImportException ($file_name, $message)
-    {
-        file_put_contents(storage_path('app/public/excels/errors/') . $file_name, $message);
     }
 
     public static function getDateTimeNow () : string
@@ -139,40 +135,4 @@ class SharedFunctions
 
         return $school_year;
     }
-
-    /*
-     *
-     */
-
-    public static function formatGetNotificationResponse ($data) : array
-    {
-        $response = [];
-        foreach ($data as $part)
-        {
-            foreach ($part as $notification)
-            {
-                $response['sender'][] = [
-                    'id_sender'   => $notification['id_sender'],
-                    'sender_name' => $notification['sender_name'],
-                    'permission'  => $notification['permission']
-                ];
-
-                unset($notification['sender_name']);
-                unset($notification['permission']);
-
-                $response['notification'][] = $notification;
-            }
-        }
-
-        if (isset($response['sender']))
-        {
-            $response['sender'] = array_values(array_unique($response['sender'], SORT_REGULAR));
-        }
-
-        return $response;
-    }
-
-    /*
-     *
-     */
 }
