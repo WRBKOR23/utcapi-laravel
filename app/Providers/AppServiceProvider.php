@@ -2,9 +2,12 @@
 
 namespace App\Providers;
 
+use App\Http\Controllers\CrawlExamScheduleController;
+use App\Http\Controllers\CrawlModuleScoreController;
 use App\Services\AccountService;
 use App\Services\AuthService;
 use App\Services\Contracts\AuthServiceContract;
+use App\Services\Contracts\CrawlServiceContract;
 use App\Services\Contracts\DataVersionTeacherServiceContract;
 use App\Services\Contracts\FacultyServiceContract;
 use App\Services\Contracts\RegisterServiceContract;
@@ -17,8 +20,6 @@ use App\Services\DeviceService;
 use App\Services\ExamScheduleService;
 use App\Services\FacultyClassService;
 use App\Services\Contracts\AccountServiceContract;
-use App\Services\Contracts\CrawlExamScheduleServiceContract;
-use App\Services\Contracts\CrawlModuleScoreServiceContract;
 use App\Services\Contracts\DataVersionStudentServiceContract;
 use App\Services\Contracts\DeviceServiceContract;
 use App\Services\Contracts\ExamScheduleServiceContract;
@@ -39,8 +40,6 @@ class AppServiceProvider extends ServiceProvider
     public array $bindings = [
         DataVersionStudentServiceContract::class => DataVersionStudentService::class,
         DataVersionTeacherServiceContract::class => DataVersionTeacherService::class,
-        CrawlExamScheduleServiceContract::class  => CrawlExamScheduleService::class,
-        CrawlModuleScoreServiceContract::class   => CrawlModuleScoreService::class,
         FacultyClassServiceContract::class       => FacultyClassService::class,
         NotificationServiceContract::class       => NotificationService::class,
         ExamScheduleServiceContract::class       => ExamScheduleService::class,
@@ -60,6 +59,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register ()
     {
+        $this->app->when(CrawlExamScheduleController::class)
+                  ->needs(CrawlServiceContract::class)
+                  ->give(CrawlExamScheduleService::class);
+
+        $this->app->when(CrawlModuleScoreController::class)
+                  ->needs(CrawlServiceContract::class)
+                  ->give(CrawlModuleScoreService::class);
     }
 
     /**

@@ -4,22 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\InvalidFormRequestException;
 use App\Http\FormRequest\CrawlForm;
-use App\Services\Contracts\CrawlModuleScoreServiceContract;
+use App\Services\Contracts\CrawlServiceContract;
 use Illuminate\Http\Request;
 
 class CrawlModuleScoreController extends Controller
 {
     private CrawlForm $form;
-    private CrawlModuleScoreServiceContract $crawlModuleScoreService;
+    private CrawlServiceContract $crawlServiceContract;
 
     /**
-     * @param CrawlForm $form
-     * @param CrawlModuleScoreServiceContract $crawlModuleScoreService
+     * @param CrawlForm            $form
+     * @param CrawlServiceContract $crawlServiceContract
      */
-    public function __construct (CrawlForm $form, CrawlModuleScoreServiceContract $crawlModuleScoreService)
+    public function __construct (CrawlForm $form, CrawlServiceContract $crawlServiceContract)
     {
-        $this->form                    = $form;
-        $this->crawlModuleScoreService = $crawlModuleScoreService;
+        $this->form                 = $form;
+        $this->crawlServiceContract = $crawlServiceContract;
     }
 
     /**
@@ -28,7 +28,7 @@ class CrawlModuleScoreController extends Controller
     public function crawlAll (Request $request)
     {
         $this->form->validate($request);
-        $this->crawlModuleScoreService->crawlAll($request->id_student);
+        $this->crawlServiceContract->crawlAll($request->id_student);
         return response('OK');
     }
 
@@ -38,7 +38,7 @@ class CrawlModuleScoreController extends Controller
     public function crawl (Request $request)
     {
         $this->form->validate($request);
-        $this->crawlModuleScoreService->crawl($request->id_student);
+        $this->crawlServiceContract->crawl($request->id_student);
         return response('OK');
     }
 }

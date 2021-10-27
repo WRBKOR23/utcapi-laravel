@@ -4,23 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\InvalidFormRequestException;
 use App\Http\FormRequest\CrawlForm;
-use App\Services\Contracts\CrawlExamScheduleServiceContract;
+use App\Services\Contracts\CrawlServiceContract;
 use Illuminate\Http\Request;
 
 class CrawlExamScheduleController extends Controller
 {
     private CrawlForm $form;
-    private CrawlExamScheduleServiceContract $crawlExamScheduleService;
+    private CrawlServiceContract $crawlServiceContract;
 
     /**
-     * CrawlExamScheduleController constructor.
-     * @param CrawlForm $form
-     * @param CrawlExamScheduleServiceContract $crawlExamScheduleService
+     * @param CrawlForm            $form
+     * @param CrawlServiceContract $crawlServiceContract
      */
-    public function __construct (CrawlForm $form, CrawlExamScheduleServiceContract $crawlExamScheduleService)
+    public function __construct (CrawlForm $form, CrawlServiceContract $crawlServiceContract)
     {
-        $this->form                     = $form;
-        $this->crawlExamScheduleService = $crawlExamScheduleService;
+        $this->form                 = $form;
+        $this->crawlServiceContract = $crawlServiceContract;
     }
 
     /**
@@ -29,7 +28,7 @@ class CrawlExamScheduleController extends Controller
     public function crawlAll (Request $request)
     {
         $this->form->validate($request);
-        $this->crawlExamScheduleService->crawlAll($request->id_student);
+        $this->crawlServiceContract->crawlAll($request->id_student);
         return response('OK');
     }
 
@@ -39,7 +38,7 @@ class CrawlExamScheduleController extends Controller
     public function crawl (Request $request)
     {
         $this->form->validate($request);
-        $this->crawlExamScheduleService->crawl($request->id_student);
+        $this->crawlServiceContract->crawl($request->id_student);
         return response('OK');
     }
 
