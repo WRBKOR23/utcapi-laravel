@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Services;
-
 
 use App\BusinessClasses\CrawlQLDTData;
 use App\Repositories\Contracts\AccountRepositoryContract;
@@ -14,14 +12,12 @@ use App\Services\AbstractClasses\ACrawlService;
 class CrawlExamScheduleService extends ACrawlService
 {
     private ExamScheduleRepositoryContract $examScheduleRepository;
-    private DataVersionStudentRepositoryContract $dataVersionStudentRepository;
 
     /**
-     * CrawlExamScheduleService constructor.
-     * @param CrawlQLDTData $crawl
-     * @param AccountRepositoryContract $accountRepository
-     * @param SchoolYearRepositoryContract $schoolYearRepository
-     * @param ExamScheduleRepositoryContract $examScheduleRepository
+     * @param CrawlQLDTData                        $crawl
+     * @param AccountRepositoryContract            $accountRepository
+     * @param SchoolYearRepositoryContract         $schoolYearRepository
+     * @param ExamScheduleRepositoryContract       $examScheduleRepository
      * @param DataVersionStudentRepositoryContract $dataVersionStudentRepository
      */
     public function __construct (CrawlQLDTData                        $crawl,
@@ -30,60 +26,52 @@ class CrawlExamScheduleService extends ACrawlService
                                  ExamScheduleRepositoryContract       $examScheduleRepository,
                                  DataVersionStudentRepositoryContract $dataVersionStudentRepository)
     {
-        parent::__construct($crawl, $accountRepository, $schoolYearRepository);
-        $this->examScheduleRepository       = $examScheduleRepository;
-        $this->dataVersionStudentRepository = $dataVersionStudentRepository;
+        parent::__construct($crawl, $accountRepository,
+                            $schoolYearRepository, $dataVersionStudentRepository);
+        $this->examScheduleRepository = $examScheduleRepository;
     }
 
     public function crawlAll ($id_student)
     {
         parent::crawl($id_student);
-        $data = $this->crawl->getStudentExamSchedule(true);
+        $data = $this->crawl->getStudentExamSchedule('all', $this->school_years);
         $this->_insertMultiple($data);
-        $this->_updateDataVersion($id_student);
+        $this->_updateDataVersion($id_student, 'exam_schedule');
     }
 
     public function crawl ($id_student)
     {
         parent::crawl($id_student);
-        $data = $this->crawl->getStudentExamSchedule(false);
-        $this->_verifyData($data);
+        $data = $this->crawl->getStudentExamSchedule('latest', $this->school_years);
         $this->_verifyOldData($data, $id_student);
         $this->_upsert($data);
-        $this->_updateDataVersion($id_student);
-    }
-
-    private function _verifyData (&$data)
-    {
-        if (count($data) == 2)
-        {
-            array_shift($data);
-        }
+        $this->_updateDataVersion($id_student, 'exam_schedule');
     }
 
     private function _verifyOldData ($data, $id_student)
     {
-        $latest_school_year = $this->_getLatestSchoolYear($id_student);
+        $latest_id_school_year = $this->_getLatestIDSchoolYear($id_student);
         foreach ($data as $school_year => $module)
         {
-            if (!empty($latest_school_year))
+            if (!is_null($latest_id_school_year))
             {
-                if ($school_year < $latest_school_year[0]['school_year'])
+                if ($this->school_years[$school_year] < $latest_id_school_year)
                 {
-                    $this->_deleteWrongExamSchedules($id_student, $latest_school_year[0]['id']);
+                    $this->_deleteWrongExamSchedules($id_student, $latest_id_school_year);
                     return;
                 }
 
-                if (empty($module) && $school_year == $latest_school_year[0]['school_year'])
+                if (empty($module) &&
+                    $this->school_years[$school_year] == $latest_id_school_year)
                 {
-                    $this->_deleteWrongExamSchedules($id_student, $latest_school_year[0]['id']);
+                    $this->_deleteWrongExamSchedules($id_student, $latest_id_school_year);
                     return;
                 }
             }
         }
     }
 
-    private function _getLatestSchoolYear ($id_student)
+    private function _getLatestIDSchoolYear ($id_student)
     {
         return $this->examScheduleRepository->getLatestSchoolYear($id_student);
     }
@@ -93,10 +81,6 @@ class CrawlExamScheduleService extends ACrawlService
         $this->examScheduleRepository->delete($id_student, $school_year);
     }
 
-    protected function _updateDataVersion ($id_student)
-    {
-        $this->dataVersionStudentRepository->updateDataVersion($id_student, 'exam_schedule');
-    }
 
     protected function _customInsertMultiple ($data)
     {

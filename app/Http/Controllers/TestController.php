@@ -218,9 +218,10 @@ class TestController extends Controller
         //        {
         //            return $query->whereIn('id_account', ['40', '42']);
         //        })->select()->toSql();
-        return Account::find(70)->notifications()->where('notification.id', '>', '1')
-                      ->pluck('notification.id')->toArray();
-//        foreach ($a as $e)
+        var_dump((ExamSchedule::where('id_student', '=', '191201402')->max('id_school_year')) < '13');
+        return ExamSchedule::where('id_student', '=', '191212716')->max('id_school_year');
+
+        //        foreach ($a as $e)
 //        {
 //            $m = '\'' . $e . '\',';
 //            file_put_contents('a.php', $m, FILE_APPEND);

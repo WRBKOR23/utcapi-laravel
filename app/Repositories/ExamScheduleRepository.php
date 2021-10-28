@@ -22,10 +22,7 @@ class ExamScheduleRepository implements ExamScheduleRepositoryContract
 
     public function getLatestSchoolYear ($id_student)
     {
-        return SchoolYear::whereHas('examSchedules', function ($query)
-        {
-            return $query->where('id_student', '191201402');
-        })->orderBy('id', 'desc')->limit(1)->select('id', 'school_year')->get()->toArray();
+        return ExamSchedule::where('id_student', '=', $id_student)->max('id_school_year');
     }
 
     public function insertMultiple ($data)

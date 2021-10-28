@@ -77,11 +77,11 @@ Route::middleware('cus.auth')->group(function ()
 
         Route::group(['prefix' => 'crawl'], function ()
         {
-            Route::post('module-score/all', [CrawlModuleScoreController::class, 'crawlAll']);
+            Route::post('module-score-all', [CrawlModuleScoreController::class, 'crawlAll']);
 
             Route::post('module-score', [CrawlModuleScoreController::class, 'crawl']);
 
-            Route::post('exam-schedule/all', [CrawlExamScheduleController::class, 'crawlAll']);
+            Route::post('exam-schedule-all', [CrawlExamScheduleController::class, 'crawlAll']);
 
             Route::post('exam-schedule', [CrawlExamScheduleController::class, 'crawl']);
         });

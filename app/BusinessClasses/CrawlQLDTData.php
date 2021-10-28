@@ -13,14 +13,14 @@ class CrawlQLDTData
 {
     private string $id_student;
     private string $major = '';
-    private array $school_year_arr = [];
-    private array $form_crawl_request = [];
+    private array $school_years = [];
+    private array $crawl_request_form = [];
     private string $url = 'https://qldt.utc.edu.vn/CMCSoft.IU.Web.Info/Login.aspx';
     private string $url_login = 'https://qldt.utc.edu.vn/CMCSoft.IU.Web.info/';
     private string $url_student_info = 'https://qldt.utc.edu.vn/CMCSoft.IU.Web.info/';
     private string $url_student_mark = 'https://qldt.utc.edu.vn/CMCSoft.IU.Web.info/';
     private string $url_student_exam_schedule = 'https://qldt.utc.edu.vn/CMCSoft.IU.Web.info/';
-    private bool $is_all = false;
+    private string $demand;
     private $ch;
 
     public function __construct ()
@@ -40,6 +40,32 @@ class CrawlQLDTData
         $this->url_student_mark          .= $access_token . '/StudentMark.aspx';
         $this->url_student_exam_schedule .= $access_token . '/StudentViewExamList.aspx';
         $this->url_student_info          .= $access_token . '/StudentProfileNew/HoSoSinhVien.aspx';
+    }
+
+    private function _getRequest ($url)
+    {
+        curl_setopt($this->ch, CURLOPT_URL, $url);
+        curl_setopt($this->ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($this->ch, CURLOPT_POST, false);
+        curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($this->ch, CURLOPT_COOKIEJAR, 'c.txt');
+        $response = curl_exec($this->ch);
+
+        return $response;
+    }
+
+    private function _postRequest ($url, $post_form)
+    {
+        curl_setopt($this->ch, CURLOPT_URL, $url);
+        curl_setopt($this->ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($this->ch, CURLOPT_POST, true);
+        curl_setopt($this->ch, CURLOPT_POSTFIELDS, http_build_query($post_form));
+        curl_setopt($this->ch, CURLOPT_COOKIEJAR, 'c.txt');
+        curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($this->ch);
+
+        return $response;
     }
 
     /**
@@ -80,43 +106,20 @@ class CrawlQLDTData
 
         $html = new simple_html_dom();
         $html->load($response1);
-
         $data['student_name']  = $html->find('span[id=lblStudentName]', 0)->innertext;
         $data['academic_year'] = $html->find('span[id=lblAy]', 0)->innertext;
         $data['academic_year'] = str_replace('Liên thông ', 'LT', $data['academic_year']);
-        //        $data['class_name']    = $html->find('span[id=lblAdminClass]', 0)->innertext;
-        //        $data['class_name']    = 'Lớp ' . SharedFunctions::formatString(substr_replace($data['class_name'],
-        //                                                                                       '- Khóa ',
-        //                                                                                       strlen($data['class_name']) - 2,
-        //                                                                                       0));
+
         $html->load($response2);
         $data['birth'] = $html->find('input[id=txtNgaySinh]', 0)->value;
         $data['birth'] = SharedFunctions::formatDate($data['birth']);
 
-        //        $dom = new DOMDocument();
-        //        @$dom->loadHTML(mb_convert_encoding($response1, 'HTML-ENTITIES', "UTF-8"));
-        //        $major = $dom->getElementById('drpField')->childNodes->item(1)->textContent;
-
-        //        $str_length = 0;
-        //        foreach (SharedData::$faculties as $faculty => $arr)
-        //        {
-        //            foreach ($arr as $a)
-        //            {
-        //                if (strpos($major, $a) !== false
-        //                    && strlen($a) > $str_length)
-        //                {
-        //                    $data['id_faculty'] = $faculty;
-        //                    $str_length         = strlen($a);
-        //                }
-        //            }
-        //        }
-
         return $data;
     }
 
-    public function getStudentModuleScore ($is_all) : array
+    public function getStudentModuleScore ($demand) : array
     {
-        $this->is_all = $is_all;
+        $this->demand = $demand;
 
         $this->_getFormRequireDataOfStudentModuleScore();
         $data = $this->_getDataModuleScore();
@@ -136,18 +139,18 @@ class CrawlQLDTData
         $response = $this->_getRequest($this->url_student_mark);
         $html->load($response);
 
-        $this->form_crawl_request                      = SharedData::$form_get_mark_request;
-        $this->form_crawl_request['__VIEWSTATE']       = $html->find('input[name=__VIEWSTATE]',
+        $this->crawl_request_form                      = SharedData::$form_get_mark_request;
+        $this->crawl_request_form['__VIEWSTATE']       = $html->find('input[name=__VIEWSTATE]',
                                                                      0)->value;
-        $this->form_crawl_request['__EVENTVALIDATION'] = $html->find('input[name=__EVENTVALIDATION]',
+        $this->crawl_request_form['__EVENTVALIDATION'] = $html->find('input[name=__EVENTVALIDATION]',
                                                                      0)->value;
-        $this->form_crawl_request['hidStudentId']      = $html->find('input[id=hidStudentId]',
+        $this->crawl_request_form['hidStudentId']      = $html->find('input[id=hidStudentId]',
                                                                      0)->value;
-        $this->form_crawl_request['drpField']          = $html->find('select[name=drpField] option',
+        $this->crawl_request_form['drpField']          = $html->find('select[name=drpField] option',
                                                                      0)->value;
-        $this->form_crawl_request['hidFieldId']        = $html->find('input[id=hidFieldId]',
+        $this->crawl_request_form['hidFieldId']        = $html->find('input[id=hidFieldId]',
                                                                      0)->value;
-        $this->form_crawl_request['hidFieldName']      = $this->major;
+        $this->crawl_request_form['hidFieldName']      = $this->major;
     }
 
     private function _getSchoolYear ()
@@ -160,13 +163,16 @@ class CrawlQLDTData
         $elements = $html->find('select[name=drpHK] option');
         unset($elements[0]);
 
-        if ($this->is_all)
+        switch ($this->demand)
         {
-            $this->_getAllSchoolYears($elements);
-        }
-        else
-        {
-            $this->_getLatestSchoolYear($elements);
+            case 'all';
+                $this->_getAllSchoolYears($elements);
+                break;
+            case 'latest';
+                $this->_getLatestSchoolYear($elements);
+                break;
+            case 'specific';
+                break;
         }
     }
 
@@ -174,7 +180,7 @@ class CrawlQLDTData
     {
         foreach ($elements as $e)
         {
-            $this->school_year_arr[] = $e->innertext;
+            $this->school_years[] = $e->innertext;
         }
     }
 
@@ -184,7 +190,7 @@ class CrawlQLDTData
         {
             if (strlen(trim($e->innertext, ' ')) != 7)
             {
-                $this->school_year_arr[] = $e->innertext;
+                $this->school_years[] = $e->innertext;
                 break;
             }
         }
@@ -193,11 +199,11 @@ class CrawlQLDTData
     private function _getDataModuleScore () : array
     {
         $data = [];
-        foreach ($this->school_year_arr as $school_year)
+        foreach ($this->school_years as $school_year)
         {
-            $this->form_crawl_request['drpHK'] = $school_year;
+            $this->crawl_request_form['drpHK'] = $school_year;
             $response                          = $this->_postRequest($this->url_student_mark,
-                                                                     $this->form_crawl_request);
+                                                                     $this->crawl_request_form);
 
             $html = new simple_html_dom();
             $html->load($response);
@@ -226,20 +232,9 @@ class CrawlQLDTData
                 $arr['id_student'] = $td[1] ?? $td[0];
 
                 //------------------Process Score-------------------------------------------
-                $temp_data = $tr[$j]->children(10)->innertext;
-                $td3       = explode('<br><br><br>', $temp_data);
-                $td2       = explode('<br><br>', $temp_data);
-                $td1       = explode('<br>', $temp_data);
-
-                $temp_score = $td3[1] ?? $td3[0];
-                if (strpos($temp_score, '<br>') !== false)
-                {
-                    $temp_score = $td2[1] ?? $td2[0];
-                }
-                if (strpos($temp_score, '<br>') !== false)
-                {
-                    $temp_score = $td1[1] ?? $td1[0];
-                }
+                $temp_data  = $tr[$j]->children(10)->innertext;
+                $td         = explode('<br>', $temp_data);
+                $temp_score = $td[count($td) - 1];
 
                 if (count($tr[$j]->children()) == 11)
                 {
@@ -256,20 +251,9 @@ class CrawlQLDTData
 
 
                 //------------------Test Score-------------------------------------------
-                $temp_data = $tr[$j]->children(11)->innertext;
-                $td3       = explode('<br><br><br>', $temp_data);
-                $td2       = explode('<br><br>', $temp_data);
-                $td1       = explode('<br>', $temp_data);
-
-                $temp_score = $td3[1] ?? $td3[0];
-                if (strpos($temp_score, '<br>') !== false)
-                {
-                    $temp_score = $td2[1] ?? $td2[0];
-                }
-                if (strpos($temp_score, '<br>') !== false)
-                {
-                    $temp_score = $td1[1] ?? $td1[0];
-                }
+                $temp_data         = $tr[$j]->children(11)->innertext;
+                $td                = explode('<br>', $temp_data);
+                $temp_score        = $td[count($td) - 1];
                 $arr['test_score'] = $temp_score == '&nbsp;' ? null : $temp_score;
                 //------------------------------------------------------------
 
@@ -281,21 +265,11 @@ class CrawlQLDTData
                 }
 
                 //------------------Theoretical Score-------------------------------------------
-                $temp_data = $tr[$j]->children(12)->innertext;
-                $td3       = explode('<br><br><br>', $temp_data);
-                $td2       = explode('<br><br>', $temp_data);
-                $td1       = explode('<br>', $temp_data);
+                $temp_data          = $tr[$j]->children(12)->innertext;
+                $td                 = explode('<br>', $temp_data);
+                $temp_score         = $td[count($td) - 1];
+                $arr['final_score'] = $temp_score === '&nbsp;' ? null : $temp_score;
 
-                $temp_score = $td3[1] ?? $td3[0];
-                if (strpos($temp_score, '<br>') !== false)
-                {
-                    $temp_score = $td2[1] ?? $td2[0];
-                }
-                if (strpos($temp_score, '<br>') !== false)
-                {
-                    $temp_score = $td1[1] ?? $td1[0];
-                }
-                $arr['final_score'] = $temp_score == '&nbsp;' ? null : $temp_score;
                 //------------------------------------------------------------
 
                 $data[$school_year][$arr['id_module']] = $arr;
@@ -305,111 +279,112 @@ class CrawlQLDTData
         return $data;
     }
 
-    private function _postRequest ($url, $post_form)
+    // -----------------------------------------------------------------------------------------------
+
+
+    public function getStudentExamSchedule ($demand, $school_years) : array
     {
-        curl_setopt($this->ch, CURLOPT_URL, $url);
-        curl_setopt($this->ch, CURLOPT_FOLLOWLOCATION, true);
-        curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($this->ch, CURLOPT_POST, true);
-        curl_setopt($this->ch, CURLOPT_POSTFIELDS, http_build_query($post_form));
-        curl_setopt($this->ch, CURLOPT_COOKIEJAR, 'c.txt');
-        curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true);
-        $response = curl_exec($this->ch);
+        $this->demand = $demand;
 
-        return $response;
-    }
-
-    private function _getRequest ($url)
-    {
-        curl_setopt($this->ch, CURLOPT_URL, $url);
-        curl_setopt($this->ch, CURLOPT_FOLLOWLOCATION, true);
-        curl_setopt($this->ch, CURLOPT_POST, false);
-        curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($this->ch, CURLOPT_COOKIEJAR, 'c.txt');
-        $response = curl_exec($this->ch);
-
-        return $response;
-    }
-
-    public function getStudentExamSchedule ($is_all) : array
-    {
-        $this->is_all = $is_all;
-
-        $this->_getFormRequireDataOfStudentExamSchedule();
+        $this->_getFormRequireDataOfStudentExamSchedule($school_years);
         $data = $this->_getDataExamSchedule();
+
+        if (count($data) == 2 && $this->demand === 'latest')
+        {
+            array_shift($data);
+        }
 
         curl_close($this->ch);
 
         return $data;
     }
 
-    private function _getFormRequireDataOfStudentExamSchedule ()
+    private function _getFormRequireDataOfStudentExamSchedule ($school_years)
     {
-        $this->_getSchoolYear();
+        $this->_getSchoolYear2($school_years);
 
         $html = new simple_html_dom();
 
         $response = $this->_getRequest($this->url_student_exam_schedule);
         $html->load($response);
 
-        $this->form_crawl_request                      = SharedData::$form_get_exam_schedule_request;
-        $this->form_crawl_request['__VIEWSTATE']       = $html->find('input[name=__VIEWSTATE]',
+        $this->crawl_request_form                      = SharedData::$form_get_exam_schedule_request;
+        $this->crawl_request_form['__VIEWSTATE']       = $html->find('input[name=__VIEWSTATE]',
                                                                      0)->value;
-        $this->form_crawl_request['__EVENTVALIDATION'] = $html->find('input[name=__EVENTVALIDATION]',
+        $this->crawl_request_form['__EVENTVALIDATION'] = $html->find('input[name=__EVENTVALIDATION]',
                                                                      0)->value;
-        $this->form_crawl_request['hidStudentId']      = $html->find('input[id=hidStudentId]',
+        $this->crawl_request_form['hidStudentId']      = $html->find('input[id=hidStudentId]',
                                                                      0)->value;
 
-        $this->_formatToUnOfficialSchoolYear();
         $elements = $html->find('select[name=drpSemester] option');
 
-        $data = [];
-        $flag = false;
+        $arr = [];
         for ($i = count($elements) - 1; $i >= 0; $i--)
         {
-            if (in_array($elements[$i]->innertext, $this->school_year_arr))
+            if (in_array($elements[$i]->innertext, $this->school_years))
             {
-                $data[$elements[$i]->innertext] = $elements[$i]->value;
-                $flag                           = true;
-            }
-            else if ($flag)
-            {
-                $data[$elements[$i]->innertext] = $elements[$i]->value;
-                break;
+                $arr[$elements[$i]->innertext] = $elements[$i]->value;
             }
         }
 
-        if (empty($data))
-        {
-            $data = [
-                $elements[2]->innertext => $elements[2]->value,
-                $elements[1]->innertext => $elements[1]->value
-            ];
-        }
-
-        $this->school_year_arr = $data;
+        $this->school_years = $arr;
     }
 
-    private function _formatToUnOfficialSchoolYear ()
+    private function _getSchoolYear2 ($school_years)
     {
-        $arr = [];
-        foreach ($this->school_year_arr as $school_year)
+        switch ($this->demand)
         {
-            $arr[] = SharedFunctions::formatToUnOfficialSchoolYear($school_year);
+            case 'all';
+                $this->_filterSchoolYears($school_years, 100);
+                break;
+            case 'latest';
+                $this->_filterSchoolYears($school_years, 2);
+                break;
         }
+    }
 
-        $this->school_year_arr = $arr;
+    private function _filterSchoolYears ($school_years, $limit)
+    {
+        $admission_school_year = $this->_getAdmissionSchoolYear();
+        $limit                 = is_null($admission_school_year) ? 2 : $limit;
+        foreach ($school_years as $school_year => $id_school_year)
+        {
+            if ($school_year < $admission_school_year || $limit <= 0)
+            {
+                break;
+            }
+            $this->school_years[] = SharedFunctions::formatToUnOfficialSchoolYear($school_year);
+            $limit--;
+        }
+    }
+
+    private function _getAdmissionSchoolYear ()
+    {
+        $response = $this->_getRequest($this->url_student_mark);
+        $html     = new simple_html_dom();
+        $html->load($response);
+
+        $elements = $html->find('select[name=drpHK] option');
+        unset($elements[0]);
+        foreach ($elements as $e)
+        {
+            if (strlen(trim($e->innertext, ' ')) != 7)
+            {
+                return $e->innertext;
+            }
+        }
+        return null;
     }
 
     private function _getDataExamSchedule () : array
     {
         $data = [];
-        foreach ($this->school_year_arr as $school_year_key => $school_year_value)
+        foreach ($this->school_years as $school_year_key => $school_year_value)
         {
-            $this->form_crawl_request['drpSemester'] = $school_year_value;
+            $this->crawl_request_form['drpSemester'] = $school_year_value;
 
             $response = $this->_postRequest($this->url_student_exam_schedule,
-                                            $this->form_crawl_request);
+                                            $this->crawl_request_form);
             $html     = new simple_html_dom();
             $html->load($response);
             $exam_type_by_shtmldom = $html->find('select[id=drpDotThi] option');
@@ -423,8 +398,8 @@ class CrawlQLDTData
             $j         = 1;
             for ($i = 3; $i < $exam_type_by_dom_document->childNodes->count(); $i += 2)
             {
-                $exam_type[$i - (2 +
-                                 $j)][]     = $exam_type_by_dom_document->childNodes->item($i)->textContent;
+                $exam_type[$i - (2 + $j)][]
+                                            = $exam_type_by_dom_document->childNodes->item($i)->textContent;
                 $exam_type[$i - (2 + $j)][] = $exam_type_by_shtmldom[$i - ($j + 1)]->value;
                 $j++;
             }
@@ -435,19 +410,19 @@ class CrawlQLDTData
             {
                 if ($exam_type[$i][1] != $exam_type_selected)
                 {
-                    $this->form_crawl_request['drpDotThi']         = $exam_type[$i][1];
-                    $this->form_crawl_request['__EVENTTARGET']     = 'drpDotThi';
-                    $this->form_crawl_request['__VIEWSTATE']       = $html->find('input[name=__VIEWSTATE]',
+                    $this->crawl_request_form['drpDotThi']         = $exam_type[$i][1];
+                    $this->crawl_request_form['__EVENTTARGET']     = 'drpDotThi';
+                    $this->crawl_request_form['__VIEWSTATE']       = $html->find('input[name=__VIEWSTATE]',
                                                                                  0)->value;
-                    $this->form_crawl_request['__EVENTVALIDATION'] = $html->find('input[name=__EVENTVALIDATION]',
+                    $this->crawl_request_form['__EVENTVALIDATION'] = $html->find('input[name=__EVENTVALIDATION]',
                                                                                  0)->value;
 
                     $response = $this->_postRequest($this->url_student_exam_schedule,
-                                                    $this->form_crawl_request);
+                                                    $this->crawl_request_form);
                     $html->load($response);
 
-                    $this->form_crawl_request['__EVENTTARGET'] = 'drpSemester';
-                    $this->form_crawl_request['drpDotThi']     = '';
+                    $this->crawl_request_form['__EVENTTARGET'] = 'drpSemester';
+                    $this->crawl_request_form['drpDotThi']     = '';
                 }
 
                 $flag = $html->find('table[id=tblCourseList] tr', 1);
@@ -489,11 +464,8 @@ class CrawlQLDTData
                     $data[SharedFunctions::formatToOfficialSchoolYear($school_year_key)][] = $arr;
                 }
             }
-        }
 
-        if (empty($data))
-        {
-            foreach ($this->school_year_arr as $school_year_key => $school_year_value)
+            if (empty($data) && $this->demand === 'latest')
             {
                 $data[SharedFunctions::formatToOfficialSchoolYear($school_year_key)] = [];
                 break;
@@ -506,7 +478,7 @@ class CrawlQLDTData
     private function _formatModuleScoreData ($data) : array
     {
         $temp = [];
-        foreach ($this->school_year_arr as $school_year)
+        foreach ($this->school_years as $school_year)
         {
             if (strlen(trim($school_year, ' ')) == 7)
             {

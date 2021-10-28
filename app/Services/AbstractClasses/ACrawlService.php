@@ -4,6 +4,7 @@ namespace App\Services\AbstractClasses;
 
 use App\BusinessClasses\CrawlQLDTData;
 use App\Repositories\Contracts\AccountRepositoryContract;
+use App\Repositories\Contracts\DataVersionStudentRepositoryContract;
 use App\Repositories\Contracts\SchoolYearRepositoryContract;
 use App\Services\Contracts\CrawlServiceContract;
 use Exception;
@@ -14,20 +15,25 @@ abstract class ACrawlService implements CrawlServiceContract
     protected CrawlQLDTData $crawl;
     protected AccountRepositoryContract $accountRepository;
     protected SchoolYearRepositoryContract $schoolYearRepository;
-    protected array $school_year_list;
+    private DataVersionStudentRepositoryContract $dataVersionStudentRepository;
+    protected array $school_years;
 
     /**
-     * @param CrawlQLDTData $crawl
-     * @param AccountRepositoryContract $accountRepository
-     * @param SchoolYearRepositoryContract $schoolYearRepository
+     * @param CrawlQLDTData                        $crawl
+     * @param AccountRepositoryContract            $accountRepository
+     * @param SchoolYearRepositoryContract         $schoolYearRepository
+     * @param DataVersionStudentRepositoryContract $dataVersionStudentRepository
      */
-    public function __construct (CrawlQLDTData                $crawl,
-                                 AccountRepositoryContract    $accountRepository,
-                                 SchoolYearRepositoryContract $schoolYearRepository)
+    public function __construct (CrawlQLDTData                        $crawl,
+                                 AccountRepositoryContract            $accountRepository,
+                                 SchoolYearRepositoryContract         $schoolYearRepository,
+                                 DataVersionStudentRepositoryContract $dataVersionStudentRepository)
     {
-        $this->crawl                = $crawl;
-        $this->accountRepository    = $accountRepository;
-        $this->schoolYearRepository = $schoolYearRepository;
+        $this->crawl                        = $crawl;
+        $this->accountRepository            = $accountRepository;
+        $this->schoolYearRepository         = $schoolYearRepository;
+        $this->dataVersionStudentRepository = $dataVersionStudentRepository;
+        $this->_getRecentSchoolYears();
     }
 
     /**
@@ -35,7 +41,7 @@ abstract class ACrawlService implements CrawlServiceContract
      */
     public function crawl ($id_student)
     {
-        $this->_verifyAccount($id_student);
+        $this->_loginQLDT($id_student);
     }
 
     /**
@@ -43,16 +49,24 @@ abstract class ACrawlService implements CrawlServiceContract
      */
     public function crawlAll ($id_student)
     {
-        $this->_verifyAccount($id_student);
+        $this->_loginQLDT($id_student);
     }
 
     /**
      * @throws Exception
      */
-    private function _verifyAccount ($id_student)
+    public function crawlBySchoolYear ($id_student, $school_year)
+    {
+        $this->_loginQLDT($id_student);
+    }
+
+    /**
+     * @throws Exception
+     */
+    private function _loginQLDT ($id_student)
     {
         $qldt_password = $this->_getQLDTPassword($id_student);
-        $this->_loginQLDT($id_student, $qldt_password);
+        $this->crawl->loginQLDT($id_student, $qldt_password);
     }
 
     private function _getQLDTPassword ($id_student) : string
@@ -60,12 +74,9 @@ abstract class ACrawlService implements CrawlServiceContract
         return $this->accountRepository->getQLDTPassword($id_student);
     }
 
-    /**
-     * @throws Exception
-     */
-    private function _loginQLDT ($id_student, $password) : void
+    private function _getRecentSchoolYears ()
     {
-        $this->crawl->loginQLDT($id_student, $password);
+        $this->school_years = Cache::get('school_years') ?? Cache::get('school_years_backup');
     }
 
     protected function _insertMultiple ($data)
@@ -75,7 +86,7 @@ abstract class ACrawlService implements CrawlServiceContract
         {
             foreach ($school_year as $module)
             {
-                $module['id_school_year'] = $this->_getIDSchoolYear($module['school_year']);
+                $module['id_school_year'] = $this->school_years[$module['school_year']];
                 unset($module['school_year']);
                 $arr[] = $module;
             }
@@ -85,16 +96,20 @@ abstract class ACrawlService implements CrawlServiceContract
 
     protected function _upsert ($data)
     {
-        $this->_getSchoolYears();
         foreach ($data as $school_year)
         {
             foreach ($school_year as $module)
             {
-                $module['id_school_year'] = $this->_getIDSchoolYear($module['school_year']);
+                $module['id_school_year'] = $this->school_years[$module['school_year']];
                 unset($module['school_year']);
                 $this->_customUpsert($module);
             }
         }
+    }
+
+    protected function _updateDataVersion ($id_student, $column_name)
+    {
+        $this->dataVersionStudentRepository->updateDataVersion($id_student, $column_name);
     }
 
     protected function _customInsertMultiple ($data)
@@ -103,37 +118,5 @@ abstract class ACrawlService implements CrawlServiceContract
 
     protected function _customUpsert ($data)
     {
-    }
-
-    protected function _updateDataVersion ($id_student)
-    {
-    }
-
-    protected function _getSchoolYears ()
-    {
-        $this->school_year_list = Cache::remember('school_years', 30000, function ()
-        {
-            return $this->schoolYearRepository->getMultiple();
-        });
-    }
-
-    private function _destroyCacheSchoolYears ()
-    {
-        Cache::forget('school_years');
-    }
-
-    private function _getIDSchoolYear ($school_year)
-    {
-        if (!isset($this->school_year_list[$school_year]))
-        {
-            if ($this->schoolYearRepository->get($school_year) == null)
-            {
-                $this->schoolYearRepository->insert(['school_year' => $school_year]);
-            }
-            $this->_destroyCacheSchoolYears();
-            $this->_getSchoolYears();
-        }
-
-        return $this->school_year_list[$school_year];
     }
 }
