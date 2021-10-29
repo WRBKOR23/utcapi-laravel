@@ -13,8 +13,6 @@ class AcademicYear extends Model
     public const table = 'academic_year';
     public const table_as = 'academic_year as sy';
 
-    use HasFactory;
-
     protected $table = 'academic_year';
     protected $primaryKey = 'id';
     public $timestamps = false;

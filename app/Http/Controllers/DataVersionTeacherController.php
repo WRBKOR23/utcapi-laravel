@@ -9,7 +9,6 @@ class DataVersionTeacherController extends Controller
     private DataVersionTeacherServiceContract $dataVersionTeacherService;
 
     /**
-     * DataVersionTeacherController constructor.
      * @param DataVersionTeacherServiceContract $dataVersionTeacherService
      */
     public function __construct (DataVersionTeacherServiceContract $dataVersionTeacherService)

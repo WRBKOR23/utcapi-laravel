@@ -9,7 +9,6 @@ class ModuleScoreController
     private ModuleScoreServiceContract $moduleScoreService;
 
     /**
-     * ModuleScoreController constructor.
      * @param ModuleScoreServiceContract $moduleScoreService
      */
     public function __construct (ModuleScoreServiceContract $moduleScoreService)

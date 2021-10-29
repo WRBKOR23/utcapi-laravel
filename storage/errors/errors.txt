@@ -1,0 +1,40 @@
+29/10/2021 07:55:29
+Code: 0
+Token Signature could not be verified.
+E:\xampp\htdocs\utcapi-laravel\app\Http\Middleware\VerifyJWTToken.php  43
+=========================================================================================
+29/10/2021 07:56:14
+Code: 42S22
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'school_year' in 'field list' (SQL: select `id` as `id_module_score`, `school_year`, `module_name`, `credit`, `evaluation`, `process_score`, `test_score`, `final_score` from `module_score` where `module_score`.`id_student` = 191131502 and `module_score`.`id_student` is not null order by `school_year` asc)
+E:\xampp\htdocs\utcapi-laravel\vendor\laravel\framework\src\Illuminate\Database\Connection.php  692
+=========================================================================================
+29/10/2021 07:56:49
+Code: 42S22
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'school_year' in 'order clause' (SQL: select `id` as `id_module_score`, `id_school_year`, `module_name`, `credit`, `evaluation`, `process_score`, `test_score`, `final_score` from `module_score` where `module_score`.`id_student` = 191131502 and `module_score`.`id_student` is not null order by `school_year` asc)
+E:\xampp\htdocs\utcapi-laravel\vendor\laravel\framework\src\Illuminate\Database\Connection.php  692
+=========================================================================================
+29/10/2021 08:26:28
+Code: 0
+View [welcome] not found.
+E:\xampp\htdocs\utcapi-laravel\vendor\laravel\framework\src\Illuminate\View\FileViewFinder.php  137
+=========================================================================================
+29/10/2021 08:59:12
+Code: 0
+Call to undefined method Illuminate\Database\Eloquent\Relations\HasMany::schoolYear()
+E:\xampp\htdocs\utcapi-laravel\vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php  50
+=========================================================================================
+29/10/2021 09:01:00
+Code: 42S22
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'school_year' in 'field list' (SQL: select `id` as `id_module_score`, `school_year`, `module_name`, `credit`, `evaluation`, `process_score`, `test_score`, `final_score` from `student` order by `id_school_year` asc)
+E:\xampp\htdocs\utcapi-laravel\vendor\laravel\framework\src\Illuminate\Database\Connection.php  692
+=========================================================================================
+29/10/2021 10:10:21
+Code: 0
+Call to a member function increment() on null
+E:\xampp\htdocs\utcapi-laravel\app\Repositories\DataVersionStudentRepository.php  33
+=========================================================================================
+29/10/2021 10:11:45
+Code: 0
+Call to a member function increment() on null
+E:\xampp\htdocs\utcapi-laravel\app\Repositories\DataVersionStudentRepository.php  33
+=========================================================================================

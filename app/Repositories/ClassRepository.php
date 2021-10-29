@@ -3,12 +3,11 @@
 namespace App\Repositories;
 
 use App\Models\Class_;
-use App\Repositories\Contracts\ClassRepositoryContract;
 
-class ClassRepository implements ClassRepositoryContract
+class ClassRepository implements Contracts\ClassRepositoryContract
 {
-    public function upsert ($data)
+    public function upsert ($class)
     {
-        Class_::updateOrCreate(['id' => $data['id']], $data);
+        Class_::updateOrCreate(['id' => $class['id']], $class);
     }
 }

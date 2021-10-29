@@ -4,7 +4,7 @@ namespace App\Repositories\Contracts;
 
 interface DataVersionStudentRepositoryContract
 {
-    public function insert ($data);
+    public function insert ($data_version_student);
 
     public function get ($id_student);
 
@@ -12,5 +12,5 @@ interface DataVersionStudentRepositoryContract
 
     public function updateDataVersion ($id_student, $column_name);
 
-    public function updateMultiple ($id_student_list, $column_name);
+    public function updateMultiple ($id_students, $column_name);
 }

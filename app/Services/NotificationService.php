@@ -2,39 +2,28 @@
 
 namespace App\Services;
 
-use App\Repositories\Contracts\AccountRepositoryContract;
 use App\Repositories\Contracts\DataVersionStudentRepositoryContract;
 use App\Repositories\Contracts\DataVersionTeacherRepositoryContract;
 use App\Repositories\Contracts\NotificationRepositoryContract;
-use App\Repositories\Contracts\StudentRepositoryContract;
-use App\Services\Contracts\NotificationServiceContract;
 
-class NotificationService implements NotificationServiceContract
+class NotificationService implements Contracts\NotificationServiceContract
 {
     private DataVersionStudentRepositoryContract $dataVersionStudentRepository;
     private DataVersionTeacherRepositoryContract $dataVersionTeacherRepository;
     private NotificationRepositoryContract $notificationRepository;
-    private AccountRepositoryContract $accountRepository;
-    private StudentRepositoryContract $studentRepository;
 
     /**
      * @param DataVersionStudentRepositoryContract $dataVersionStudentRepository
      * @param DataVersionTeacherRepositoryContract $dataVersionTeacherRepository
      * @param NotificationRepositoryContract       $notificationRepository
-     * @param AccountRepositoryContract            $accountRepository
-     * @param StudentRepositoryContract            $studentRepository
      */
     public function __construct (DataVersionStudentRepositoryContract $dataVersionStudentRepository,
                                  DataVersionTeacherRepositoryContract $dataVersionTeacherRepository,
-                                 NotificationRepositoryContract       $notificationRepository,
-                                 AccountRepositoryContract            $accountRepository,
-                                 StudentRepositoryContract            $studentRepository)
+                                 NotificationRepositoryContract       $notificationRepository)
     {
         $this->dataVersionStudentRepository = $dataVersionStudentRepository;
         $this->dataVersionTeacherRepository = $dataVersionTeacherRepository;
         $this->notificationRepository       = $notificationRepository;
-        $this->accountRepository            = $accountRepository;
-        $this->studentRepository            = $studentRepository;
     }
 
     public function getNotificationByReceiver ($id_account, $is_student,

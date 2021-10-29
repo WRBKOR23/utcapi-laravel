@@ -59,39 +59,6 @@ class SharedFunctions
     }
 
     /*
-     *  For Notification table_as only
-     */
-    public static function setUpNotificationData ($notification) : array
-    {
-        return [
-            'title'       => SharedFunctions::formatString($notification['title']),
-            'content'     => SharedFunctions::formatString($notification['content']),
-            'type'        => $notification['type'],
-            'id_sender'   => $notification['id_sender'],
-            'time_create' => SharedFunctions::getDateTimeNow(),
-            'time_start'  => $notification['time_start'],
-            'time_end'    => $notification['time_end']
-        ];
-    }
-
-    /*
-     *  For Notification_Account table_as only
-     */
-    public static function setUpNotificationAccountData ($id_account_list, $id_notification) : array
-    {
-        $arr = [];
-        foreach ($id_account_list as $id_account)
-        {
-            $arr[] = [
-                'id_notification' => $id_notification,
-                'id_account'      => $id_account
-            ];
-        }
-
-        return $arr;
-    }
-
-    /*
      * For crawl qldt only
      */
 

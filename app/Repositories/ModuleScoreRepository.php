@@ -4,33 +4,31 @@ namespace App\Repositories;
 
 use App\Models\ModuleScore;
 use App\Models\Student;
-use App\Repositories\Contracts\ModuleScoreRepositoryContract;
 use Illuminate\Support\Collection;
 
-class ModuleScoreRepository implements ModuleScoreRepositoryContract
+class ModuleScoreRepository implements Contracts\ModuleScoreRepositoryContract
 {
-    public function get ($id_student) : Collection
+    public function insertMultiple ($module_scores)
     {
-        return Student::find($id_student)->moduleScores()
-                      ->orderBy('school_year')
-                      ->select('id as id_module_score', 'school_year', 'module_name',
-                               'credit', 'evaluation', 'process_score',
-                               'test_score', 'final_score')
-                      ->get();
+        ModuleScore::insert($module_scores);
     }
 
-    public function insertMultiple ($data)
+    public function upsert ($module_score)
     {
-        ModuleScore::insert($data);
-    }
-
-    public function upsert ($data)
-    {
-        ModuleScore::upsert($data,
+        ModuleScore::upsert($module_score,
                             ['school_year', 'id_module_class', 'id_student'],
                             [
                                 'evaluation', 'process_score',
                                 'test_score', 'final_score'
                             ]);
+    }
+
+    public function get ($id_student) : Collection
+    {
+        return Student::find($id_student)->moduleScores()
+                      ->orderBy('id_school_year')
+                      ->select('id as id_module_score', 'id_school_year', 'module_name',
+                               'credit', 'evaluation', 'process_score',
+                               'test_score', 'final_score')->get();
     }
 }

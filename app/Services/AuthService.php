@@ -4,9 +4,6 @@ namespace App\Services;
 
 use App\Exceptions\InvalidAccountException;
 use App\Repositories\Contracts\AccountRepositoryContract;
-use App\Repositories\Contracts\DepartmentRepositoryContract;
-use App\Repositories\Contracts\FacultyRepositoryContract;
-use App\Repositories\Contracts\OtherDepartmentRepositoryContract;
 use App\Repositories\Contracts\StudentRepositoryContract;
 use App\Repositories\Contracts\TeacherRepositoryContract;
 
@@ -21,13 +18,13 @@ class AuthService implements Contracts\AuthServiceContract
      * @param StudentRepositoryContract $studentRepository
      * @param AccountRepositoryContract $accountRepository
      */
-    public function __construct (TeacherRepositoryContract         $teacherDepository,
-                                 StudentRepositoryContract         $studentRepository,
-                                 AccountRepositoryContract         $accountRepository)
+    public function __construct (TeacherRepositoryContract $teacherDepository,
+                                 StudentRepositoryContract $studentRepository,
+                                 AccountRepositoryContract $accountRepository)
     {
-        $this->teacherDepository         = $teacherDepository;
-        $this->studentRepository         = $studentRepository;
-        $this->accountRepository         = $accountRepository;
+        $this->teacherDepository = $teacherDepository;
+        $this->studentRepository = $studentRepository;
+        $this->accountRepository = $accountRepository;
     }
 
     /**

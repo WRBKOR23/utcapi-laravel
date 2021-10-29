@@ -35,7 +35,7 @@ class ModuleScore extends Model
         return $this->belongsTo(Student::class, 'id_student', 'id');
     }
 
-    public function schoolYear() : BelongsTo
+    public function schoolYear () : BelongsTo
     {
         return $this->belongsTo(SchoolYear::class, 'id_school_year', 'id');
     }

@@ -15,9 +15,8 @@ class AccountController extends Controller
     private AccountServiceContract $accountService;
 
     /**
-     * AccountController constructor.
      * @param UpdateQLDTPasswordForm $form1
-     * @param ChangePasswordForm $form2
+     * @param ChangePasswordForm     $form2
      * @param AccountServiceContract $accountService
      */
     public function __construct (UpdateQLDTPasswordForm $form1, ChangePasswordForm $form2,
@@ -43,6 +42,7 @@ class AccountController extends Controller
     public function changePassword (Request $request)
     {
         $this->form2->validate($request);
-        $this->accountService->changePassword($request->username, $request->password, $request->new_password);
+        $this->accountService->changePassword($request->username, $request->password,
+                                              $request->new_password);
     }
 }

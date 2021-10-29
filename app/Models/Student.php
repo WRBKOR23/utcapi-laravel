@@ -11,10 +11,10 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Student extends Model
 {
+    use HasFactory;
+
     public const table = 'student';
     public const table_as = 'student as stu';
-
-    use HasFactory;
 
     protected $table = 'student';
     protected $primaryKey = 'id';
@@ -44,7 +44,8 @@ class Student extends Model
 
     public function moduleClasses () : BelongsToMany
     {
-        return $this->belongsToMany(ModuleClass::class, 'participate', 'id_student', 'id_module_class');
+        return $this->belongsToMany(ModuleClass::class, 'participate', 'id_student',
+                                    'id_module_class');
     }
 
     public function dataVersionStudent () : HasOne

@@ -9,7 +9,6 @@ class ExamScheduleController extends Controller
     private ExamScheduleServiceContract $examScheduleService;
 
     /**
-     * ExamScheduleController constructor.
      * @param ExamScheduleServiceContract $examScheduleService
      */
     public function __construct (ExamScheduleServiceContract $examScheduleService)

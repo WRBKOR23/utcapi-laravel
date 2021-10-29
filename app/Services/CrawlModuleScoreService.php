@@ -6,7 +6,6 @@ use App\BusinessClasses\CrawlQLDTData;
 use App\Repositories\Contracts\AccountRepositoryContract;
 use App\Repositories\Contracts\DataVersionStudentRepositoryContract;
 use App\Repositories\Contracts\ModuleScoreRepositoryContract;
-use App\Repositories\Contracts\SchoolYearRepositoryContract;
 use App\Services\AbstractClasses\ACrawlService;
 
 class CrawlModuleScoreService extends ACrawlService
@@ -16,18 +15,15 @@ class CrawlModuleScoreService extends ACrawlService
     /**
      * @param CrawlQLDTData                        $crawl
      * @param AccountRepositoryContract            $accountRepository
-     * @param SchoolYearRepositoryContract         $schoolYearRepository
      * @param ModuleScoreRepositoryContract        $moduleScoreRepository
      * @param DataVersionStudentRepositoryContract $dataVersionStudentRepository
      */
     public function __construct (CrawlQLDTData                        $crawl,
                                  AccountRepositoryContract            $accountRepository,
-                                 SchoolYearRepositoryContract         $schoolYearRepository,
                                  ModuleScoreRepositoryContract        $moduleScoreRepository,
                                  DataVersionStudentRepositoryContract $dataVersionStudentRepository)
     {
-        parent::__construct($crawl, $accountRepository,
-                            $schoolYearRepository, $dataVersionStudentRepository);
+        parent::__construct($crawl, $accountRepository, $dataVersionStudentRepository);
         $this->moduleScoreRepository = $moduleScoreRepository;
     }
 
@@ -36,7 +32,7 @@ class CrawlModuleScoreService extends ACrawlService
         parent::crawl($id_student);
         $data = $this->crawl->getStudentModuleScore('all');
         $this->_insertMultiple($data);
-//        $this->_updateDataVersion($id_student, 'module_score');
+        $this->_updateDataVersion($id_student, 'module_score');
     }
 
     public function crawl ($id_student)

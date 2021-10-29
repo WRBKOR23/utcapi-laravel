@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class SchoolYear extends Model
 {
+    use HasFactory;
+
     public const table = 'school_year';
     public const table_as = 'school_year as sy';
-
-    use HasFactory;
 
     protected $table = 'school_year';
     protected $primaryKey = 'id';

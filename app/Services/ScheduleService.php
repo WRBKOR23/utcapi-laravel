@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Services;
-
 
 use App\Repositories\Contracts\DataVersionStudentRepositoryContract;
 use App\Repositories\Contracts\DataVersionTeacherRepositoryContract;
@@ -15,7 +13,7 @@ class ScheduleService implements Contracts\ScheduleServiceContract
     private DataVersionTeacherRepositoryContract $dataVersionTeacherRepository;
 
     /**
-     * @param ScheduleRepositoryContract $scheduleRepository
+     * @param ScheduleRepositoryContract           $scheduleRepository
      * @param DataVersionStudentRepositoryContract $dataVersionStudentRepository
      * @param DataVersionTeacherRepositoryContract $dataVersionTeacherRepository
      */
@@ -31,7 +29,8 @@ class ScheduleService implements Contracts\ScheduleServiceContract
     public function getStudentSchedules ($id_student) : array
     {
         $data         = $this->scheduleRepository->getStudentSchedules($id_student);
-        $data_version = $this->dataVersionStudentRepository->getSingleColumn2($id_student, 'schedule');
+        $data_version = $this->dataVersionStudentRepository->getSingleColumn2($id_student,
+                                                                              'schedule');
 
         return [
             'data'         => $data,
@@ -42,7 +41,8 @@ class ScheduleService implements Contracts\ScheduleServiceContract
     public function getTeacherSchedules ($id_teacher) : array
     {
         $data         = $this->scheduleRepository->getTeacherSchedules($id_teacher);
-        $data_version = $this->dataVersionTeacherRepository->getSingleColumn2($id_teacher, 'schedule');
+        $data_version = $this->dataVersionTeacherRepository->getSingleColumn2($id_teacher,
+                                                                              'schedule');
 
         return [
             'data'         => $data,

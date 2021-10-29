@@ -5,18 +5,15 @@ namespace App\Services;
 use App\BusinessClasses\CrawlQLDTData;
 use App\Repositories\Contracts\AccountRepositoryContract;
 use App\Exceptions\InvalidAccountException;
-use App\Services\Contracts\AccountServiceContract;
 use Exception;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
-class AccountService implements AccountServiceContract
+class AccountService implements Contracts\AccountServiceContract
 {
     private CrawlQLDTData $crawl;
     private AccountRepositoryContract $accountRepository;
 
     /**
-     * AccountService constructor.
-     * @param CrawlQLDTData $crawl
+     * @param CrawlQLDTData             $crawl
      * @param AccountRepositoryContract $accountRepository
      */
     public function __construct (CrawlQLDTData $crawl, AccountRepositoryContract $accountRepository)

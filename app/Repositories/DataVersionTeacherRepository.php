@@ -4,9 +4,8 @@ namespace App\Repositories;
 
 use App\Models\Account;
 use App\Models\DataVersionTeacher;
-use App\Repositories\Contracts\DataVersionTeacherRepositoryContract;
 
-class DataVersionTeacherRepository implements DataVersionTeacherRepositoryContract
+class DataVersionTeacherRepository implements Contracts\DataVersionTeacherRepositoryContract
 {
     public function get ($id_teacher)
     {
@@ -20,8 +19,6 @@ class DataVersionTeacherRepository implements DataVersionTeacherRepositoryContra
 
     public function getSingleColumn2 ($id_teacher, $column_name)
     {
-        return DataVersionTeacher::where('id_teacher', '=', $id_teacher)
-                                 ->pluck($column_name)->first();
+        return DataVersionTeacher::select($column_name)->find($id_teacher)->$column_name;
     }
-
 }

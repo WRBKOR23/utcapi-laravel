@@ -6,7 +6,6 @@ use App\BusinessClasses\CrawlQLDTData;
 use App\Repositories\Contracts\AccountRepositoryContract;
 use App\Repositories\Contracts\DataVersionStudentRepositoryContract;
 use App\Repositories\Contracts\ExamScheduleRepositoryContract;
-use App\Repositories\Contracts\SchoolYearRepositoryContract;
 use App\Services\AbstractClasses\ACrawlService;
 
 class CrawlExamScheduleService extends ACrawlService
@@ -16,18 +15,15 @@ class CrawlExamScheduleService extends ACrawlService
     /**
      * @param CrawlQLDTData                        $crawl
      * @param AccountRepositoryContract            $accountRepository
-     * @param SchoolYearRepositoryContract         $schoolYearRepository
      * @param ExamScheduleRepositoryContract       $examScheduleRepository
      * @param DataVersionStudentRepositoryContract $dataVersionStudentRepository
      */
     public function __construct (CrawlQLDTData                        $crawl,
                                  AccountRepositoryContract            $accountRepository,
-                                 SchoolYearRepositoryContract         $schoolYearRepository,
                                  ExamScheduleRepositoryContract       $examScheduleRepository,
                                  DataVersionStudentRepositoryContract $dataVersionStudentRepository)
     {
-        parent::__construct($crawl, $accountRepository,
-                            $schoolYearRepository, $dataVersionStudentRepository);
+        parent::__construct($crawl, $accountRepository, $dataVersionStudentRepository);
         $this->examScheduleRepository = $examScheduleRepository;
     }
 

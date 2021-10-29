@@ -6,5 +6,5 @@ interface FacultyRepositoryContract
 {
     public function get ($id_account);
 
-    public function getAll ($data);
+    public function getAll ($id_faculties);
 }

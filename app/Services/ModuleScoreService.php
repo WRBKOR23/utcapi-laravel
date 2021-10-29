@@ -1,18 +1,14 @@
 <?php
 
-
 namespace App\Services;
 
-
 use App\Repositories\Contracts\ModuleScoreRepositoryContract;
-use App\Services\Contracts\ModuleScoreServiceContract;
 
-class ModuleScoreService implements ModuleScoreServiceContract
+class ModuleScoreService implements Contracts\ModuleScoreServiceContract
 {
     private ModuleScoreRepositoryContract $moduleScoreRepository;
 
     /**
-     * ModuleScoreService constructor.
      * @param ModuleScoreRepositoryContract $moduleScoreRepository
      */
     public function __construct (ModuleScoreRepositoryContract $moduleScoreRepository)

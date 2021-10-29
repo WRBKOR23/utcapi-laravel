@@ -5,7 +5,6 @@ namespace App\Services\AbstractClasses;
 use App\BusinessClasses\CrawlQLDTData;
 use App\Repositories\Contracts\AccountRepositoryContract;
 use App\Repositories\Contracts\DataVersionStudentRepositoryContract;
-use App\Repositories\Contracts\SchoolYearRepositoryContract;
 use App\Services\Contracts\CrawlServiceContract;
 use Exception;
 use Illuminate\Support\Facades\Cache;
@@ -14,24 +13,20 @@ abstract class ACrawlService implements CrawlServiceContract
 {
     protected CrawlQLDTData $crawl;
     protected AccountRepositoryContract $accountRepository;
-    protected SchoolYearRepositoryContract $schoolYearRepository;
     private DataVersionStudentRepositoryContract $dataVersionStudentRepository;
     protected array $school_years;
 
     /**
      * @param CrawlQLDTData                        $crawl
      * @param AccountRepositoryContract            $accountRepository
-     * @param SchoolYearRepositoryContract         $schoolYearRepository
      * @param DataVersionStudentRepositoryContract $dataVersionStudentRepository
      */
     public function __construct (CrawlQLDTData                        $crawl,
                                  AccountRepositoryContract            $accountRepository,
-                                 SchoolYearRepositoryContract         $schoolYearRepository,
                                  DataVersionStudentRepositoryContract $dataVersionStudentRepository)
     {
         $this->crawl                        = $crawl;
         $this->accountRepository            = $accountRepository;
-        $this->schoolYearRepository         = $schoolYearRepository;
         $this->dataVersionStudentRepository = $dataVersionStudentRepository;
         $this->_getRecentSchoolYears();
     }
