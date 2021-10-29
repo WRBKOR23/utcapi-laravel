@@ -9,7 +9,7 @@ class StudentRepository implements Contracts\StudentRepositoryContract
 {
     public function insert ($student)
     {
-        Student::create($student);
+        Student::insert($student);
     }
 
     public function get ($id_account)

@@ -9,7 +9,7 @@ class DataVersionStudentRepository implements Contracts\DataVersionStudentReposi
 {
     public function insert ($data_version_student)
     {
-        DataVersionStudent::create($data_version_student);
+        DataVersionStudent::insert($data_version_student);
     }
 
     public function get ($id_student)

@@ -8,7 +8,7 @@ class AccountRepository implements Contracts\AccountRepositoryContract
 {
     public function insertGetId ($account) : int
     {
-        return Account::create($account)->id;
+        return Account::insertGetId($account);
     }
 
     public function insertPivotMultiple ($id_account, $roles)
