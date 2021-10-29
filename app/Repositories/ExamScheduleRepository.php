@@ -39,6 +39,7 @@ class ExamScheduleRepository implements Contracts\ExamScheduleRepositoryContract
     public function delete ($id_student, $id_school_year)
     {
         ExamSchedule::where('id_student', $id_student)
-                    ->where('id_school_year', $id_school_year)->delete();
+                    ->where('id_school_year', $id_school_year)
+                    ->delete();
     }
 }
