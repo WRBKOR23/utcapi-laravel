@@ -28,7 +28,7 @@ class CrawlModuleScoreController extends Controller
     public function crawlAll (Request $request)
     {
         $this->form->validate($request);
-        $this->crawlServiceContract->crawlAll($request->id_student);
+        $this->crawlServiceContract->crawlAll($request->id_account, $request->id_student);
         return response('OK');
     }
 
@@ -38,7 +38,7 @@ class CrawlModuleScoreController extends Controller
     public function crawl (Request $request)
     {
         $this->form->validate($request);
-        $this->crawlServiceContract->crawl($request->id_student);
+        $this->crawlServiceContract->crawl($request->id_account, $request->id_student);
         return response('OK');
     }
 }

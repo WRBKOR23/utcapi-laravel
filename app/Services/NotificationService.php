@@ -38,8 +38,8 @@ class NotificationService implements Contracts\NotificationServiceContract
         $data_version    = $this->_getNotificationDataVersion($is_student, $id_account);
 
         return [
-            'notifications' => $notifications,
-            'data_version'  => $data_version
+            'data'         => $notifications,
+            'data_version' => $data_version
         ];
     }
 

@@ -227,7 +227,8 @@ class TestController extends Controller
         //            file_put_contents('a.php', $m, FILE_APPEND);
         ////}
         //        }
-        return Account::find(146)->dataVersionStudent()->pluck('schedule')->first();
+        return ExamSchedule::where('id_student', '191201402')->max('id_school_year');
+
 
     }
 

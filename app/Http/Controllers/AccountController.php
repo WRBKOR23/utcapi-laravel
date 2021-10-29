@@ -33,7 +33,8 @@ class AccountController extends Controller
     public function updateQLDTPassword (Request $request)
     {
         $this->form1->validate($request);
-        $this->accountService->updateQLDTPassword($request->id_student, $request->qldt_password);
+        $this->accountService->updateQLDTPassword($request->only('id_account', 'id_student',
+                                                                 'qldt_password'));
     }
 
     /**
@@ -42,7 +43,7 @@ class AccountController extends Controller
     public function changePassword (Request $request)
     {
         $this->form2->validate($request);
-        $this->accountService->changePassword($request->username, $request->password,
-                                              $request->new_password);
+        $this->accountService->changePassword($request->only('id_account', 'username',
+                                                             'password', 'new_password'));
     }
 }

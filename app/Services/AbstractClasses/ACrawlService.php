@@ -32,19 +32,23 @@ abstract class ACrawlService implements CrawlServiceContract
     }
 
     /**
+     * @param $id_account *
+     *
      * @throws Exception
      */
-    public function crawl ($id_student)
+    public function crawl ($id_account, $id_student)
     {
-        $this->_loginQLDT($id_student);
+        $this->_loginQLDT($id_account, $id_student);
     }
 
     /**
+     * @param $id_account *
+     *
      * @throws Exception
      */
-    public function crawlAll ($id_student)
+    public function crawlAll ($id_account, $id_student)
     {
-        $this->_loginQLDT($id_student);
+        $this->_loginQLDT($id_account, $id_student);
     }
 
     /**
@@ -52,21 +56,23 @@ abstract class ACrawlService implements CrawlServiceContract
      */
     public function crawlBySchoolYear ($id_student, $school_year)
     {
-        $this->_loginQLDT($id_student);
+        $this->_loginQLDT($id_student, $id_student);
     }
 
     /**
+     * @param $id_account *
+     *
      * @throws Exception
      */
-    private function _loginQLDT ($id_student)
+    private function _loginQLDT ($id_account, $id_student)
     {
-        $qldt_password = $this->_getQLDTPassword($id_student);
+        $qldt_password = $this->_getQLDTPassword($id_account);
         $this->crawl->loginQLDT($id_student, $qldt_password);
     }
 
-    private function _getQLDTPassword ($id_student) : string
+    private function _getQLDTPassword ($id_account) : string
     {
-        return $this->accountRepository->getQLDTPassword($id_student);
+        return $this->accountRepository->getQLDTPassword($id_account);
     }
 
     private function _getRecentSchoolYears ()

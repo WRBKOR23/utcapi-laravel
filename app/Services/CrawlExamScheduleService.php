@@ -27,17 +27,17 @@ class CrawlExamScheduleService extends ACrawlService
         $this->examScheduleRepository = $examScheduleRepository;
     }
 
-    public function crawlAll ($id_student)
+    public function crawlAll ($id_account, $id_student)
     {
-        parent::crawl($id_student);
+        parent::crawl($id_account, $id_student);
         $data = $this->crawl->getStudentExamSchedule('all', $this->school_years);
         $this->_insertMultiple($data);
         $this->_updateDataVersion($id_student, 'exam_schedule');
     }
 
-    public function crawl ($id_student)
+    public function crawl ($id_account, $id_student)
     {
-        parent::crawl($id_student);
+        parent::crawl($id_account, $id_student);
         $data = $this->crawl->getStudentExamSchedule('latest', $this->school_years);
         $this->_verifyOldData($data, $id_student);
         $this->_upsert($data);

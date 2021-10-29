@@ -10,11 +10,11 @@ interface AccountRepositoryContract
 
     public function get ($username);
 
-    public function getQLDTPassword ($id_student);
+    public function getQLDTPassword ($id_account);
 
     public function getPermissions ($id_account);
 
-    public function updateQLDTPassword ($username, $qldt_password);
+    public function updateQLDTPassword ($id_account, $qldt_password);
 
-    public function updatePassword ($username, $password);
+    public function updatePassword ($id_account, $password);
 }

@@ -23,21 +23,26 @@ class AccountService implements Contracts\AccountServiceContract
     }
 
     /**
+     * @param $input *
+     *
      * @throws Exception
      */
-    public function updateQLDTPassword ($username, $qldt_password)
+    public function updateQLDTPassword ($input)
     {
-        $this->crawl->loginQLDT($username, md5($qldt_password));
-        $this->accountRepository->updateQLDTPassword($username, md5($qldt_password));
+        $this->crawl->loginQLDT($input['id_student'], md5($input['qldt_password']));
+        $this->accountRepository->updateQLDTPassword($input['id_account'],
+                                                     md5($input['qldt_password']));
     }
 
     /**
+     * @param $input *
+     *
      * @throws InvalidAccountException
      */
-    public function changePassword ($username, $password, $new_password)
+    public function changePassword ($input)
     {
-        $this->_verifyAccount($username, $password);
-        $this->_updatePassword($username, $new_password);
+        $this->_verifyAccount($input['username'], $input['password']);
+        $this->_updatePassword($input['id_account'], $input['new_password']);
     }
 
     /**
@@ -56,8 +61,8 @@ class AccountService implements Contracts\AccountServiceContract
         }
     }
 
-    private function _updatePassword ($username, $password)
+    private function _updatePassword ($id_account, $password)
     {
-        $this->accountRepository->updatePassword($username, bcrypt($password));
+        $this->accountRepository->updatePassword($id_account, bcrypt($password));
     }
 }

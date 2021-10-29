@@ -27,17 +27,17 @@ class CrawlModuleScoreService extends ACrawlService
         $this->moduleScoreRepository = $moduleScoreRepository;
     }
 
-    public function crawlAll ($id_student)
+    public function crawlAll ($id_account, $id_student)
     {
-        parent::crawl($id_student);
+        parent::crawl($id_account, $id_student);
         $data = $this->crawl->getStudentModuleScore('all');
         $this->_insertMultiple($data);
         $this->_updateDataVersion($id_student, 'module_score');
     }
 
-    public function crawl ($id_student)
+    public function crawl ($id_account, $id_student)
     {
-        parent::crawl($id_student);
+        parent::crawl($id_account, $id_student);
         $data = $this->crawl->getStudentModuleScore('latest');
         $this->_upsert($data);
         $this->_updateDataVersion($id_student, 'module_score');

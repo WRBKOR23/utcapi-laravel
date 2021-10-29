@@ -18,12 +18,12 @@ class AccountRepository implements Contracts\AccountRepositoryContract
 
     public function get ($username) : array
     {
-        return Account::where('username', '=', $username)->select('id')->get()->toArray();
+        return Account::where('username', $username)->select('id')->get()->toArray();
     }
 
-    public function getQLDTPassword ($id_student)
+    public function getQLDTPassword ($id_account)
     {
-        return Account::where('username', '=', $id_student)->pluck('qldt_password')->first();
+        return Account::select('qldt_password')->find($id_account)->qldt_password;
     }
 
     public function getPermissions ($id_account)
@@ -31,13 +31,13 @@ class AccountRepository implements Contracts\AccountRepositoryContract
         return Account::find($id_account)->roles()->pluck('role.id')->toArray();
     }
 
-    public function updateQLDTPassword ($username, $qldt_password)
+    public function updateQLDTPassword ($id_account, $qldt_password)
     {
-        Account::where('username', '=', $username)->update(['qldt_password' => $qldt_password]);
+        Account::find($id_account)->update(['qldt_password' => $qldt_password]);
     }
 
-    public function updatePassword ($username, $password)
+    public function updatePassword ($id_account, $password)
     {
-        Account::where('username', '=', $username)->update(['password' => $password]);
+        Account::find($id_account)->update(['password' => $password]);
     }
 }

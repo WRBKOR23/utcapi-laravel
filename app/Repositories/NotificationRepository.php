@@ -24,29 +24,29 @@ class NotificationRepository implements Contracts\NotificationRepositoryContract
         $result = [];
 
         $result[] = Notification::whereIn('notification.id', $id_notifications)
-                                ->join(Account::table_as, 'id_sender', '=', 'acc.id')
-                                ->join(OtherDepartment::table_as, 'id_sender', '=', 'od.id_account')
+                                ->join(Account::table_as, 'id_sender', 'acc.id')
+                                ->join(OtherDepartment::table_as, 'id_sender', 'od.id_account')
                                 ->select('notification.*',
                                          'od.other_department_name as sender_name')
                                 ->get()->toArray();
 
         $result[] = Notification::whereIn('notification.id', $id_notifications)
-                                ->join(Account::table_as, 'id_sender', '=', 'acc.id')
-                                ->join(Faculty::table_as, 'id_sender', '=', 'fac.id_account')
+                                ->join(Account::table_as, 'id_sender', 'acc.id')
+                                ->join(Faculty::table_as, 'id_sender', 'fac.id_account')
                                 ->select('notification.*',
                                          'fac.faculty_name as sender_name')
                                 ->get()->toArray();
 
         $result[] = Notification::whereIn('notification.id', $id_notifications)
-                                ->join(Account::table_as, 'id_sender', '=', 'acc.id')
-                                ->join(Department::table_as, 'id_sender', '=', 'dep.id_account')
+                                ->join(Account::table_as, 'id_sender', 'acc.id')
+                                ->join(Department::table_as, 'id_sender', 'dep.id_account')
                                 ->select('notification.*',
                                          'dep.department_name as sender_name')
                                 ->get()->toArray();
 
         $result[] = Notification::whereIn('notification.id', $id_notifications)
-                                ->join(Account::table_as, 'id_sender', '=', 'acc.id')
-                                ->join(Teacher::table_as, 'id_sender', '=', 'tea.id_account')
+                                ->join(Account::table_as, 'id_sender', 'acc.id')
+                                ->join(Teacher::table_as, 'id_sender', 'tea.id_account')
                                 ->select('notification.*',
                                          'tea.teacher_name as sender_name')
                                 ->get()->toArray();
@@ -56,7 +56,7 @@ class NotificationRepository implements Contracts\NotificationRepositoryContract
 
     public function getDeletedNotifications ()
     {
-        return Notification::where('is_delete', '=', true)
+        return Notification::where('is_delete', true)
                            ->where('time_create', '>=', DB::raw('DATE_SUB(NOW(), INTERVAL 3 WEEK)'))
                            ->pluck('id')->toArray();
     }

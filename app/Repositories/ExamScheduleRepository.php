@@ -33,12 +33,12 @@ class ExamScheduleRepository implements Contracts\ExamScheduleRepositoryContract
 
     public function getLatestSchoolYear ($id_student)
     {
-        return ExamSchedule::where('id_student', '=', $id_student)->max('id_school_year');
+        return ExamSchedule::where('id_student', $id_student)->max('id_school_year');
     }
 
     public function delete ($id_student, $id_school_year)
     {
-        ExamSchedule::where('id_student', '=', $id_student)
-                    ->where('id_school_year', '=', $id_school_year)->delete();
+        ExamSchedule::where('id_student', $id_student)
+                    ->where('id_school_year', $id_school_year)->delete();
     }
 }

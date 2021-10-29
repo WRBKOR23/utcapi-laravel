@@ -18,17 +18,13 @@ use App\Services\DataVersionStudentService;
 use App\Services\DataVersionTeacherService;
 use App\Services\DeviceService;
 use App\Services\ExamScheduleService;
-use App\Services\FacultyClassService;
 use App\Services\Contracts\AccountServiceContract;
 use App\Services\Contracts\DataVersionStudentServiceContract;
 use App\Services\Contracts\DeviceServiceContract;
 use App\Services\Contracts\ExamScheduleServiceContract;
-use App\Services\Contracts\FacultyClassServiceContract;
-use App\Services\Contracts\ModuleClassServiceContract;
 use App\Services\Contracts\ModuleScoreServiceContract;
 use App\Services\Contracts\NotificationServiceContract;
 use App\Services\FacultyService;
-use App\Services\ModuleClassService;
 use App\Services\ModuleScoreService;
 use App\Services\NotificationService;
 use App\Services\RegisterService;
@@ -40,11 +36,9 @@ class AppServiceProvider extends ServiceProvider
     public array $bindings = [
         DataVersionStudentServiceContract::class => DataVersionStudentService::class,
         DataVersionTeacherServiceContract::class => DataVersionTeacherService::class,
-        FacultyClassServiceContract::class       => FacultyClassService::class,
         NotificationServiceContract::class       => NotificationService::class,
         ExamScheduleServiceContract::class       => ExamScheduleService::class,
         ModuleScoreServiceContract::class        => ModuleScoreService::class,
-        ModuleClassServiceContract::class        => ModuleClassService::class,
         RegisterServiceContract::class           => RegisterService::class,
         ScheduleServiceContract::class           => ScheduleService::class,
         AccountServiceContract::class            => AccountService::class,
