@@ -18,7 +18,7 @@ class AccountRepository implements Contracts\AccountRepositoryContract
 
     public function get ($username) : array
     {
-        return Account::where('username', $username)->select('id')->get()->toArray();
+        return Account::where('username', $username)->get(['id'])->toArray();
     }
 
     public function getQLDTPassword ($id_account)

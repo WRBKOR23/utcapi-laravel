@@ -32,9 +32,4 @@ class DataVersionStudentRepository implements Contracts\DataVersionStudentReposi
     {
         DataVersionStudent::find($id_student)->increment($column_name);
     }
-
-    public function updateMultiple ($id_students, $column_name)
-    {
-        DataVersionStudent::whereIn('id_student', $id_students)->increment($column_name);
-    }
 }

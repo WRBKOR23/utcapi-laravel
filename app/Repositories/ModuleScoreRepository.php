@@ -27,8 +27,8 @@ class ModuleScoreRepository implements Contracts\ModuleScoreRepositoryContract
     {
         return Student::find($id_student)->moduleScores()
                       ->orderBy('id_school_year')
-                      ->select('id as id_module_score', 'id_school_year', 'module_name',
-                               'credit', 'evaluation', 'process_score',
-                               'test_score', 'final_score')->get();
+                      ->get(['id as id_module_score', 'id_school_year', 'module_name',
+                             'credit', 'evaluation', 'process_score',
+                             'test_score', 'final_score']);
     }
 }

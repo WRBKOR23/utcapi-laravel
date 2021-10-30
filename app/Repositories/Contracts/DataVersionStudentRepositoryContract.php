@@ -11,6 +11,4 @@ interface DataVersionStudentRepositoryContract
     public function getSingleColumn1 ($id_account, $column_name);
 
     public function updateDataVersion ($id_student, $column_name);
-
-    public function updateMultiple ($id_students, $column_name);
 }

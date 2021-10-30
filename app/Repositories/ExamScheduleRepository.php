@@ -26,9 +26,9 @@ class ExamScheduleRepository implements Contracts\ExamScheduleRepositoryContract
     public function get ($id_student) : Collection
     {
         return Student::find($id_student)->examSchedules()->orderBy('date_start')
-                      ->select('id as id_exam_schedule', 'school_year', 'module_name',
-                               'credit', 'date_start', 'time_start',
-                               'method', 'identification_number', 'room')->get();
+                      ->get(['id as id_exam_schedule', 'school_year', 'module_name',
+                             'credit', 'date_start', 'time_start',
+                             'method', 'identification_number', 'room']);
     }
 
     public function getLatestSchoolYear ($id_student)
