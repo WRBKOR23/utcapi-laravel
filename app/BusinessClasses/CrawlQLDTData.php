@@ -13,7 +13,7 @@ class CrawlQLDTData
 {
     private string $id_student;
     private string $major = '';
-    private array $school_years = [];
+    private array $terms = [];
     private array $crawl_request_form = [];
     private string $url = 'https://qldt.utc.edu.vn/CMCSoft.IU.Web.Info/Login.aspx';
     private string $url_login = 'https://qldt.utc.edu.vn/CMCSoft.IU.Web.info/';
@@ -106,7 +106,7 @@ class CrawlQLDTData
 
         $html = new simple_html_dom();
         $html->load($response1);
-        $data['student_name']  = $html->find('span[id=lblStudentName]', 0)->innertext;
+        $data['name']          = $html->find('span[id=lblStudentName]', 0)->innertext;
         $data['academic_year'] = $html->find('span[id=lblAy]', 0)->innertext;
         $data['academic_year'] = str_replace('Liên thông ', 'LT', $data['academic_year']);
 
@@ -132,7 +132,7 @@ class CrawlQLDTData
 
     private function _getFormRequireDataOfStudentModuleScore ()
     {
-        $this->_getSchoolYear();
+        $this->_getTerm();
 
         $html = new simple_html_dom();
 
@@ -153,7 +153,7 @@ class CrawlQLDTData
         $this->crawl_request_form['hidFieldName']      = $this->major;
     }
 
-    private function _getSchoolYear ()
+    private function _getTerm ()
     {
         $html = new simple_html_dom();
 
@@ -166,31 +166,31 @@ class CrawlQLDTData
         switch ($this->demand)
         {
             case 'all';
-                $this->_getAllSchoolYears($elements);
+                $this->_getAllTerms($elements);
                 break;
             case 'latest';
-                $this->_getLatestSchoolYear($elements);
+                $this->_getLatestTerm($elements);
                 break;
             case 'specific';
                 break;
         }
     }
 
-    private function _getAllSchoolYears ($elements)
+    private function _getAllTerms ($elements)
     {
         foreach ($elements as $e)
         {
-            $this->school_years[] = $e->innertext;
+            $this->terms[] = $e->innertext;
         }
     }
 
-    private function _getLatestSchoolYear ($elements)
+    private function _getLatestTerm ($elements)
     {
         foreach (array_reverse($elements) as $e)
         {
             if (strlen(trim($e->innertext, ' ')) != 7)
             {
-                $this->school_years[] = $e->innertext;
+                $this->terms[] = $e->innertext;
                 break;
             }
         }
@@ -199,9 +199,9 @@ class CrawlQLDTData
     private function _getDataModuleScore () : array
     {
         $data = [];
-        foreach ($this->school_years as $school_year)
+        foreach ($this->terms as $term)
         {
-            $this->crawl_request_form['drpHK'] = $school_year;
+            $this->crawl_request_form['drpHK'] = $term;
             $response                          = $this->_postRequest($this->url_student_mark,
                                                                      $this->crawl_request_form);
 
@@ -211,8 +211,8 @@ class CrawlQLDTData
 
             for ($j = 1; $j < count($tr) - 1; $j++)
             {
-                $arr                = [];
-                $arr['school_year'] = $school_year;
+                $arr         = [];
+                $arr['term'] = $term;
 
                 $td               = explode('<br><br>', $tr[$j]->children(1)->innertext);
                 $arr['id_module'] = $td[1] ?? $td[0];
@@ -242,7 +242,7 @@ class CrawlQLDTData
                     $arr['test_score']    = null;
                     $arr['final_score']   = $temp_score == '&nbsp;' ? null : $temp_score;
 
-                    $data[$school_year][$arr['id_module']] = $arr;
+                    $data[$term][$arr['id_module']] = $arr;
                     continue;
                 }
 
@@ -259,8 +259,8 @@ class CrawlQLDTData
 
                 if (count($tr[$j]->children()) == 12)
                 {
-                    $arr['final_score']                    = null;
-                    $data[$school_year][$arr['id_module']] = $arr;
+                    $arr['final_score']             = null;
+                    $data[$term][$arr['id_module']] = $arr;
                     continue;
                 }
 
@@ -272,7 +272,7 @@ class CrawlQLDTData
 
                 //------------------------------------------------------------
 
-                $data[$school_year][$arr['id_module']] = $arr;
+                $data[$term][$arr['id_module']] = $arr;
             }
         }
 
@@ -282,11 +282,11 @@ class CrawlQLDTData
     // -----------------------------------------------------------------------------------------------
 
 
-    public function getStudentExamSchedule ($demand, $school_years) : array
+    public function getStudentExamSchedule ($demand, $terms) : array
     {
         $this->demand = $demand;
 
-        $this->_getFormRequireDataOfStudentExamSchedule($school_years);
+        $this->_getFormRequireDataOfStudentExamSchedule($terms);
         $data = $this->_getDataExamSchedule();
 
         if (count($data) == 2 && $this->demand === 'latest')
@@ -299,9 +299,9 @@ class CrawlQLDTData
         return $data;
     }
 
-    private function _getFormRequireDataOfStudentExamSchedule ($school_years)
+    private function _getFormRequireDataOfStudentExamSchedule ($terms)
     {
-        $this->_getSchoolYear2($school_years);
+        $this->_getTerm2($terms);
 
         $html = new simple_html_dom();
 
@@ -321,44 +321,44 @@ class CrawlQLDTData
         $arr = [];
         for ($i = count($elements) - 1; $i >= 0; $i--)
         {
-            if (in_array($elements[$i]->innertext, $this->school_years))
+            if (in_array($elements[$i]->innertext, $this->terms))
             {
                 $arr[$elements[$i]->innertext] = $elements[$i]->value;
             }
         }
 
-        $this->school_years = $arr;
+        $this->terms = $arr;
     }
 
-    private function _getSchoolYear2 ($school_years)
+    private function _getTerm2 ($terms)
     {
         switch ($this->demand)
         {
             case 'all';
-                $this->_filterSchoolYears($school_years, 100);
+                $this->_filterTerms($terms, 100);
                 break;
             case 'latest';
-                $this->_filterSchoolYears($school_years, 2);
+                $this->_filterTerms($terms, 2);
                 break;
         }
     }
 
-    private function _filterSchoolYears ($school_years, $limit)
+    private function _filterTerms ($terms, $limit)
     {
-        $admission_school_year = $this->_getAdmissionSchoolYear();
-        $limit                 = is_null($admission_school_year) ? 2 : $limit;
-        foreach ($school_years as $school_year => $id_school_year)
+        $admission_term = $this->_getAdmissionTerm();
+        $limit          = is_null($admission_term) ? 2 : $limit;
+        foreach ($terms as $term => $id_term)
         {
-            if ($school_year < $admission_school_year || $limit <= 0)
+            if ($term < $admission_term || $limit <= 0)
             {
                 break;
             }
-            $this->school_years[] = SharedFunctions::formatToUnOfficialSchoolYear($school_year);
+            $this->terms[] = SharedFunctions::formatToUnOfficialTerm($term);
             $limit--;
         }
     }
 
-    private function _getAdmissionSchoolYear ()
+    private function _getAdmissionTerm ()
     {
         $response = $this->_getRequest($this->url_student_mark);
         $html     = new simple_html_dom();
@@ -379,9 +379,9 @@ class CrawlQLDTData
     private function _getDataExamSchedule () : array
     {
         $data = [];
-        foreach ($this->school_years as $school_year_key => $school_year_value)
+        foreach ($this->terms as $term_key => $term_value)
         {
-            $this->crawl_request_form['drpSemester'] = $school_year_value;
+            $this->crawl_request_form['drpSemester'] = $term_value;
 
             $response = $this->_postRequest($this->url_student_exam_schedule,
                                             $this->crawl_request_form);
@@ -436,7 +436,7 @@ class CrawlQLDTData
                 {
                     $arr = [];
 
-                    $arr['school_year'] = SharedFunctions::formatToOfficialSchoolYear($school_year_key);
+                    $arr['term'] = SharedFunctions::formatToOfficialTerm($term_key);
 
                     $temp_examination   = SharedFunctions::formatWrongWord($exam_type[$i][0]);
                     $arr['examination'] = SharedFunctions::formatStringDataCrawled($temp_examination);
@@ -461,13 +461,13 @@ class CrawlQLDTData
                     $temp_room   = SharedFunctions::formatWrongWord($tr[$j]->children(8)->innertext);
                     $arr['room'] = SharedFunctions::formatStringDataCrawled($temp_room);
 
-                    $data[SharedFunctions::formatToOfficialSchoolYear($school_year_key)][] = $arr;
+                    $data[SharedFunctions::formatToOfficialTerm($term_key)][] = $arr;
                 }
             }
 
             if (empty($data) && $this->demand === 'latest')
             {
-                $data[SharedFunctions::formatToOfficialSchoolYear($school_year_key)] = [];
+                $data[SharedFunctions::formatToOfficialTerm($term_key)] = [];
                 break;
             }
         }
@@ -478,11 +478,11 @@ class CrawlQLDTData
     private function _formatModuleScoreData ($data) : array
     {
         $temp = [];
-        foreach ($this->school_years as $school_year)
+        foreach ($this->terms as $term)
         {
-            if (strlen(trim($school_year, ' ')) == 7)
+            if (strlen(trim($term, ' ')) == 7)
             {
-                $temp[] = $school_year;
+                $temp[] = $term;
             }
         }
 
@@ -491,14 +491,14 @@ class CrawlQLDTData
         {
             foreach ($data[$e] as $module)
             {
-                $official_school_year = SharedFunctions::convertToOfficialSchoolYear(trim($e, ' '));
+                $official_term = SharedFunctions::convertToOfficialTerm(trim($e, ' '));
 
-                if (isset($data[$official_school_year][$module['id_module']]))
+                if (isset($data[$official_term][$module['id_module']]))
                 {
-                    $dupl_evaluation    = $data[$official_school_year][$module['id_module']]['evaluation'];
-                    $dupl_process_score = $data[$official_school_year][$module['id_module']]['process_score'];
-                    $dupl_test_score    = $data[$official_school_year][$module['id_module']]['test_score'];
-                    $dupl_theore_score  = $data[$official_school_year][$module['id_module']]['final_score'];
+                    $dupl_evaluation    = $data[$official_term][$module['id_module']]['evaluation'];
+                    $dupl_process_score = $data[$official_term][$module['id_module']]['process_score'];
+                    $dupl_test_score    = $data[$official_term][$module['id_module']]['test_score'];
+                    $dupl_theore_score  = $data[$official_term][$module['id_module']]['final_score'];
 
                     $module['evaluation']    = $dupl_evaluation ==
                                                null ? $module['evaluation'] : $dupl_evaluation;
@@ -510,9 +510,9 @@ class CrawlQLDTData
                                                null ? $module['final_score'] : $dupl_theore_score;
                 }
 
-                $module['school_year'] = $official_school_year;
+                $module['term'] = $official_term;
 
-                $data[$official_school_year][$module['id_module']] = $module;
+                $data[$official_term][$module['id_module']] = $module;
             }
             unset($data[$e]);
         }

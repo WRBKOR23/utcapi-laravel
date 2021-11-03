@@ -25,7 +25,7 @@ use App\Models\NotificationAccount;
 use App\Models\OtherDepartment;
 use App\Models\Participate;
 use App\Models\Schedule;
-use App\Models\SchoolYear;
+use App\Models\Term;
 use App\Models\Student;
 use App\Models\Teacher;
 use Exception;
@@ -136,8 +136,8 @@ class TestController extends Controller
         //        return ExamSchedule::whereHas('schoolYear', function ($query)
         //        {
         //            return $query->where('id_student', '191201402')
-        //                ->orderBy('id_school_year', 'desc')->limit(1);
-        //        })->pluck('school_year')->first();
+        //                ->orderBy('id_term', 'desc')->limit(1);
+        //        })->pluck('term')->first();
         //
         for ($i = 1; $i < 47; $i++)
         {
@@ -219,7 +219,7 @@ class TestController extends Controller
         //            return $query->whereIn('id_account', ['40', '42']);
         //        })->select()->toSql();
 
-//        return ModuleScore::where('id_student', '=', '191131502')->max('id_school_year');
+        //        return ModuleScore::where('id_student', '=', '191131502')->max('id_term');
 
         //        foreach ($a as $e)
         //        {
@@ -227,23 +227,33 @@ class TestController extends Controller
         //            file_put_contents('a.php', $m, FILE_APPEND);
         ////}
         //        }
-        return ExamSchedule::where('id_student', '191201402')->max('id_school_year');
+        $aa        = Str::orderedUuid();
+        $student[] = [
+            'uuid'       => DB::raw('UuidToBin(\'' . $aa . '\')'),
+            'name'       => Str::random(50),
+            'birth'      => '1996-12-20',
+            'id_class'   => 'K55.CTGTCC',
+            'test'       => 1,
+            'id_account' => 1,
+        ];
 
-
+        DB::connection('mysql')
+          ->table('studentt')
+          ->insert($student);
     }
 
 }
 //$a = DB::table('class')
 //       ->whereNotIn('id_faculty', ['KHOAKHAC'])
 //       ->orderBy('id_faculty')
-//       ->orderBy('class_name')
-//       ->select('id_class', 'class_name', 'id_faculty')
+//       ->orderBy('name')
+//       ->select('id_class', 'name', 'id_faculty')
 //       ->get()
 //       ->toArray();
 //
 //foreach ($a as $e)
 //{
-//    $m = '\'' . substr($e->id_class, 4) . '\'' . '=> [\'class_name\' => \'' . explode(' - ', $e->class_name)[0] . '\',' . PHP_EOL;
+//    $m = '\'' . substr($e->id_class, 4) . '\'' . '=> [\'name\' => \'' . explode(' - ', $e->name)[0] . '\',' . PHP_EOL;
 //    $m .= '\'id_faculty\' => \'' . $e->id_faculty . '\'],' . PHP_EOL;
 //    file_put_contents('a.php', $m, FILE_APPEND);
 //}

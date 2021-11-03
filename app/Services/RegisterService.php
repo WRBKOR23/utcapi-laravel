@@ -89,15 +89,15 @@ class RegisterService implements Contracts\RegisterServiceContract
         $account['qldt_password'] = md5($data['qldt_password']);
 
 
-        $student['id']           = $data['id_student'];
-        $student['student_name'] = $student_info['student_name'];
-        $student['birth']        = $student_info['birth'];
-        $student['id_class']     = $student_info['academic_year'] . '.' . $data['id_class'];
+        $student['id']       = $data['id_student'];
+        $student['name']     = $student_info['name'];
+        $student['birth']    = $student_info['birth'];
+        $student['id_class'] = $student_info['academic_year'] . '.' . $data['id_class'];
 
         $class['id']               = $student['id_class'];
         $class['id_academic_year'] = $academic_years[$student_info['academic_year']];
-        $class['class_name']       = $this->_getInfoClass($class['id'],
-                                                          $data['id_faculty'])['class_name'];
+        $class['name']             = $this->_getInfoClass($class['id'],
+                                                          $data['id_faculty'])['name'];
         $class['id_faculty']       = $data['id_faculty'];
         $class['id_training_type'] = $this->_getIDTrainingType($student_info['academic_year']);
 
@@ -145,18 +145,18 @@ class RegisterService implements Contracts\RegisterServiceContract
             $class_info = SharedData::$faculty_class_and_major_info[substr($class, 0,
                                                                            strlen($class) - 1)];
 
-            $academic_year_name       = str_replace('K', ' Khóa ', $academic_year);
-            $academic_year_name       = str_replace('LT', 'Liên thông', $academic_year_name);
-            $class_info['class_name'] = $class_info['class_name'] . ' ' . $num . ' - ' .
-                                        $academic_year_name;
+            $academic_year_name = str_replace('K', ' Khóa ', $academic_year);
+            $academic_year_name = str_replace('LT', 'Liên thông', $academic_year_name);
+            $class_info['name'] = $class_info['name'] . ' ' . $num . ' - ' .
+                                  $academic_year_name;
         }
         else
         {
             $class_info = SharedData::$faculty_class_and_major_info[$class];
 
-            $academic_year_name       = str_replace('K', ' Khóa ', $academic_year);
-            $academic_year_name       = str_replace('LT', 'Liên thông', $academic_year_name);
-            $class_info['class_name'] = $class_info['class_name'] . ' - ' . $academic_year_name;
+            $academic_year_name = str_replace('K', ' Khóa ', $academic_year);
+            $academic_year_name = str_replace('LT', 'Liên thông', $academic_year_name);
+            $class_info['name'] = $class_info['name'] . ' - ' . $academic_year_name;
         }
 
         if ($class_info['id_faculty'] != $id_faculty)

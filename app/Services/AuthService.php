@@ -69,15 +69,12 @@ class AuthService implements Contracts\AuthServiceContract
         switch ($this->_verifyAccountUser($permissions))
         {
             case 'student':
-                $data       = $this->studentRepository->get($id_account);
-                $data->name = $data->student_name;
-                unset($data->student_name);
+                $data = $this->studentRepository->get($id_account);
                 break;
 
             case 'teacher':
                 $data       = $this->teacherDepository->get($id_account);
-                $data->name = 'Gv ' . $data->teacher_name;
-                unset($data->teacher_name);
+                $data->name = 'Gv ' . $data->name;
                 break;
 
             default:

@@ -16,7 +16,7 @@ class ModuleScoreRepository implements Contracts\ModuleScoreRepositoryContract
     public function upsert ($module_score)
     {
         ModuleScore::upsert($module_score,
-                            ['school_year', 'id_module_class', 'id_student'],
+                            ['term', 'id_module_class', 'id_student'],
                             [
                                 'evaluation', 'process_score',
                                 'test_score', 'final_score'
@@ -25,9 +25,8 @@ class ModuleScoreRepository implements Contracts\ModuleScoreRepositoryContract
 
     public function get ($id_student) : Collection
     {
-        return Student::find($id_student)->moduleScores()
-                      ->orderBy('id_school_year')
-                      ->get(['id as id_module_score', 'id_school_year', 'module_name',
+        return Student::find($id_student)->moduleScores()->orderBy('id_term')
+                      ->get(['id as id_module_score', 'id_term', 'module_name',
                              'credit', 'evaluation', 'process_score',
                              'test_score', 'final_score']);
     }

@@ -30,7 +30,7 @@ class CrawlExamScheduleService extends ACrawlService
     public function crawlAll ($id_account, $id_student)
     {
         parent::crawl($id_account, $id_student);
-        $data = $this->crawl->getStudentExamSchedule('all', $this->school_years);
+        $data = $this->crawl->getStudentExamSchedule('all', $this->terms);
         $this->_insertMultiple($data);
         $this->_updateDataVersion($id_student, 'exam_schedule');
     }
@@ -38,7 +38,7 @@ class CrawlExamScheduleService extends ACrawlService
     public function crawl ($id_account, $id_student)
     {
         parent::crawl($id_account, $id_student);
-        $data = $this->crawl->getStudentExamSchedule('latest', $this->school_years);
+        $data = $this->crawl->getStudentExamSchedule('latest', $this->terms);
         $this->_verifyOldData($data, $id_student);
         $this->_upsert($data);
         $this->_updateDataVersion($id_student, 'exam_schedule');
@@ -46,35 +46,35 @@ class CrawlExamScheduleService extends ACrawlService
 
     private function _verifyOldData ($data, $id_student)
     {
-        $latest_id_school_year = $this->_getLatestIDSchoolYear($id_student);
-        foreach ($data as $school_year => $module)
+        $latest_id_term = $this->_getLatestIDTerm($id_student);
+        foreach ($data as $term => $module)
         {
-            if (!is_null($latest_id_school_year))
+            if (!is_null($latest_id_term))
             {
-                if ($this->school_years[$school_year] < $latest_id_school_year)
+                if ($this->terms[$term] < $latest_id_term)
                 {
-                    $this->_deleteWrongExamSchedules($id_student, $latest_id_school_year);
+                    $this->_deleteWrongExamSchedules($id_student, $latest_id_term);
                     return;
                 }
 
                 if (empty($module) &&
-                    $this->school_years[$school_year] == $latest_id_school_year)
+                    $this->terms[$term] == $latest_id_term)
                 {
-                    $this->_deleteWrongExamSchedules($id_student, $latest_id_school_year);
+                    $this->_deleteWrongExamSchedules($id_student, $latest_id_term);
                     return;
                 }
             }
         }
     }
 
-    private function _getLatestIDSchoolYear ($id_student)
+    private function _getLatestIDTerm ($id_student)
     {
-        return $this->examScheduleRepository->getLatestSchoolYear($id_student);
+        return $this->examScheduleRepository->getLatestTerm($id_student);
     }
 
-    private function _deleteWrongExamSchedules ($id_student, $school_year)
+    private function _deleteWrongExamSchedules ($id_student, $id_term)
     {
-        $this->examScheduleRepository->delete($id_student, $school_year);
+        $this->examScheduleRepository->delete($id_student, $id_term);
     }
 
 

@@ -81,25 +81,25 @@ class SharedFunctions
         return $str;
     }
 
-    public static function convertToOfficialSchoolYear ($shor_school_year) : string
+    public static function convertToOfficialTerm ($term) : string
     {
-        $arr = explode('_', $shor_school_year);
+        $arr = explode('_', $term);
         return '20' . $arr[0] . '_20' . $arr[1] . '_' . $arr[2];
     }
 
-    public static function formatToOfficialSchoolYear ($school_year) : string
+    public static function formatToOfficialTerm ($term) : string
     {
-        $semester_split = explode('_', $school_year);
-        $school_year    = $semester_split[1] . '_' . $semester_split[2] . '_' . $semester_split[0];
+        $arr  = explode('_', $term);
+        $term = $arr[1] . '_' . $arr[2] . '_' . $arr[0];
 
-        return $school_year;
+        return $term;
     }
 
-    public static function formatToUnOfficialSchoolYear ($school_year) : string
+    public static function formatToUnOfficialTerm ($term) : string
     {
-        $semester_split = explode('_', $school_year);
-        $school_year    = $semester_split[2] . '_' . $semester_split[0] . '_' . $semester_split[1];
+        $arr  = explode('_', $term);
+        $term = $arr[2] . '_' . $arr[0] . '_' . $arr[1];
 
-        return $school_year;
+        return $term;
     }
 }

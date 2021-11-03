@@ -10,7 +10,7 @@ interface ExamScheduleRepositoryContract
 
     public function get ($id_student);
 
-    public function getLatestSchoolYear ($id_student);
+    public function getLatestTerm ($id_student);
 
-    public function delete ($id_student, $id_school_year);
+    public function delete ($id_student, $id_term);
 }

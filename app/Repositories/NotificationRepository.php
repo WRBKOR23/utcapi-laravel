@@ -26,26 +26,22 @@ class NotificationRepository implements Contracts\NotificationRepositoryContract
         $result[] = Notification::whereIn('notification.id', $id_notifications)
                                 ->join(Account::table_as, 'id_sender', 'acc.id')
                                 ->join(OtherDepartment::table_as, 'id_sender', 'od.id_account')
-                                ->get(['notification.*',
-                                       'od.other_department_name as sender_name'])->toArray();
+                                ->get(['notification.*', 'od.name'])->toArray();
 
         $result[] = Notification::whereIn('notification.id', $id_notifications)
                                 ->join(Account::table_as, 'id_sender', 'acc.id')
                                 ->join(Faculty::table_as, 'id_sender', 'fac.id_account')
-                                ->get(['notification.*',
-                                       'fac.faculty_name as sender_name'])->toArray();
+                                ->get(['notification.*', 'fac.name'])->toArray();
 
         $result[] = Notification::whereIn('notification.id', $id_notifications)
                                 ->join(Account::table_as, 'id_sender', 'acc.id')
                                 ->join(Department::table_as, 'id_sender', 'dep.id_account')
-                                ->get(['notification.*',
-                                       'dep.department_name as sender_name'])->toArray();
+                                ->get(['notification.*', 'dep.name'])->toArray();
 
         $result[] = Notification::whereIn('notification.id', $id_notifications)
                                 ->join(Account::table_as, 'id_sender', 'acc.id')
                                 ->join(Teacher::table_as, 'id_sender', 'tea.id_account')
-                                ->get(['notification.*',
-                                       'tea.teacher_name as sender_name'])->toArray();
+                                ->get(['notification.*', 'tea.name'])->toArray();
 
         return $result;
     }

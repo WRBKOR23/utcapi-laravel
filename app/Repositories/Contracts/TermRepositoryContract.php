@@ -2,6 +2,6 @@
 
 namespace App\Repositories\Contracts;
 
-interface SchoolYearRepositoryContract
+interface TermRepositoryContract
 {
 }

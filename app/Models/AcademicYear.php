@@ -11,7 +11,7 @@ class AcademicYear extends Model
     use HasFactory;
 
     public const table = 'academic_year';
-    public const table_as = 'academic_year as sy';
+    public const table_as = 'academic_year as ay';
 
     protected $table = 'academic_year';
     protected $primaryKey = 'id';
@@ -19,10 +19,10 @@ class AcademicYear extends Model
 
     protected $fillable = [
         'id',
-        'academic_year',
+        'name',
     ];
 
-    public function classes() : HasMany
+    public function classes () : HasMany
     {
         return $this->hasMany(Class_::class, 'id_academic_year', 'id');
     }

@@ -14,7 +14,7 @@ abstract class ACrawlService implements CrawlServiceContract
     protected CrawlQLDTData $crawl;
     protected AccountRepositoryContract $accountRepository;
     private DataVersionStudentRepositoryContract $dataVersionStudentRepository;
-    protected array $school_years;
+    protected array $terms;
 
     /**
      * @param CrawlQLDTData                        $crawl
@@ -28,7 +28,7 @@ abstract class ACrawlService implements CrawlServiceContract
         $this->crawl                        = $crawl;
         $this->accountRepository            = $accountRepository;
         $this->dataVersionStudentRepository = $dataVersionStudentRepository;
-        $this->_getRecentSchoolYears();
+        $this->_getRecentTerms();
     }
 
     /**
@@ -54,7 +54,7 @@ abstract class ACrawlService implements CrawlServiceContract
     /**
      * @throws Exception
      */
-    public function crawlBySchoolYear ($id_student, $school_year)
+    public function crawlByTerm ($id_student, $term)
     {
         $this->_loginQLDT($id_student, $id_student);
     }
@@ -75,20 +75,20 @@ abstract class ACrawlService implements CrawlServiceContract
         return $this->accountRepository->getQLDTPassword($id_account);
     }
 
-    private function _getRecentSchoolYears ()
+    private function _getRecentTerms ()
     {
-        $this->school_years = Cache::get('school_years') ?? Cache::get('school_years_backup');
+        $this->terms = Cache::get('school_years') ?? Cache::get('school_years_backup');
     }
 
     protected function _insertMultiple ($data)
     {
         $arr = [];
-        foreach ($data as $school_year)
+        foreach ($data as $term)
         {
-            foreach ($school_year as $module)
+            foreach ($term as $module)
             {
-                $module['id_school_year'] = $this->school_years[$module['school_year']];
-                unset($module['school_year']);
+                $module['id_term'] = $this->terms[$module['term']];
+                unset($module['term']);
                 $arr[] = $module;
             }
         }
@@ -97,12 +97,12 @@ abstract class ACrawlService implements CrawlServiceContract
 
     protected function _upsert ($data)
     {
-        foreach ($data as $school_year)
+        foreach ($data as $term)
         {
-            foreach ($school_year as $module)
+            foreach ($term as $module)
             {
-                $module['id_school_year'] = $this->school_years[$module['school_year']];
-                unset($module['school_year']);
+                $module['id_term'] = $this->terms[$module['term']];
+                unset($module['term']);
                 $this->_customUpsert($module);
             }
         }

@@ -8,5 +8,5 @@ interface CrawlServiceContract
 
     public function crawl ($id_account, $id_student);
 
-    public function crawlBySchoolYear ($id_student, $school_year);
+    public function crawlByTerm ($id_student, $term);
 }

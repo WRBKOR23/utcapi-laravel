@@ -21,7 +21,7 @@ class Module extends Model
 
     protected $fillable = [
         'id',
-        'module_name',
+        'name',
         'credit',
         'semester',
         'theory',
@@ -29,6 +29,7 @@ class Module extends Model
         'exercise',
         'project',
         'option',
+        'description',
         'id_department'
     ];
 

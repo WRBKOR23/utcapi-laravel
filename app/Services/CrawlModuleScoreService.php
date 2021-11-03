@@ -43,9 +43,9 @@ class CrawlModuleScoreService extends ACrawlService
         $this->_updateDataVersion($id_student, 'module_score');
     }
 
-    public function crawlBySchoolYear ($id_student, $school_year)
+    public function crawlByTerm ($id_student, $term)
     {
-        parent::crawlBySchoolYear($id_student, $school_year);
+        parent::crawlByTerm($id_student, $term);
         $data = $this->crawl->getStudentModuleScore('specific');
 
     }
